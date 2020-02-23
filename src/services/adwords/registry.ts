@@ -30,7 +30,7 @@ interface IServiceMap {
   CampaignService: CampaignService;
   AdGroupService: AdGroupService;
   AdGroupAdService: AdGroupAdService;
-  AdService: AdService,
+  AdService: AdService;
   BudgetService: BudgetService;
   LabelService: LabelService;
   AdGroupCriterionService: AdGroupCriterionService;
