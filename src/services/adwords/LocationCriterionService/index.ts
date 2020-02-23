@@ -78,4 +78,4 @@ class LocationCriterionService extends AdwordsOperationService {
   }
 }
 
-export { LocationCriterionService, ILocationCriterion };
+export { LocationCriterionService, ILocationCriterion, ILocationCriterionServiceOpts };

@@ -181,6 +181,7 @@ export {
   ICampaignCriterionPage,
   ICampaignCriterionOperation,
   ICampaignCriterionReturnValue,
+  ICampaignCriterionServiceOpts,
   Criterion,
 };
 export * from './Address';

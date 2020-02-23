@@ -283,7 +283,7 @@ class AdGroupAdService extends AdwordsOperationService {
   }
 }
 
-export { AdGroupAdService };
+export { AdGroupAdService, IAdGroupAdServiceOpts };
 export * from './Ad';
 export * from './AdGroupAd';
 export * from './AdGroupAdOperation';

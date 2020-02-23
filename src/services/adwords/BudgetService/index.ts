@@ -147,7 +147,7 @@ class BudgetService extends AdwordsOperationService {
   }
 }
 
-export { BudgetService };
+export { BudgetService, IBudgetServiceOpts };
 export * from './ApiError';
 export * from './Budget';
 export * from './BudgetOperation';

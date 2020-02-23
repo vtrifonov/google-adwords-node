@@ -126,4 +126,4 @@ class AdWordsService {
   }
 }
 
-export { AdWordsService, IAdWordsServiceOpts };
+export { AdWordsService, IAdWordsServiceOpts, IServiceOpts, IServiceDeps };
