@@ -47,4 +47,10 @@ interface IBiddableAdGroupCriterion extends Partial<IBiddableAdGroupCriterionRaw
 interface INegativeAdGroupCriterionRaw<Type> extends IAdGroupCriterion<Type> {}
 interface INegativeAdGroupCriterion extends Partial<INegativeAdGroupCriterionRaw<'NegativeAdGroupCriterion'>> {}
 
-export { IAdGroupCriterion, IBiddableAdGroupCriterion, IBiddableAdGroupCriterionRaw, INegativeAdGroupCriterion, INegativeAdGroupCriterionRaw };
+export {
+  IAdGroupCriterion,
+  IBiddableAdGroupCriterion,
+  IBiddableAdGroupCriterionRaw,
+  INegativeAdGroupCriterion,
+  INegativeAdGroupCriterionRaw,
+};
