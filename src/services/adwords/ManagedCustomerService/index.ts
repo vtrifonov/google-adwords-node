@@ -58,4 +58,4 @@ class ManagedCustomerService extends AdwordsOperationService {
   }
 }
 
-export { ManagedCustomerService, IManagedCustomerPage };
+export { ManagedCustomerService, IManagedCustomerPage, IManagedCustomerServiceOpts };

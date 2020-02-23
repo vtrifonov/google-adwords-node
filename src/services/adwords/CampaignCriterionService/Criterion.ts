@@ -34,4 +34,4 @@ interface IProximity extends Partial<IProximityRaw> {
   'Criterion.Type': 'Proximity';
 }
 
-export { ILocation, IProximity };
+export { ICriterionRaw, ILocation, ILocationRaw, IProximity, IProximityRaw };

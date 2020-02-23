@@ -19,4 +19,4 @@ interface ILocation extends ICriterion {
   };
 }
 
-export { ILocation };
+export { ICriterion, ICriterionRaw, ILocation };

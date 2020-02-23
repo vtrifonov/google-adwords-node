@@ -48,4 +48,4 @@ interface ICampaignRaw {
 
 interface ICampaign extends Partial<ICampaignRaw> {}
 
-export { ICampaign };
+export { ICampaign, ICampaignRaw };

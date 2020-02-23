@@ -1,4 +1,4 @@
-import { ReportService, IClientReportService } from '../ReportService';
+import { ReportService, IClientReportService, IReport } from '../ReportService';
 import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
 import { ReportDefinition } from '../ReportDefinitionService';
 import _ from 'lodash';

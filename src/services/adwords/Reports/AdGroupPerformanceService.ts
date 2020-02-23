@@ -1,4 +1,4 @@
-import { IReportService, IClientReportService } from '../ReportService';
+import { IReport, IReportService, IClientReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService';
 import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
 import _ from 'lodash';
@@ -50,4 +50,4 @@ class AdGroupPerformanceReportService extends ClientReportService implements ICl
   }
 }
 
-export { AdGroupPerformanceReportService };
+export { AdGroupPerformanceReportService, IReportDefinition };

@@ -43,4 +43,4 @@ class CustomerService extends AdwordsOperationService {
   }
 }
 
-export { CustomerService };
+export { CustomerService, ICustomerServiceOpts };

@@ -25,4 +25,4 @@ interface IAgeRange extends ICriterion<'AgeRange'> {
   ageRangeType: AgeRange.AgeRangeType;
 }
 
-export { IKeyword, IGender, IAgeRange, ICriterion };
+export { IKeyword, IGender, IAgeRange, ICriterion, ICriterionRaw };

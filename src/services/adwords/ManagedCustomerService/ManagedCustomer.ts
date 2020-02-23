@@ -13,4 +13,4 @@ interface IManagedCustomerRaw {
 
 interface IManagedCustomer extends Partial<IManagedCustomerRaw> {}
 
-export { IManagedCustomer };
+export { IManagedCustomer, IManagedCustomerRaw };

@@ -13,4 +13,4 @@ interface IConversionOptimizerEligibility {
   rejectionReasons: ConversionOptimizerEligibility.RejectionReason;
 }
 
-export { IConversionOptimizerEligibility };
+export { ConversionOptimizerEligibility, IConversionOptimizerEligibility };

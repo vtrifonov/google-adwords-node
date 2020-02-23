@@ -21,4 +21,4 @@ interface INegativeCampaignCriterion extends ICampaignCriterion {
   };
 }
 
-export { INegativeCampaignCriterion, ICampaignCriterion };
+export { INegativeCampaignCriterion, ICampaignCriterion, ICampaignCriterionRaw };

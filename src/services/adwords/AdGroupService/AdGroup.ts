@@ -37,4 +37,4 @@ interface IAdGroupRaw {
 
 interface IAdGroup extends Partial<IAdGroupRaw> {}
 
-export { IAdGroup };
+export { IAdGroup, IAdGroupRaw };

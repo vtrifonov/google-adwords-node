@@ -13,4 +13,6 @@ interface IBatchJobRaw {
   readonly diskUsageQuotaBalance: string;
 }
 
-export interface IBatchJob extends Partial<IBatchJobRaw> {}
+interface IBatchJob extends Partial<IBatchJobRaw> {}
+
+export { IBatchJob, IBatchJobRaw };

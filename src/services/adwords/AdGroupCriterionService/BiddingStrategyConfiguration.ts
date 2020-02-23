@@ -31,4 +31,4 @@ interface IBiddingStrategyConfiguration {
   targetRoasOverride: number;
 }
 
-export { IBiddingStrategyConfiguration };
+export { BiddingStrategySource, BiddingStrategyType, IBiddingStrategyConfiguration };
