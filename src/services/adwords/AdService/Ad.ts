@@ -64,4 +64,6 @@ interface IResponsiveDisplayAd
   formatSetting: DisplayAdFormatSetting;
 }
 
-export { IExpandedTextAd, IResponsiveDisplayAd, IAd, IAdRaw };
+type PartialAd = Partial<IExpandedTextAd | IResponsiveDisplayAd>;
+
+export { IExpandedTextAd, IResponsiveDisplayAd, IAd, IAdRaw, PartialAd };

@@ -1,66 +1,66 @@
 {
-  "name": "nodejs-google-adwords",
-  "version": "1.9.1",
-  "description": "Google Ads API Client Library for Node.js",
-  "main": "./dist/index.js",
-  "scripts": {
-    "test": "jest --detectOpenHandles --verbose",
-    "coverage": "npm test -- --coverage --coverageReporters=text-lcov --colors | coveralls",
-    "clean": "rm -rf ./dist",
-    "prebuild": "npm run clean",
-    "build": "tsc",
-    "lint": "tslint --config ./tslint.json --project ./tsconfig.json",
-    "prettify": "prettier --config ./.prettierrc --write \"./{src,__{tests,mocks}__}/**/*.{ts,js}\"",
-    "prettify-check": "prettier --check \"./{src,__{tests,mocks}__}/**/*.{ts,js}\"",
-    "yarn:import": "rm -rf ./yarn.lock && yarn import"
-  },
-  "typings": "./dist/index.d.ts",
-  "keywords": [
-    "Google Ads",
-    "Google Adwords",
-    "Node.js",
-    "Client Library"
-  ],
-  "author": "mrdulin",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:mrdulin/nodejs-google-adwords.git"
-  },
-  "devDependencies": {
-    "@types/dotenv": "^6.1.1",
-    "@types/faker": "^4.1.6",
-    "@types/jest": "^24.0.20",
-    "@types/lodash": "^4.14.144",
-    "@types/node": "^11.13.7",
-    "@types/request": "^2.48.3",
-    "@types/request-promise": "^4.1.44",
-    "@types/xml2js": "^0.4.5",
-    "coveralls": "^3.0.7",
-    "dotenv": "^6.2.0",
-    "faker": "^4.1.0",
-    "husky": "^2.1.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "ts-jest": "^24.1.0",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.6.4"
-  },
-  "dependencies": {
-    "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "pretty-data": "^0.40.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "soap": "^0.30.0",
-    "xml2js": "^0.4.22"
-  },
-  "engines": {
-    "node": ">=8.11.4"
-  },
-  "files": [
-    "dist"
-  ]
+    "name": "nodejs-google-adwords",
+    "version": "1.10.0",
+    "description": "Google Ads API Client Library for Node.js",
+    "main": "./dist/index.js",
+    "scripts": {
+        "test": "jest --detectOpenHandles --verbose",
+        "coverage": "npm test -- --coverage --coverageReporters=text-lcov --colors | coveralls",
+        "clean": "rm -rf ./dist",
+        "prebuild": "npm run clean",
+        "build": "tsc",
+        "lint": "tslint --config ./tslint.json --project ./tsconfig.json",
+        "prettify": "prettier --config ./.prettierrc --write \"./{src,__{tests,mocks}__}/**/*.{ts,js}\"",
+        "prettify-check": "prettier --check \"./{src,__{tests,mocks}__}/**/*.{ts,js}\"",
+        "yarn:import": "rm -rf ./yarn.lock && yarn import"
+    },
+    "typings": "./dist/index.d.ts",
+    "keywords": [
+        "Google Ads",
+        "Google Adwords",
+        "Node.js",
+        "Client Library"
+    ],
+    "author": "mrdulin",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:mrdulin/nodejs-google-adwords.git"
+    },
+    "devDependencies": {
+        "@types/dotenv": "^6.1.1",
+        "@types/faker": "^4.1.6",
+        "@types/jest": "^24.0.20",
+        "@types/lodash": "^4.14.144",
+        "@types/node": "^11.13.7",
+        "@types/request": "^2.48.3",
+        "@types/request-promise": "^4.1.44",
+        "@types/xml2js": "^0.4.5",
+        "coveralls": "^3.0.7",
+        "dotenv": "^6.2.0",
+        "faker": "^4.1.0",
+        "husky": "^2.1.0",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2",
+        "ts-jest": "^24.1.0",
+        "ts-node": "^8.4.1",
+        "tslint": "^5.20.0",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.6.4"
+    },
+    "dependencies": {
+        "lodash": "^4.17.15",
+        "moment": "^2.24.0",
+        "pretty-data": "^0.40.0",
+        "request": "^2.88.0",
+        "request-promise": "^4.2.4",
+        "soap": "^0.30.0",
+        "xml2js": "^0.4.22"
+    },
+    "engines": {
+        "node": ">=8.11.4"
+    },
+    "files": [
+        "dist"
+    ]
 }

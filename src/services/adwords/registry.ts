@@ -2,6 +2,7 @@ import { RegistryService } from '../core';
 import { CampaignService } from './CampaignService';
 import { AdGroupService } from './AdGroupService';
 import { AdGroupAdService } from './AdGroupAdService';
+import { AdService } from './AdService';
 import { BudgetService } from './BudgetService';
 import { LabelService } from './LabelService';
 import { AdGroupCriterionService } from './AdGroupCriterionService';
@@ -29,6 +30,7 @@ interface IServiceMap {
   CampaignService: CampaignService;
   AdGroupService: AdGroupService;
   AdGroupAdService: AdGroupAdService;
+  AdService: AdService,
   BudgetService: BudgetService;
   LabelService: LabelService;
   AdGroupCriterionService: AdGroupCriterionService;
@@ -55,6 +57,7 @@ const registryService = RegistryService.init()
   .register(CampaignService)
   .register(AdGroupService)
   .register(AdGroupAdService)
+  .register(AdService)
   .register(BudgetService)
   .register(LabelService)
   .register(AdGroupCriterionService)
