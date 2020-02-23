@@ -1,6 +1,6 @@
 import { pd } from 'pretty-data';
 
-import { AdwordsOperartionService, SoapService } from '../../core';
+import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector } from './Selector';
 import { IManagedCustomerPage } from './ManagedCustomerPage';
 
@@ -13,9 +13,9 @@ interface IManagedCustomerServiceOpts {
  *
  * @author dulin
  * @class ManagedCustomerService
- * @extends {AdwordsOperartionService}
+ * @extends {AdwordsOperationService}
  */
-class ManagedCustomerService extends AdwordsOperartionService {
+class ManagedCustomerService extends AdwordsOperationService {
   public static readonly namespace = 'https://adwords.google.com/api/adwords/mcm';
 
   private static readonly selectorFields: string[] = [

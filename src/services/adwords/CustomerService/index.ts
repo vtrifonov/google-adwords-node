@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { pd } from 'pretty-data';
-import { AdwordsOperartionService, SoapService, IResponse } from '../../core';
+import { AdwordsOperationService, SoapService, IResponse } from '../../core';
 import { ICustomer } from './Customer';
 
 interface ICustomerServiceOpts {
@@ -12,9 +12,9 @@ interface ICustomerServiceOpts {
  *
  * @author dulin
  * @class CustomerService
- * @extends {AdwordsOperartionService}
+ * @extends {AdwordsOperationService}
  */
-class CustomerService extends AdwordsOperartionService {
+class CustomerService extends AdwordsOperationService {
   public static readonly namespace = 'https://adwords.google.com/api/adwords/mcm';
   /**
    * https://developers.google.com/adwords/api/docs/appendix/selectorfields#v201809-CustomerService

@@ -1,7 +1,7 @@
 import { pd } from 'pretty-data';
 import _ from 'lodash';
 
-import { SoapService, AdwordsOperartionService } from '../../core';
+import { SoapService, AdwordsOperationService } from '../../core';
 import { ISelector, IPaging, Predicate, Operator } from '../../../types/adwords';
 import { IBudget } from './Budget';
 import { IBudgetOperation } from './BudgetOperation';
@@ -11,7 +11,7 @@ import { IBudgetReturnValue } from './BudgetReturnValue';
 interface IBudgetServiceOpts {
   soapService: SoapService;
 }
-class BudgetService extends AdwordsOperartionService {
+class BudgetService extends AdwordsOperationService {
   /**
    * Budget amounts need to be in units.  1,000,000 units = $1.00 / ¥1.00 / ...
    * Based on the selected settlement currency

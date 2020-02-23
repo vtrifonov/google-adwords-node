@@ -1,6 +1,6 @@
 import { pd } from 'pretty-data';
 
-import { SoapService, AdwordsOperartionService } from '../../core';
+import { SoapService, AdwordsOperationService } from '../../core';
 import { ISelector, Predicate } from '../../../types/adwords';
 import { ILocationCriterion } from './LocationCriterion';
 
@@ -8,7 +8,7 @@ interface ILocationCriterionServiceOpts {
   soapService: SoapService;
 }
 
-class LocationCriterionService extends AdwordsOperartionService {
+class LocationCriterionService extends AdwordsOperationService {
   /**
    * https://developers.google.com/adwords/api/docs/appendix/selectorfields#v201809-LocationCriterionService
    *

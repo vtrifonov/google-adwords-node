@@ -1,6 +1,6 @@
 import { pd } from 'pretty-data';
 
-import { SoapService, AdwordsOperartionService } from '../../core';
+import { SoapService, AdwordsOperationService } from '../../core';
 import { ISelector, Predicate, IPaging, Operator } from '../../../types/adwords';
 import * as Ad from '../../../types/adwords/Ad';
 import { IAdGroupAdReturnValue } from './AdGroupAdReturnValue';
@@ -14,7 +14,7 @@ interface IAdGroupAdServiceOpts {
   soapService: SoapService;
 }
 
-class AdGroupAdService extends AdwordsOperartionService {
+class AdGroupAdService extends AdwordsOperationService {
   // TODO: better type guard
   public static isExpandedTextAd(ad: Partial<IExpandedTextAd | IResponsiveDisplayAd>): ad is IExpandedTextAd {
     return _.every(['headlinePart1', 'description'], (prop) => prop in ad);

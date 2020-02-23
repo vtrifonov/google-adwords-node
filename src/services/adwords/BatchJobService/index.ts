@@ -1,10 +1,10 @@
 import { pd } from 'pretty-data';
 
-import { AdwordsOperartionService, SoapService } from '../../core';
+import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector } from '../../../types/adwords';
 import { IBatchJobPage } from './BatchJobPage';
 
-class BatchJobService extends AdwordsOperartionService {
+class BatchJobService extends AdwordsOperationService {
   /**
    * https://developers.google.com/adwords/api/docs/appendix/selectorfields#v201809-BatchJobService
    *

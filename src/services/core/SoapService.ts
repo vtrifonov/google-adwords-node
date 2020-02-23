@@ -4,7 +4,7 @@ import { pd } from 'pretty-data';
 
 import { IAuthService, IOAuthCredential } from './AuthService';
 import { ISelector, IOperation, Operator } from '../../types/adwords';
-import { AdwordsOperartionService } from './AdwordsOperationService';
+import { AdwordsOperationService } from './AdwordsOperationService';
 import { CoreOptions } from './HttpService';
 import { XMLService } from './XMLService';
 
@@ -36,7 +36,7 @@ interface IResponse<Rval> {
 
 type SoapClient = soap.Client;
 
-class SoapService extends AdwordsOperartionService {
+class SoapService extends AdwordsOperationService {
   private url: string;
   private authService: IAuthService;
   private client: soap.Client | undefined;

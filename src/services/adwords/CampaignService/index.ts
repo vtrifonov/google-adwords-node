@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { SoapService } from '../../core';
 import { ISelector, IPaging, Operator } from '../../../types/adwords';
-import { AdwordsOperartionService } from '../../core/AdwordsOperationService';
+import { AdwordsOperationService } from '../../core/AdwordsOperationService';
 import { ICampaignOperation } from './CampaignOperation';
 import { ICampaignReturnValue } from './CampaignReturnValue';
 import { ICampaignPage } from './CampaignPage';
@@ -24,7 +24,7 @@ interface ICampaignServiceOpts {
  * @class CampaignService
  * @extends {AdWordsService}
  */
-class CampaignService extends AdwordsOperartionService {
+class CampaignService extends AdwordsOperationService {
   public static readonly dateFormat: string = 'YYYYMMDD';
   /**
    * https://developers.google.com/adwords/api/docs/appendix/selectorfields#v201809-CampaignService

@@ -1,6 +1,6 @@
 import { pd } from 'pretty-data';
 
-import { AdwordsOperartionService, SoapService } from '../../core';
+import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector, Predicate, Operator } from '../../../types/adwords';
 import { IAdGroupCriterionPage } from './AdGroupCriterionPage';
 import { Criterion } from './enum/Criterion';
@@ -14,7 +14,7 @@ interface IAdGroupCriterionServiceOpts {
   soapService: SoapService;
 }
 
-class AdGroupCriterionService extends AdwordsOperartionService {
+class AdGroupCriterionService extends AdwordsOperationService {
   public static setType(operand: IBiddableAdGroupCriterion | INegativeAdGroupCriterion) {
     if (AdGroupCriterionService.isBiddableAdGroupCriterion(operand)) {
       operand.attributes = { 'xsi:type': 'BiddableAdGroupCriterion' };

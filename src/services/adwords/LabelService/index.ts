@@ -1,7 +1,7 @@
 import { pd } from 'pretty-data';
 import _ from 'lodash';
 
-import { AdwordsOperartionService } from '../../core/AdwordsOperationService';
+import { AdwordsOperationService } from '../../core/AdwordsOperationService';
 import { SoapService } from '../../core';
 import { ISelector } from './Selector';
 import { ILabelPage } from './LabelPage';
@@ -20,9 +20,9 @@ interface ILabelServiceOpts {
  *
  * @author dulin
  * @class LabelService
- * @extends {AdwordsOperartionService}
+ * @extends {AdwordsOperationService}
  */
-class LabelService extends AdwordsOperartionService {
+class LabelService extends AdwordsOperationService {
   /**
    * https://developers.google.com/adwords/api/docs/appendix/selectorfields#v201809-LabelService
    *

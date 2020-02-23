@@ -1,6 +1,6 @@
 import { pd } from 'pretty-data';
 
-import { AdwordsOperartionService, SoapService } from '../../core';
+import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector, Predicate, Operator, IAttributes } from '../../../types/adwords';
 import { ICampaignCriterionPage } from './CampaignCriterionPage';
 import { ICampaignCriterionOperation } from './CampaignCriterionOperation';
@@ -13,7 +13,7 @@ interface ICampaignCriterionServiceOpts {
   soapService: SoapService;
 }
 
-class CampaignCriterionService extends AdwordsOperartionService {
+class CampaignCriterionService extends AdwordsOperationService {
   public static setType(campaignCriterion: ICampaignCriterion) {
     if (campaignCriterion.criterion) {
       if (CampaignCriterionService.isLocation(campaignCriterion.criterion)) {

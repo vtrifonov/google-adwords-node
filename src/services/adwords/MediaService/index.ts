@@ -1,11 +1,11 @@
 import { pd } from 'pretty-data';
 
-import { AdwordsOperartionService, SoapService } from '../../core';
+import { AdwordsOperationService, SoapService } from '../../core';
 import { IMediaPage } from './MediaPage';
 import { ISelector } from '../../../types/adwords';
 import { IAudio, IImage, IVideo, IMediaBundle } from './Media';
 
-class MediaService extends AdwordsOperartionService {
+class MediaService extends AdwordsOperationService {
   private static readonly selectorFields: string[] = [
     'AdvertisingId',
     'CreationTime',

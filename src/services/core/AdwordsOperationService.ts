@@ -1,4 +1,4 @@
-abstract class AdwordsOperartionService {
+abstract class AdwordsOperationService {
   protected get<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval | undefined> {
     throw new Error('The method get does not overrided.');
   }
@@ -27,4 +27,4 @@ abstract class AdwordsOperartionService {
   }
 }
 
-export { AdwordsOperartionService };
+export { AdwordsOperationService };

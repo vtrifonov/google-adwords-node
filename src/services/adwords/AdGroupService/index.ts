@@ -1,5 +1,5 @@
 import { pd } from 'pretty-data';
-import { SoapService, AdwordsOperartionService } from '../../core';
+import { SoapService, AdwordsOperationService } from '../../core';
 import { ISelector } from './Selector';
 import { IAdGroupPage } from './AdGroupPage';
 import { IAdGroupOperation } from './AdGroupOperation';
@@ -19,9 +19,9 @@ interface IAdGroupServiceOpts {
  *
  * @author dulin
  * @class AdGroupService
- * @extends {AdwordsOperartionService}
+ * @extends {AdwordsOperationService}
  */
-class AdGroupService extends AdwordsOperartionService {
+class AdGroupService extends AdwordsOperationService {
   public static isTargetingSetting(
     setting: ITargetingSetting | IExplorerAutoOptimizerSetting,
   ): setting is ITargetingSetting {
