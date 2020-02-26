@@ -78,53 +78,72 @@ interface IImageAd extends Partial<IAdRaw<'ImageAd'>> {
   adToCopyImageFrom?: string;
 }
 
+interface IProductAd extends Partial<Omit<IAdRaw<'ProductAd'>, 'url' | 'finalUrl' | 'displayUrl' | 'finalAppUrls'>> {}
 
-interface IProductAd
-  extends Partial<Omit<IAdRaw<'ProductAd'>, 'url' | 'finalUrl' | 'displayUrl' | 'finalAppUrls' >> {
-}
-
-interface ITemplateAd
-  extends Partial<IAdRaw<'TemplateAd'>> {
-    templateId: number;
-    adUnionId: any;
-    templateElements: any[];
-    adAsImage: IImage;
-    dimensions: any;
-    name: string;
-    duration: number;
-    originAdId: number;
+interface ITemplateAd extends Partial<IAdRaw<'TemplateAd'>> {
+  templateId: number;
+  adUnionId: any;
+  templateElements: any[];
+  adAsImage: IImage;
+  dimensions: any;
+  name: string;
+  duration: number;
+  originAdId: number;
 }
 
 interface IMultiAssetResponsiveDisplayAd
-  extends Partial<Omit<IAdRaw<'MultiAssetResponsiveDisplayAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
-    marketingImages: any[];
-    squareMarketingImages: any[];
-    logoImages?: any[];
-    landscapeLogoImages?: any[];
-    headlines: any[];
-    longHeadline: any;
-    descriptions: any[];
-    youTubeVideos?: any[];
-    businessName: string;
-    mainColor?: string;
-    accentColor?: string;
-    allowFlexibleColor?: boolean;
-    callToActionText?: string;
-    dynamicSettingsPricePrefix?: string;
-    dynamicSettingsPromoText?: string;
-    formatSetting?: DisplayAdFormatSetting;
+  extends Partial<
+    Omit<IAdRaw<'MultiAssetResponsiveDisplayAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>
+  > {
+  marketingImages: any[];
+  squareMarketingImages: any[];
+  logoImages?: any[];
+  landscapeLogoImages?: any[];
+  headlines: any[];
+  longHeadline: any;
+  descriptions: any[];
+  youTubeVideos?: any[];
+  businessName: string;
+  mainColor?: string;
+  accentColor?: string;
+  allowFlexibleColor?: boolean;
+  callToActionText?: string;
+  dynamicSettingsPricePrefix?: string;
+  dynamicSettingsPromoText?: string;
+  formatSetting?: DisplayAdFormatSetting;
 }
 
 interface IUniversalApAd
   extends Partial<Omit<IAdRaw<'UniversalApAd'>, 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
-    headlines: any[];
-    descriptions: any[];
-    mandatoryAdText: any;
-    images?: any[];
-    videos?: any[];
-    html5MediaBundles?: any;
+  headlines: any[];
+  descriptions: any[];
+  mandatoryAdText: any;
+  images?: any[];
+  videos?: any[];
+  html5MediaBundles?: any;
 }
 
-type PartialAd = Partial<IExpandedTextAd | IImageAd | IMultiAssetResponsiveDisplayAd | IProductAd  | IResponsiveDisplayAd | IResponsiveSearchAd| ITemplateAd | IUniversalApAd>;
+type PartialAd = Partial<
+  | IExpandedTextAd
+  | IImageAd
+  | IMultiAssetResponsiveDisplayAd
+  | IProductAd
+  | IResponsiveDisplayAd
+  | IResponsiveSearchAd
+  | ITemplateAd
+  | IUniversalApAd
+>;
 
-export { IAd, IAdRaw, IExpandedTextAd, IImageAd, IMultiAssetResponsiveDisplayAd, IProductAd, IResponsiveDisplayAd, IResponsiveSearchAd, ITemplateAd, IUniversalApAd, PartialAd };
+export {
+  IAd,
+  IAdRaw,
+  IExpandedTextAd,
+  IImageAd,
+  IMultiAssetResponsiveDisplayAd,
+  IProductAd,
+  IResponsiveDisplayAd,
+  IResponsiveSearchAd,
+  ITemplateAd,
+  IUniversalApAd,
+  PartialAd,
+};
