@@ -64,6 +64,22 @@ interface IResponsiveDisplayAd
   formatSetting: DisplayAdFormatSetting;
 }
 
-type PartialAd = Partial<IExpandedTextAd | IResponsiveDisplayAd>;
+interface IResponsiveSearchAd
+  extends Partial<Omit<IAdRaw<'ResponsiveSearchAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
+    headlines: any;
+    descriptions: any;
+    path1: string;
+    path2: string;
+}
 
-export { IExpandedTextAd, IResponsiveDisplayAd, IAd, IAdRaw, PartialAd };
+interface IImageAd
+  extends Partial<IAdRaw<'ImageAd'>> {
+  image?: IImage;
+  name: string;
+  adToCopyImageFrom?: string;
+}
+
+
+type PartialAd = Partial<IExpandedTextAd | IResponsiveDisplayAd | IResponsiveSearchAd | IImageAd>;
+
+export { IExpandedTextAd, IImageAd, IResponsiveDisplayAd, IResponsiveSearchAd, IAd, IAdRaw, PartialAd };

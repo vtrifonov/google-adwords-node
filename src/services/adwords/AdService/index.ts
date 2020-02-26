@@ -7,7 +7,7 @@ import { IAdReturnValue } from './AdReturnValue';
 import { IAdOperation } from './AdOperation';
 import { IAdPage } from './AdPage';
 import _ from 'lodash';
-import { IAd, IExpandedTextAd, IResponsiveDisplayAd, PartialAd } from './Ad';
+import { IAd, IExpandedTextAd, IImageAd, IResponsiveDisplayAd, IResponsiveSearchAd, PartialAd } from './Ad';
 
 interface IAdServiceOpts {
   soapService: SoapService;
@@ -21,12 +21,22 @@ class AdService extends AdwordsOperationService {
   public static isResponsiveDisplayAd(ad: PartialAd): ad is IResponsiveDisplayAd {
     return _.every(['dynamicDisplayAdSettings', 'shortHeadline'], (prop) => prop in ad);
   }
+  public static isResponsiveSearchAd(ad: PartialAd): ad is IResponsiveSearchAd {
+    return _.every(['headlines', 'descriptions'], (prop) => prop in ad);
+  }
+  public static isImageAd(ad: PartialAd): ad is IImageAd {
+    return _.some(["image", "adToCopyImageFrom"], (prop) => prop in ad);
+  }
 
   public static setType(operand: PartialAd) {
     if (AdService.isExpandedTextAd(operand)) {
       operand.attributes = { 'xsi:type': 'ExpandedTextAd' };
     } else if (AdService.isResponsiveDisplayAd(operand)) {
       operand.attributes = { 'xsi:type': 'ResponsiveDisplayAd' };
+    } else if (AdService.isResponsiveSearchAd(operand)) {
+        operand.attributes = { 'xsi:type': 'ResponsiveSearchAd' };
+    } else if (AdService.isImageAd(operand)) {
+      operand.attributes = { 'xsi:type': 'ImageAd' };
     }
     return operand;
   }
@@ -105,7 +115,7 @@ class AdService extends AdwordsOperationService {
     return this.get(serviceSelector);
   }
 
-  public async getAllMultiAssetResponsiveDisplayAd() {
+  public async getAllMultiAssetResponsiveDisplayAd(paging?: IPaging) {
     const serviceSelector: ISelector = {
       fields: AdService.selectorFields,
       predicates: [
@@ -116,6 +126,43 @@ class AdService extends AdwordsOperationService {
         },
       ],
     };
+    if (paging) {
+        serviceSelector.paging = paging;
+      }
+    return this.get(serviceSelector);
+  }
+
+  public async getAllResponsiveDisplayAd(paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdService.selectorFields,
+      predicates: [
+        {
+          field: 'AdType',
+          operator: Predicate.Operator.IN,
+          values: [Ad.Type.RESPONSIVE_DISPLAY_AD],
+        },
+      ],
+    };
+    if (paging) {
+        serviceSelector.paging = paging;
+      }
+    return this.get(serviceSelector);
+  }
+
+  public async getAllResponsiveSearchAd(paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdService.selectorFields,
+      predicates: [
+        {
+          field: 'AdType',
+          operator: Predicate.Operator.IN,
+          values: [Ad.Type.RESPONSIVE_SEARCH_AD],
+        },
+      ],
+    };
+    if (paging) {
+        serviceSelector.paging = paging;
+      }
     return this.get(serviceSelector);
   }
 
@@ -136,14 +183,48 @@ class AdService extends AdwordsOperationService {
     return this.get(serviceSelector);
   }
 
-  public async getByAdGroupIds(adGroupIds: string[]) {
+  public async getAllImageAd(paging?: IPaging) {
     const serviceSelector: ISelector = {
       fields: AdService.selectorFields,
       predicates: [
         {
-          field: 'AdGroupId',
+          field: 'AdType',
           operator: Predicate.Operator.IN,
-          values: adGroupIds,
+          values: [Ad.Type.IMAGE_AD],
+        },
+      ],
+    };
+    if (paging) {
+      serviceSelector.paging = paging;
+    }
+    return this.get(serviceSelector);
+  }
+
+  public async getAllByType(adType: Ad.Type, paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdService.selectorFields,
+      predicates: [
+        {
+          field: 'AdType',
+          operator: Predicate.Operator.IN,
+          values: [adType],
+        },
+      ],
+    };
+    if (paging) {
+        serviceSelector.paging = paging;
+      }
+    return this.get(serviceSelector);
+  }
+
+  public async getByAdIds(adIds: string[]) {
+    const serviceSelector: ISelector = {
+      fields: AdService.selectorFields,
+      predicates: [
+        {
+          field: 'Id',
+          operator: Predicate.Operator.IN,
+          values: adIds,
         },
       ],
     };
