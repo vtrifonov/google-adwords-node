@@ -66,19 +66,17 @@ interface IResponsiveDisplayAd
 
 interface IResponsiveSearchAd
   extends Partial<Omit<IAdRaw<'ResponsiveSearchAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
-    headlines: any;
-    descriptions: any;
-    path1: string;
-    path2: string;
+  headlines: any;
+  descriptions: any;
+  path1: string;
+  path2: string;
 }
 
-interface IImageAd
-  extends Partial<IAdRaw<'ImageAd'>> {
+interface IImageAd extends Partial<IAdRaw<'ImageAd'>> {
   image?: IImage;
   name: string;
   adToCopyImageFrom?: string;
 }
-
 
 type PartialAd = Partial<IExpandedTextAd | IResponsiveDisplayAd | IResponsiveSearchAd | IImageAd>;
 

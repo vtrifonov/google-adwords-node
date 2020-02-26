@@ -25,7 +25,7 @@ class AdService extends AdwordsOperationService {
     return _.every(['headlines', 'descriptions'], (prop) => prop in ad);
   }
   public static isImageAd(ad: PartialAd): ad is IImageAd {
-    return _.some(["image", "adToCopyImageFrom"], (prop) => prop in ad);
+    return _.some(['image', 'adToCopyImageFrom'], (prop) => prop in ad);
   }
 
   public static setType(operand: PartialAd) {
@@ -34,7 +34,7 @@ class AdService extends AdwordsOperationService {
     } else if (AdService.isResponsiveDisplayAd(operand)) {
       operand.attributes = { 'xsi:type': 'ResponsiveDisplayAd' };
     } else if (AdService.isResponsiveSearchAd(operand)) {
-        operand.attributes = { 'xsi:type': 'ResponsiveSearchAd' };
+      operand.attributes = { 'xsi:type': 'ResponsiveSearchAd' };
     } else if (AdService.isImageAd(operand)) {
       operand.attributes = { 'xsi:type': 'ImageAd' };
     }
@@ -127,8 +127,8 @@ class AdService extends AdwordsOperationService {
       ],
     };
     if (paging) {
-        serviceSelector.paging = paging;
-      }
+      serviceSelector.paging = paging;
+    }
     return this.get(serviceSelector);
   }
 
@@ -144,8 +144,8 @@ class AdService extends AdwordsOperationService {
       ],
     };
     if (paging) {
-        serviceSelector.paging = paging;
-      }
+      serviceSelector.paging = paging;
+    }
     return this.get(serviceSelector);
   }
 
@@ -161,8 +161,8 @@ class AdService extends AdwordsOperationService {
       ],
     };
     if (paging) {
-        serviceSelector.paging = paging;
-      }
+      serviceSelector.paging = paging;
+    }
     return this.get(serviceSelector);
   }
 
@@ -212,8 +212,8 @@ class AdService extends AdwordsOperationService {
       ],
     };
     if (paging) {
-        serviceSelector.paging = paging;
-      }
+      serviceSelector.paging = paging;
+    }
     return this.get(serviceSelector);
   }
 
