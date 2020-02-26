@@ -1,0 +1,6 @@
+export enum PolicySummaryReviewState {
+  UNKNOWN = 'UNKNOWN',
+  REVIEW_IN_PROGRESS = 'REVIEW_IN_PROGRESS',
+  REVIEWED = 'REVIEWED',
+  UNDER_APPEAL = 'UNDER_APPEAL',
+}

@@ -1,3 +1,4 @@
+import { ITemplateElement } from './TemplateElement';
 import { ICustomParameters } from './CustomParameters';
 import { IUrlData } from './UrlData';
 import { Ad } from './enum/Ad';
@@ -7,6 +8,9 @@ import { IAttributes } from '../../../types/adwords/Attributes';
 import { IImage } from './Media';
 import { IDynamicSettings } from './DynamicSettings';
 import { DisplayAdFormatSetting } from './enum/DisplayAdFormatSetting';
+import { IAssetLink } from './AssetLink';
+import { PartialAdUnionId } from './AdUnionId';
+import { IDimensions } from './Dimensions';
 
 interface IAdRaw<Type> extends IAttributes<Type> {
   id: string;
@@ -66,43 +70,43 @@ interface IResponsiveDisplayAd
 
 interface IResponsiveSearchAd
   extends Partial<Omit<IAdRaw<'ResponsiveSearchAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
-  headlines: any;
-  descriptions: any;
-  path1: string;
-  path2: string;
+  headlines: IAssetLink[];
+  descriptions: IAssetLink[];
+  path1?: string;
+  path2?: string;
 }
 
 interface IImageAd extends Partial<IAdRaw<'ImageAd'>> {
   image?: IImage;
   name: string;
-  adToCopyImageFrom?: string;
+  readonly adToCopyImageFrom?: string;
 }
 
 interface IProductAd extends Partial<Omit<IAdRaw<'ProductAd'>, 'url' | 'finalUrl' | 'displayUrl' | 'finalAppUrls'>> {}
 
 interface ITemplateAd extends Partial<IAdRaw<'TemplateAd'>> {
   templateId: number;
-  adUnionId: any;
-  templateElements: any[];
-  adAsImage: IImage;
-  dimensions: any;
+  adUnionId?: PartialAdUnionId;
+  templateElements: ITemplateElement[];
+  adAsImage?: IImage;
+  dimensions?: IDimensions;
   name: string;
-  duration: number;
-  originAdId: number;
+  readonly duration?: number;
+  originAdId?: number;
 }
 
 interface IMultiAssetResponsiveDisplayAd
   extends Partial<
     Omit<IAdRaw<'MultiAssetResponsiveDisplayAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>
   > {
-  marketingImages: any[];
-  squareMarketingImages: any[];
-  logoImages?: any[];
-  landscapeLogoImages?: any[];
-  headlines: any[];
-  longHeadline: any;
-  descriptions: any[];
-  youTubeVideos?: any[];
+  marketingImages: IAssetLink[];
+  squareMarketingImages: IAssetLink[];
+  logoImages?: IAssetLink[];
+  landscapeLogoImages?: IAssetLink[];
+  headlines: IAssetLink[];
+  longHeadline: IAssetLink;
+  descriptions: IAssetLink[];
+  youTubeVideos?: IAssetLink[];
   businessName: string;
   mainColor?: string;
   accentColor?: string;
@@ -115,12 +119,12 @@ interface IMultiAssetResponsiveDisplayAd
 
 interface IUniversalApAd
   extends Partial<Omit<IAdRaw<'UniversalApAd'>, 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
-  headlines: any[];
-  descriptions: any[];
-  mandatoryAdText: any;
-  images?: any[];
-  videos?: any[];
-  html5MediaBundles?: any;
+  headlines: IAssetLink[];
+  descriptions: IAssetLink[];
+  mandatoryAdText: IAssetLink;
+  images?: IAssetLink[];
+  videos?: IAssetLink[];
+  html5MediaBundles?: IAssetLink;
 }
 
 type PartialAd = Partial<

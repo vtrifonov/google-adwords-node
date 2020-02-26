@@ -44,4 +44,6 @@ interface IMediaBundle extends IMedia<'MediaBundle'> {
   entryPoint: string;
 }
 
-export { IImage, IAudio, IVideo, IMedia, IMediaRaw, IMediaBundle };
+type PartialMedia = Partial<IImage | IAudio | IVideo | IMediaBundle>;
+
+export { IImage, IAudio, IVideo, IMedia, IMediaRaw, IMediaBundle, PartialMedia };
