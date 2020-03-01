@@ -1,7 +1,7 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, Predicate, Operator } from '../../../types/adwords';
+import { ISelector, Predicate, Operator, IPaging } from '../../../types/adwords';
 import { IAdGroupCriterionPage } from './AdGroupCriterionPage';
 import { Criterion } from './enum/Criterion';
 import { IAdGroupCriterionOperation } from './AdGroupCriterionOperation';
@@ -135,6 +135,33 @@ class AdGroupCriterionService extends AdwordsOperationService {
         },
       ],
     };
+    return this.get(serviceSelector);
+  }
+
+  public async getAll(paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdGroupCriterionService.selectorFields,
+    };
+    if (paging) {
+      serviceSelector.paging = paging;
+    }
+    return this.get(serviceSelector);
+  }
+
+  public async getAllByType(criterionType: Criterion.Type, paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdGroupCriterionService.selectorFields,
+      predicates: [
+        {
+          field: 'CriteriaType',
+          operator: Predicate.Operator.IN,
+          values: [criterionType],
+        },
+      ],
+    };
+    if (paging) {
+      serviceSelector.paging = paging;
+    }
     return this.get(serviceSelector);
   }
 
