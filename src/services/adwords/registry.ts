@@ -8,6 +8,7 @@ import { LabelService } from './LabelService';
 import { AdGroupCriterionService } from './AdGroupCriterionService';
 import { AdGroupExtensionSettingService } from './AdGroupExtensionSettingService';
 import { CampaignCriterionService } from './CampaignCriterionService';
+import { CampaignExtensionSettingService } from './CampaignExtensionSettingService';
 import { LocationCriterionService } from './LocationCriterionService';
 import { ManagedCustomerService } from './ManagedCustomerService';
 import { CustomerService } from './CustomerService';
@@ -37,6 +38,7 @@ interface IServiceMap {
   AdGroupCriterionService: AdGroupCriterionService;
   AdGroupExtensionSettingService: AdGroupExtensionSettingService;
   CampaignCriterionService: CampaignCriterionService;
+  CampaignExtensionSettingService: CampaignExtensionSettingService;
   LocationCriterionService: LocationCriterionService;
   ManagedCustomerService: ManagedCustomerService;
   CustomerService: CustomerService;
@@ -64,6 +66,7 @@ const registryService = RegistryService.init()
   .register(LabelService)
   .register(AdGroupCriterionService)
   .register(AdGroupExtensionSettingService)
+  .register(CampaignExtensionSettingService)
   .register(CampaignCriterionService)
   .register(LocationCriterionService)
   .register(ManagedCustomerService)
