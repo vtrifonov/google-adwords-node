@@ -12,7 +12,7 @@ import { AdvertisingChannelSubType } from './enum/AdvertisingChannelSubType';
 import { AdvertisingChannelType } from './enum/AdvertisingChannelType';
 import { CampaignTrialType } from './enum/CampaignTrialType';
 import { IStringStringMapEntry } from './String_StringMapEntry';
-import { ICustomParameters } from './CustomParameters';
+import { ICustomParameters } from '../../../types/adwords';
 
 interface ICampaignRaw {
   readonly id: string;

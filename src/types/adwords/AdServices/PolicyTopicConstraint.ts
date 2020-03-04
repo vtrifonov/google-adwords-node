@@ -1,5 +1,5 @@
-import { PolicyTopicConstraint } from './enum/PolicyTopicConstraint';
-import { IAttributes } from '../../../types/adwords/Attributes';
+import { IAttributes } from '../Attributes';
+import { PolicyTopicConstraint } from '../../enum';
 
 interface IPolicyTopicConstraintRaw<Type> extends IAttributes<Type> {
   constraintType: PolicyTopicConstraint.PolicyTopicConstraintType;

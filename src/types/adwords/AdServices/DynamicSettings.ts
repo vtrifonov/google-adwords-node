@@ -1,4 +1,4 @@
-import { IImage } from './Media';
+import { IImage } from '../Media';
 
 export interface IDynamicSettings {
   landscapeLogoImage: IImage;

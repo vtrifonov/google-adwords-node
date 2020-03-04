@@ -2,8 +2,8 @@ import { pd } from 'pretty-data';
 import _ from 'lodash';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, IPaging, Operator } from '../../../types/adwords';
-import { Predicate } from '../../../types/enum';
+import { ISelector, IPaging } from '../../../types/adwords';
+import { Predicate, Operator } from '../../../types/enum';
 import { IBudget } from './Budget';
 import { IBudgetOperation } from './BudgetOperation';
 import { IBudgetPage } from './BudgetPage';

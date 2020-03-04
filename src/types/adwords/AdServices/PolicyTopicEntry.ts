@@ -1,6 +1,6 @@
-import { PolicyTopicEntryType } from './enum/PolicyTopicEntryType';
 import { IPolicyTopicEvidence } from './PolicyTopicEvidence';
 import { PartialPolicyTopicConstraint } from './PolicyTopicConstraint';
+import { PolicyTopicEntryType } from '../../enum';
 
 export interface IPolicyTopicEntry {
   policyTopicEntryType: PolicyTopicEntryType;

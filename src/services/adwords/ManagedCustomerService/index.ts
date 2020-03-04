@@ -1,8 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector } from './Selector';
 import { IManagedCustomerPage } from './ManagedCustomerPage';
+import { ISelector } from '../../../types/adwords';
 
 interface IManagedCustomerServiceOpts {
   soapService: SoapService;

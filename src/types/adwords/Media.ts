@@ -1,7 +1,7 @@
 import { IMedia_Size_DimensionsMapEntry } from './Media_Size_DimensionsMapEntry';
 import { IMedia_Size_StringMapEntry } from './Media_Size_StringMapEntry';
-import { IAttributes } from '../../../types/adwords/Attributes';
-import { Media } from '../../../types/enum';
+import { IAttributes } from './Attributes';
+import { Media } from '../enum';
 
 interface IMediaRaw<Type> extends IAttributes<Type> {
   mediaId: string;
@@ -44,4 +44,6 @@ interface IMediaBundle extends IMedia<'MediaBundle'> {
   entryPoint: string;
 }
 
-export { IImage, IAudio, IVideo, IMedia, IMediaBundle, IMediaRaw };
+type PartialMedia = Partial<IImage | IAudio | IVideo | IMediaBundle>;
+
+export { IImage, IAudio, IVideo, IMedia, IMediaRaw, IMediaBundle, PartialMedia };

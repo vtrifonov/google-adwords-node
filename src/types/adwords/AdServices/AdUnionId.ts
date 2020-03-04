@@ -1,4 +1,4 @@
-import { IAttributes } from '../../../types/adwords/Attributes';
+import { IAttributes } from '../Attributes';
 
 interface IAdUnionIdRaw<Type> extends IAttributes<Type> {
   id: number;

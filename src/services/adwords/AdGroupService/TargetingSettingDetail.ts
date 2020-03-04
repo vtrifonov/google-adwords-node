@@ -1,4 +1,4 @@
-import { CriterionTypeGroup } from './enum/CriterionTypeGroup';
+import { CriterionTypeGroup } from '../../../types/enum';
 
 export interface ITargetingSettingDetail {
   criterionTypeGroup: CriterionTypeGroup;

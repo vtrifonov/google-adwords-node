@@ -1,7 +1,5 @@
-import { Asset } from './enum/Asset';
-import { AssetStatus } from './enum/AssetStatus';
-import { IAttributes } from '../../../types/adwords/Attributes';
-import { MediaMimeType } from './enum/MediaMimeType';
+import { IAttributes } from '../Attributes';
+import { Asset, AssetStatus, MediaMimeType } from '../../enum';
 import { IImageDimensionInfo } from './ImageDimensionInfo';
 
 interface IAssetRaw<Type> extends IAttributes<Type> {

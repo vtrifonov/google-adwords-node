@@ -1,4 +1,4 @@
-import { Media } from '../../../types/enum';
+import { Media } from '../enum';
 
 // tslint:disable-next-line:class-name
 export interface IMedia_Size_StringMapEntry {

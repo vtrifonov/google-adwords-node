@@ -1,14 +1,12 @@
 import { IPriceTableRow } from './PriceTableRow';
-import { ICustomParameters } from './CustomParameters';
 import { IFeedItemPolicySummary } from './FeedItemPolicySummary';
-import { IAttributes } from '../../../types/adwords';
+import { IAttributes, IUrlList, ICustomParameters } from '../../../types/adwords';
 import { IFeedItemDevicePreference } from './FeedItemDevicePreference';
 import { IFeedItemScheduling } from './FeedItemScheduling';
 import { IFeedItemCampaignTargeting } from './FeedItemCampaignTargeting';
 import { IFeedItemAdGroupTargeting } from './FeedItemAdGroupTargeting';
 import { IKeyword, ILocation } from './Criterion';
 import { IFeedItemGeoRestriction } from './FeedItemGeoRestriction';
-import { IUrlList } from '../AdGroupAdService';
 import { ICallConversionType } from './CallConversionType';
 import { IMoneyWithCurrency } from './Money';
 import _ from 'lodash';

@@ -1,11 +1,10 @@
 import { pd } from 'pretty-data';
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector } from './Selector';
 import { IAdGroupPage } from './AdGroupPage';
 import { IAdGroupOperation } from './AdGroupOperation';
 import { IAdGroupReturnValue } from './AdGroupReturnValue';
-import { Operator } from '../../../types/adwords';
-import { Predicate } from '../../../types/enum';
+import { ISelector } from '../../../types/adwords';
+import { Predicate, Operator } from '../../../types/enum';
 import { IAdGroup } from './AdGroup';
 import { ITargetingSetting, IExplorerAutoOptimizerSetting } from './Setting';
 import { settings } from 'cluster';

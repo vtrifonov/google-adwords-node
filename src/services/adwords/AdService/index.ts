@@ -1,8 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, IPaging, Operator } from '../../../types/adwords';
-import { Ad, Predicate } from '../../../types/enum';
+import { ISelector, IPaging } from '../../../types/adwords';
+import { Ad, Predicate, Operator } from '../../../types/enum';
 import { IAdReturnValue } from './AdReturnValue';
 import { IAdOperation } from './AdOperation';
 import { IAdPage } from './AdPage';
@@ -18,7 +18,7 @@ import {
   ITemplateAd,
   IMultiAssetResponsiveDisplayAd,
   IUniversalApAd,
-} from './Ad';
+} from '../../../types/adwords';
 
 interface IAdServiceOpts {
   soapService: SoapService;
@@ -260,13 +260,3 @@ class AdService extends AdwordsOperationService {
 }
 
 export { AdService, IAdServiceOpts };
-export * from './Ad';
-export * from './CustomParameter';
-export * from './CustomParameters';
-export * from './Dimensions';
-export * from './DynamicSettings';
-export * from './Media';
-export * from './Media_Size_DimensionsMapEntry';
-export * from './Media_Size_StringMapEntry';
-export * from './UrlData';
-export * from './UrlList';

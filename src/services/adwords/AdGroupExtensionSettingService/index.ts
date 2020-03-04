@@ -1,8 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, Operator, IPaging } from '../../../types/adwords';
-import { Ad, Predicate, Feed } from '../../../types/enum';
+import { ISelector, IPaging } from '../../../types/adwords';
+import { Ad, Predicate, Feed, Operator } from '../../../types/enum';
 import { IAdGroupExtensionSettingPage } from './AdGroupExtensionSettingPage';
 import { IAdGroupExtensionSettingOperation } from './AdGroupExtensionSettingOperation';
 import { IAdGroupExtensionSettingReturnValue } from './AdGroupExtensionSettingReturnValue';

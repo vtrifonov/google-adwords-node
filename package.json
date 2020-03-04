@@ -62,5 +62,10 @@
     },
     "files": [
         "dist"
-    ]
+    ],
+    "exports": {
+        ".": "./dist/index.js",
+        "./": "./dist/",
+        "./dist/": "./dist/"
+    }
 }

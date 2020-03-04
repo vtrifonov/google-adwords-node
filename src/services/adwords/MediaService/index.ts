@@ -2,8 +2,7 @@ import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
 import { IMediaPage } from './MediaPage';
-import { ISelector } from '../../../types/adwords';
-import { IAudio, IImage, IVideo, IMediaBundle } from './Media';
+import { ISelector, IAudio, IImage, IVideo, IMediaBundle } from '../../../types/adwords';
 
 class MediaService extends AdwordsOperationService {
   private static readonly selectorFields: string[] = [

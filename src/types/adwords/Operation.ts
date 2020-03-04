@@ -1,14 +1,9 @@
 import { IAttributes } from './Attributes';
-
-enum Operator {
-  ADD = 'ADD',
-  REMOVE = 'REMOVE',
-  SET = 'SET',
-}
+import { Operator } from '../enum';
 
 interface IOperation<Type = any> extends IAttributes<Type> {
   operator: Operator;
   'Operation.Type'?: string;
 }
 
-export { Operator, IOperation };
+export { IOperation };

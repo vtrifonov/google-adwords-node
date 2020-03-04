@@ -1,11 +1,9 @@
-import { AdGroupStatus } from './enum/AdGroupStatus';
 import { ITargetingSetting, IExplorerAutoOptimizerSetting } from './Setting';
 import { ITextLabel } from '../CampaignService/Label';
-import { CriterionTypeGroup } from './enum/CriterionTypeGroup';
-import { ICustomParameters } from './CustomParameters';
-import { AdGroupType } from './enum/AdGroupType';
 import { IAdGroupAdRotationMode } from './AdGroupAdRotationMode';
 import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
+import { AdGroupStatus, CriterionTypeGroup, AdGroupType } from '../../../types/enum';
+import { ICustomParameters } from '../../../types/adwords';
 
 interface IAdGroupRaw {
   id: string;

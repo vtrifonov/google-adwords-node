@@ -1,6 +1,5 @@
-import { ServedAssetFieldType } from './enum/ServedAssetFieldType';
-import { AssetPerformanceLabel } from './enum/AssetPerformanceLabel';
 import { PartialAsset } from './Asset';
+import { ServedAssetFieldType, AssetPerformanceLabel } from '../../enum';
 import { IAssetPolicySummaryInfo } from './PolicySummaryInfo';
 
 export interface IAssetLink {

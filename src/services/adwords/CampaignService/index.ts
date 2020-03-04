@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 import { SoapService } from '../../core';
-import { ISelector, IPaging, Operator } from '../../../types/adwords';
-import { Predicate } from '../../../types/enum';
+import { ISelector, IPaging } from '../../../types/adwords';
+import { Predicate, Operator } from '../../../types/enum';
 import { AdwordsOperationService } from '../../core/AdwordsOperationService';
 import { ICampaignOperation } from './CampaignOperation';
 import { ICampaignReturnValue } from './CampaignReturnValue';

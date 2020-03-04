@@ -1,5 +1,4 @@
-import { IOperation } from '../../../types/adwords';
-import { PartialAd } from './Ad';
+import { IOperation, PartialAd } from '../../../types/adwords';
 import { IExemptionRequest } from './ExemptionRequest';
 
 export interface IAdOperation extends IOperation<'AdGroupAdOperation'> {

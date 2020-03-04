@@ -1,8 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, Operator, IAttributes } from '../../../types/adwords';
-import { Predicate, Criterion } from '../../../types/enum';
+import { ISelector, IAttributes } from '../../../types/adwords';
+import { Predicate, Criterion, Operator } from '../../../types/enum';
 import { ICampaignCriterionPage } from './CampaignCriterionPage';
 import { ICampaignCriterionOperation } from './CampaignCriterionOperation';
 import { ICampaignCriterionReturnValue } from './CampaignCriterionReturnValue';

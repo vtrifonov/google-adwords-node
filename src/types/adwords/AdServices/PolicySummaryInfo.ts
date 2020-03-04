@@ -1,8 +1,6 @@
-import { IAttributes } from './../../../types/adwords/Attributes';
 import { IPolicyTopicEntry } from './PolicyTopicEntry';
-import { PolicySummaryReviewState } from './enum/PolicySummaryReviewState';
-import { PolicySummaryDenormalizedStatus } from './enum/PolicySummaryDenormalizedStatus';
-import { PolicyApprovalStatus } from './enum/PolicyApprovalStatus';
+import { IAttributes } from '../Attributes';
+import { PolicySummaryReviewState, PolicySummaryDenormalizedStatus, PolicyApprovalStatus } from '../../enum';
 
 interface IPolicySummaryInfoRaw<Type> extends IAttributes<Type> {
   policyTopicEntries: IPolicyTopicEntry[];

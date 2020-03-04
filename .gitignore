@@ -1,6 +1,8 @@
 .env*
 node_modules
+package
 dist
 .DS_Store
 coverage
 yarn-error.log
+google-adwords-node-*

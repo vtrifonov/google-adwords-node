@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { pd } from 'pretty-data';
 
 import { IAuthService, IOAuthCredential } from './AuthService';
-import { ISelector, IOperation, Operator } from '../../types/adwords';
+import { ISelector, IOperation } from '../../types/adwords';
 import { AdwordsOperationService } from './AdwordsOperationService';
 import { CoreOptions } from './HttpService';
 import { XMLService } from './XMLService';

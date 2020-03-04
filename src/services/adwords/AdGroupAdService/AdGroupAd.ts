@@ -1,6 +1,6 @@
-import { AdGroupAd } from './enum/AdGroupAd';
 import { ITextLabel } from './Label';
-import { IExpandedTextAd, IResponsiveDisplayAd } from './Ad';
+import { AdGroupAd } from '../../../types/enum';
+import { IExpandedTextAd, IResponsiveDisplayAd } from '../../../types/adwords';
 
 interface IAdGroupAd {
   adGroupId: string;

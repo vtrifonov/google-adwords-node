@@ -1,5 +1,4 @@
-import { PolicyTopicEvidenceType } from './enum/PolicyTopicEvidenceType';
-import { PolicyTopicEvidenceDestinationMismatchUrlType } from './enum/PolicyTopicEvidenceDestinationMismatchUrlType';
+import { PolicyTopicEvidenceType, PolicyTopicEvidenceDestinationMismatchUrlType } from '../../enum';
 
 export interface IPolicyTopicEvidence {
   policyTopicEvidenceType: PolicyTopicEvidenceType;

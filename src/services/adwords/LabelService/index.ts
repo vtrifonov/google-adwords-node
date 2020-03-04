@@ -3,12 +3,12 @@ import _ from 'lodash';
 
 import { AdwordsOperationService } from '../../core/AdwordsOperationService';
 import { SoapService } from '../../core';
-import { ISelector } from './Selector';
 import { ILabelPage } from './LabelPage';
 import { ILabelOperation } from './LabelOperation';
 import { ILabelReturnValue } from './LabelReturnValue';
 import { ITextLabel, Label } from './Label';
-import { Operator } from '../../../types/adwords';
+import { ISelector } from '../../../types/adwords';
+import { Operator } from '../../../types/enum';
 
 interface ILabelServiceOpts {
   soapService: SoapService;
