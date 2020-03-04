@@ -1,5 +1,5 @@
-import { IListReturnValue } from './abstract/ListReturnValue';
 import { INegativeCampaignCriterion } from './CampaignCriterion';
+import { IListReturnValue } from '../../../types/abstract';
 
 export interface ICampaignCriterionReturnValue extends IListReturnValue {
   value: INegativeCampaignCriterion[];

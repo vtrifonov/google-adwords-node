@@ -1,5 +1,5 @@
-import { IPage } from './abstract/Page';
 import { IAdGroup } from './AdGroup';
+import { IPage } from '../../../types/abstract';
 
 export interface IAdGroupPage extends IPage {
   entries: IAdGroup[];

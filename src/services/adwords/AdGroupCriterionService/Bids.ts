@@ -1,6 +1,6 @@
-import { IBids } from './abstract/Bids';
 import { IMoney } from './Money';
 import { BidSource } from '../../../types/enum';
+import { IBids } from '../../../types/abstract';
 
 interface ICpaBid extends IBids {
   bid: IMoney;

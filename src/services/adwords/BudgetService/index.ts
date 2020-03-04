@@ -156,7 +156,4 @@ export * from './BudgetPage';
 export * from './BudgetReturnValue';
 export * from './FieldPathElement';
 export * from './Money';
-export * from './abstract/ComparableValue';
-export * from './abstract/ListReturnValue';
-export * from './abstract/Page';
 export * from './enum/Budget';

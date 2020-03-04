@@ -1,5 +1,5 @@
-import { IListReturnValue } from './abstract/ListReturnValue';
 import { IAdGroup } from './AdGroup';
+import { IListReturnValue } from '../../../types/abstract';
 
 export interface IAdGroupReturnValue extends IListReturnValue {
   value: IAdGroup[];

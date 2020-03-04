@@ -1,5 +1,5 @@
-import { IListReturnValue } from './abstract/ListReturnValue';
 import { ICampaignExtensionSetting } from './CampaignExtensionSetting';
+import { IListReturnValue } from '../../../types/abstract';
 
 export interface ICampaignExtensionSettingReturnValue extends IListReturnValue {
   value: ICampaignExtensionSetting[];
