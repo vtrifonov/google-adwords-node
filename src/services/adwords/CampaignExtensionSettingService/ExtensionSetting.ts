@@ -1,5 +1,5 @@
 import { PartialExtensionFeedItem } from './ExtensionFeedItem';
-import { ExtensionSetting } from './enum/ExtensionSetting';
+import { ExtensionSetting } from '../../../types/enum/ExtensionSetting';
 
 export interface IExtensionSetting {
   extensions: PartialExtensionFeedItem[];

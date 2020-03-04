@@ -1,3 +1,8 @@
+/**
+ * https://developers.google.com/adwords/api/docs/reference/v201809/AdGroupAdService.Ad#type
+ *
+ * @enum {number}
+ */
 export namespace Ad {
   export enum Type {
     DEPRECATED_AD = 'DEPRECATED_AD',

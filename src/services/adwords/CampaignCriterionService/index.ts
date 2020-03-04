@@ -1,11 +1,11 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, Predicate, Operator, IAttributes } from '../../../types/adwords';
+import { ISelector, Operator, IAttributes } from '../../../types/adwords';
+import { Predicate, Criterion } from '../../../types/enum';
 import { ICampaignCriterionPage } from './CampaignCriterionPage';
 import { ICampaignCriterionOperation } from './CampaignCriterionOperation';
 import { ICampaignCriterionReturnValue } from './CampaignCriterionReturnValue';
-import { Criterion } from './enum/Criterion';
 import { ICampaignCriterion } from './CampaignCriterion';
 import { ILocation, IProximity } from './Criterion';
 
@@ -186,7 +186,5 @@ export {
 };
 export * from './Address';
 export * from './enum/CampaignCriterion';
-export * from './enum/Criterion';
-export * from './enum/LocationTargetingStatus';
 export * from './enum/Proximity';
 export * from './GeoPoint';

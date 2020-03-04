@@ -1,9 +1,5 @@
-import { Criterion } from './enum/Criterion';
 import { IAttributes } from '../../../types/adwords';
-import { Gender } from './enum/Gender';
-import { AgeRange } from './enum/AgeRange';
-import { KeywordMatchType } from './enum/KeywordMatchType';
-import { LocationTargetingStatus } from './enum/LocationTargetingStatus';
+import { Criterion, KeywordMatchType, LocationTargetingStatus } from '../../../types/enum';
 
 interface ICriterionRaw<Type> extends IAttributes<Type> {
   id: string | number;

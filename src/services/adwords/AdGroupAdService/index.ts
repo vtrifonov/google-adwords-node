@@ -1,8 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, Predicate, IPaging, Operator } from '../../../types/adwords';
-import * as Ad from '../../../types/adwords/Ad';
+import { ISelector, IPaging, Operator } from '../../../types/adwords';
+import { Predicate, Ad } from '../../../types/enum';
 import { IAdGroupAdReturnValue } from './AdGroupAdReturnValue';
 import { IAdGroupAdOperation } from './AdGroupAdOperation';
 import { IAdGroupAdPage } from './AdGroupAdPage';
@@ -304,8 +304,5 @@ export * from './Media_Size_StringMapEntry';
 export * from './PolicyViolationKey';
 export * from './UrlData';
 export * from './UrlList';
-export * from './enum/Ad';
+export * from '../../../types/enum/Ad';
 export * from './enum/AdGroupAd';
-export * from './enum/DisplayAdFormatSetting';
-export * from './enum/Media';
-export * from './enum/SystemManagedEntitySource';

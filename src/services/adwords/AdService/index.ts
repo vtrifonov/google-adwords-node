@@ -1,7 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, Predicate, IPaging, Operator } from '../../../types/adwords';
+import { ISelector, IPaging, Operator } from '../../../types/adwords';
+import { Ad, Predicate } from '../../../types/enum';
 import { IAdReturnValue } from './AdReturnValue';
 import { IAdOperation } from './AdOperation';
 import { IAdPage } from './AdPage';
@@ -18,7 +19,6 @@ import {
   IMultiAssetResponsiveDisplayAd,
   IUniversalApAd,
 } from './Ad';
-import { Ad } from './enum/Ad';
 
 interface IAdServiceOpts {
   soapService: SoapService;
@@ -270,7 +270,3 @@ export * from './Media_Size_DimensionsMapEntry';
 export * from './Media_Size_StringMapEntry';
 export * from './UrlData';
 export * from './UrlList';
-export * from './enum/Ad';
-export * from './enum/DisplayAdFormatSetting';
-export * from './enum/Media';
-export * from './enum/SystemManagedEntitySource';

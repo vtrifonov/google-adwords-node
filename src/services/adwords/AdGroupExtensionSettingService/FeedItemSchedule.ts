@@ -1,5 +1,4 @@
-import { DayOfWeek } from './enum/DayOfWeek';
-import { MinuteOfHour } from './enum/MinuteOfHour';
+import { DayOfWeek, MinuteOfHour } from '../../../types/enum';
 
 export interface IFeedItemSchedule {
   dayOfWeek: DayOfWeek;

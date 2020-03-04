@@ -1,10 +1,7 @@
 import { IPriceTableRow } from './PriceTableRow';
 import { ICustomParameters } from './CustomParameters';
 import { IFeedItemPolicySummary } from './FeedItemPolicySummary';
-import { FeedItem } from './enum/FeedItem';
-import { AppFeedItem } from './enum/AppFeedItem';
 import { IAttributes } from '../../../types/adwords';
-import { Feed } from './enum/Feed';
 import { IFeedItemDevicePreference } from './FeedItemDevicePreference';
 import { IFeedItemScheduling } from './FeedItemScheduling';
 import { IFeedItemCampaignTargeting } from './FeedItemCampaignTargeting';
@@ -13,12 +10,17 @@ import { IKeyword, ILocation } from './Criterion';
 import { IFeedItemGeoRestriction } from './FeedItemGeoRestriction';
 import { IUrlList } from '../AdGroupAdService';
 import { ICallConversionType } from './CallConversionType';
-import { PriceExtensionType } from './enum/PriceExtensionType';
-import { PriceExtensionPriceQualifier } from './enum/PriceExtensionPriceQualifier';
-import { PromotionExtensionDiscountModifier } from './enum/PromotionExtensionDiscountModifier';
 import { IMoneyWithCurrency } from './Money';
-import { PromotionExtensionOccasion } from './enum/PromotionExtensionOccasion';
 import _ from 'lodash';
+import {
+  FeedItem,
+  Feed,
+  AppFeedItem,
+  PriceExtensionType,
+  PriceExtensionPriceQualifier,
+  PromotionExtensionDiscountModifier,
+  PromotionExtensionOccasion,
+} from '../../../types/enum';
 
 interface IExtensionFeedItemRaw<Type> extends IAttributes<Type> {
   readonly feedId: number;

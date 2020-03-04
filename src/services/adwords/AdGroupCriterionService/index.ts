@@ -1,9 +1,9 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, Predicate, Operator, IPaging } from '../../../types/adwords';
+import { ISelector, Operator, IPaging } from '../../../types/adwords';
+import { Ad, Predicate, Criterion } from '../../../types/enum';
 import { IAdGroupCriterionPage } from './AdGroupCriterionPage';
-import { Criterion } from './enum/Criterion';
 import { IAdGroupCriterionOperation } from './AdGroupCriterionOperation';
 import { IAdGroupCriterionReturnValue } from './AdGroupCriterionReturnValue';
 import { IBiddableAdGroupCriterion, INegativeAdGroupCriterion } from './AdGroupCriterion';

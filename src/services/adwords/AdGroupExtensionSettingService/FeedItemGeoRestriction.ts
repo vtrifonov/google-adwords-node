@@ -1,4 +1,4 @@
-import { GeoRestriction } from './enum/GeoRestriction';
+import { GeoRestriction } from '../../../types/enum';
 
 export interface IFeedItemGeoRestriction {
   geoRestriction: GeoRestriction;

@@ -1,12 +1,12 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, Predicate, Operator, IPaging } from '../../../types/adwords';
+import { ISelector, Operator, IPaging } from '../../../types/adwords';
+import { Ad, Predicate, Feed } from '../../../types/enum';
 import { IAdGroupExtensionSettingPage } from './AdGroupExtensionSettingPage';
 import { IAdGroupExtensionSettingOperation } from './AdGroupExtensionSettingOperation';
 import { IAdGroupExtensionSettingReturnValue } from './AdGroupExtensionSettingReturnValue';
 import { IAdGroupExtensionSetting } from './AdGroupExtensionSetting';
-import { Feed } from './enum/Feed';
 
 interface IAdGroupExtensionSettingServiceOpts {
   soapService: SoapService;

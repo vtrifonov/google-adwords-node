@@ -1,7 +1,7 @@
-import { Media } from './enum/Media';
 import { IMedia_Size_DimensionsMapEntry } from './Media_Size_DimensionsMapEntry';
 import { IMedia_Size_StringMapEntry } from './Media_Size_StringMapEntry';
 import { IAttributes } from '../../../types/adwords/Attributes';
+import { Media } from '../../../types/enum';
 
 interface IMediaRaw<Type> extends IAttributes<Type> {
   mediaId: string;

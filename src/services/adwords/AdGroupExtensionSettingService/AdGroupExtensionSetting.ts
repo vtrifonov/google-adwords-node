@@ -1,5 +1,5 @@
-import { Feed } from './enum/Feed';
 import { IExtensionSetting } from './ExtensionSetting';
+import { Feed } from '../../../types/enum';
 
 interface IAdGroupExtensionSetting {
   adGroupId: number;

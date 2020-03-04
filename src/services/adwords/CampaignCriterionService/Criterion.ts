@@ -1,9 +1,8 @@
-import { Criterion } from './enum/Criterion';
-import { LocationTargetingStatus } from './enum/LocationTargetingStatus';
 import { IAttributes } from '../../../types/adwords';
 import { IGeoPoint } from './GeoPoint';
 import { Proximity } from './enum/Proximity';
 import { IAddress } from './Address';
+import { Criterion, LocationTargetingStatus } from '../../../types/enum';
 
 interface ICriterionRaw<Type> extends IAttributes<Type> {
   id: string;

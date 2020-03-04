@@ -1,16 +1,15 @@
 import { ITemplateElement } from './TemplateElement';
 import { ICustomParameters } from './CustomParameters';
 import { IUrlData } from './UrlData';
-import { Ad } from './enum/Ad';
-import { SystemManagedEntitySource } from './enum/SystemManagedEntitySource';
 import { Omit } from '../../../types/core';
 import { IAttributes } from '../../../types/adwords/Attributes';
 import { IImage } from './Media';
 import { IDynamicSettings } from './DynamicSettings';
-import { DisplayAdFormatSetting } from './enum/DisplayAdFormatSetting';
+import { DisplayAdFormatSetting, SystemManagedEntitySource } from '../../../types/enum';
 import { IAssetLink } from './AssetLink';
 import { PartialAdUnionId } from './AdUnionId';
 import { IDimensions } from './Dimensions';
+import { Ad } from '../../../types/enum';
 
 interface IAdRaw<Type> extends IAttributes<Type> {
   id: string;

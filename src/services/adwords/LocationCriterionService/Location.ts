@@ -1,5 +1,4 @@
-import { Criterion } from './enum/Criterion';
-import { LocationTargetingStatus } from './enum/LocationTargetingStatus';
+import { Criterion, LocationTargetingStatus } from '../../../types/enum';
 
 interface ICriterionRaw {
   id: string;

@@ -1,7 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, Predicate } from '../../../types/adwords';
+import { ISelector } from '../../../types/adwords';
+import { Predicate } from '../../../types/enum';
 import { ILocationCriterion } from './LocationCriterion';
 
 interface ILocationCriterionServiceOpts {
