@@ -6,6 +6,7 @@ import { IAdGroupExtensionSettingPage } from './AdGroupExtensionSettingPage';
 import { IAdGroupExtensionSettingOperation } from './AdGroupExtensionSettingOperation';
 import { IAdGroupExtensionSettingReturnValue } from './AdGroupExtensionSettingReturnValue';
 import { IAdGroupExtensionSetting } from './AdGroupExtensionSetting';
+import { Feed } from './enum/Feed';
 
 interface IAdGroupExtensionSettingServiceOpts {
   soapService: SoapService;
@@ -42,6 +43,23 @@ class AdGroupExtensionSettingService extends AdwordsOperationService {
   public async getAll(paging?: IPaging) {
     const serviceSelector: ISelector = {
       fields: AdGroupExtensionSettingService.selectorFields,
+    };
+    if (paging) {
+      serviceSelector.paging = paging;
+    }
+    return this.get(serviceSelector);
+  }
+
+  public async getByExtensionType(feedType: Feed.Type, paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdGroupExtensionSettingService.selectorFields,
+      predicates: [
+        {
+          field: 'ExtensionType',
+          operator: Predicate.Operator.IN,
+          values: [feedType],
+        },
+      ],
     };
     if (paging) {
       serviceSelector.paging = paging;

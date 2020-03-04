@@ -6,6 +6,7 @@ import { ICampaignExtensionSettingPage } from './CampaignExtensionSettingPage';
 import { ICampaignExtensionSettingOperation } from './CampaignExtensionSettingOperation';
 import { ICampaignExtensionSettingReturnValue } from './CampaignExtensionSettingReturnValue';
 import { ICampaignExtensionSetting } from './CampaignExtensionSetting';
+import { Feed } from './enum/Feed';
 
 interface ICampaignExtensionSettingServiceOpts {
   soapService: SoapService;
@@ -36,6 +37,23 @@ class CampaignExtensionSettingService extends AdwordsOperationService {
         },
       ],
     };
+    return this.get(serviceSelector);
+  }
+
+  public async getByExtensionType(feedType: Feed.Type, paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: CampaignExtensionSettingService.selectorFields,
+      predicates: [
+        {
+          field: 'ExtensionType',
+          operator: Predicate.Operator.IN,
+          values: [feedType],
+        },
+      ],
+    };
+    if (paging) {
+      serviceSelector.paging = paging;
+    }
     return this.get(serviceSelector);
   }
 
