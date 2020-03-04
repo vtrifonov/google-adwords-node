@@ -3,7 +3,9 @@
 [![NPM Downloads][downloads-image]][downloads-url]
 ![LICENSE][license-image]
 
-This is a fork of [nodejs-google-adwords](https://github.com/mrdulin/nodejs-google-adwords)
+This is a fork of [nodejs-google-adwords](https://github.com/mrdulin/nodejs-google-adwords).
+
+Special thanks to [mrdulin](https://github.com/mrdulin) for the great work!
 
 Google Ads API Client Library for Node.js. This library is developed for Google Adwords SOAP + WSDL API (v201809).
 
