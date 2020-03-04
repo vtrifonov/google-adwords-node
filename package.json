@@ -1,6 +1,6 @@
 {
-    "name": "nodejs-google-adwords",
-    "version": "1.10.0",
+    "name": "google-adwords-node",
+    "version": "1.0.0",
     "description": "Google Ads API Client Library for Node.js",
     "main": "./dist/index.js",
     "scripts": {
@@ -25,7 +25,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git@github.com:mrdulin/nodejs-google-adwords.git"
+        "url": "git@github.com:vtrifonov/google-adwords-node.git"
     },
     "devDependencies": {
         "@types/dotenv": "^6.1.1",

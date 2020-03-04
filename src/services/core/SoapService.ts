@@ -190,7 +190,7 @@ class SoapService extends AdwordsOperationService {
 
   /**
    * form get parameter
-   * https://github.com/mrdulin/nodejs-google-adwords/issues/2
+   * https://github.com/mrdulin/google-adwords-node/issues/2
    *
    * @author dulin
    * @private

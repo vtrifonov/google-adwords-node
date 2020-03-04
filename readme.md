@@ -1,13 +1,9 @@
-# nodejs google adwords
+# google adwords node
 
 [![NPM Downloads][downloads-image]][downloads-url]
 ![LICENSE][license-image]
-[![Build Status](https://travis-ci.org/mrdulin/nodejs-google-adwords.svg?branch=master)](https://travis-ci.org/mrdulin/nodejs-google-adwords)
-[![Coverage Status](https://coveralls.io/repos/github/mrdulin/nodejs-google-adwords/badge.svg?branch=master)](https://coveralls.io/github/mrdulin/nodejs-google-adwords?branch=master)
-[![Dependency Status](https://david-dm.org/mrdulin/nodejs-google-adwords.svg)](https://david-dm.org/mrdulin/nodejs-google-adwords)
-[![devDependency Status](https://david-dm.org/mrdulin/nodejs-google-adwords/dev-status.svg)](https://david-dm.org/mrdulin/nodejs-google-adwords?type=dev)
-[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/mrdulin/nodejs-google-adwords)
-[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
+
+This is a for of [nodejs-google-adwords](https://github.com/mrdulin/nodejs-google-adwords)
 
 Google Ads API Client Library for Node.js. This library is developed for Google Adwords SOAP + WSDL API (v201809).
 
@@ -155,6 +151,6 @@ Same usage for other Google Adwords resources
 - <https://developers.google.com/adwords/api/docs/appendix/geotargeting#dma>
 - <https://developers.google.com/adwords/api/docs/guides/reporting>
 
-[downloads-image]: https://img.shields.io/npm/dt/nodejs-google-adwords.svg
-[downloads-url]: https://npmjs.org/package/nodejs-google-adwords
-[license-image]: https://img.shields.io/npm/l/nodejs-google-adwords.svg
+[downloads-image]: https://img.shields.io/npm/dt/google-adwords-node.svg
+[downloads-url]: https://npmjs.org/package/google-adwords-node
+[license-image]: https://img.shields.io/npm/l/google-adwords-node.svg
