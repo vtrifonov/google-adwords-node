@@ -1,6 +1,6 @@
 {
     "name": "google-adwords-node",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Google Ads API Client Library for Node.js",
     "main": "./dist/index.js",
     "scripts": {
@@ -12,7 +12,8 @@
         "lint": "tslint --config ./tslint.json --project ./tsconfig.json",
         "prettify": "prettier --config ./.prettierrc --write \"./{src,__{tests,mocks}__}/**/*.{ts,js}\"",
         "prettify-check": "prettier --check \"./{src,__{tests,mocks}__}/**/*.{ts,js}\"",
-        "yarn:import": "rm -rf ./yarn.lock && yarn import"
+        "yarn:import": "rm -rf ./yarn.lock && yarn import",
+        "prepare": "npm run build && npm run lint && npm run prettify"
     },
     "typings": "./dist/index.d.ts",
     "keywords": [

@@ -3,10 +3,9 @@ import { pd } from 'pretty-data';
 import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector, IAttributes, ILocation, IProximity } from '../../../types/adwords';
 import { Predicate, Criterion, Operator } from '../../../types/enum';
-import { ICampaignCriterionPage } from './CampaignCriterionPage';
 import { ICampaignCriterionOperation } from './CampaignCriterionOperation';
-import { ICampaignCriterionReturnValue } from './CampaignCriterionReturnValue';
 import { ICampaignCriterion } from './CampaignCriterion';
+import { IListReturnValue, IPage } from '../../../types/abstract';
 
 interface ICampaignCriterionServiceOpts {
   soapService: SoapService;
@@ -157,7 +156,7 @@ class CampaignCriterionService extends AdwordsOperationService {
     return this.mutate(opertions);
   }
 
-  protected async mutate<Operaiton = ICampaignCriterionOperation, Rval = ICampaignCriterionReturnValue>(
+  protected async mutate<Operaiton = ICampaignCriterionOperation, Rval = IListReturnValue<ICampaignCriterion>>(
     opertions: Operaiton[],
   ): Promise<Rval> {
     return this.soapService.mutateAsync<Operaiton, Rval>(opertions, 'CampaignCriterionOperation').then((rval: Rval) => {
@@ -165,10 +164,10 @@ class CampaignCriterionService extends AdwordsOperationService {
     });
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = ICampaignCriterionPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<ICampaignCriterion>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
       return rval;
     });
   }
@@ -177,9 +176,7 @@ class CampaignCriterionService extends AdwordsOperationService {
 export {
   CampaignCriterionService,
   ICampaignCriterion,
-  ICampaignCriterionPage,
   ICampaignCriterionOperation,
-  ICampaignCriterionReturnValue,
   ICampaignCriterionServiceOpts,
   Criterion,
 };

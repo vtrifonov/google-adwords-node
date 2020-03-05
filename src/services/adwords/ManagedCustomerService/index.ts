@@ -1,12 +1,7 @@
-import { pd } from 'pretty-data';
-
-import { AdwordsOperationService, SoapService } from '../../core';
-import { IManagedCustomerPage } from './ManagedCustomerPage';
-import { ISelector } from '../../../types/adwords';
-
-interface IManagedCustomerServiceOpts {
-  soapService: SoapService;
-}
+import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core';
+import { IManagedCustomer } from './ManagedCustomer';
+import { ISelector, IPaging } from '../../../types/adwords';
+import { IPage } from '../../../types/abstract';
 
 /**
  * https://developers.google.com/adwords/api/docs/reference/v201809/ManagedCustomerService
@@ -15,47 +10,32 @@ interface IManagedCustomerServiceOpts {
  * @class ManagedCustomerService
  * @extends {AdwordsOperationService}
  */
-class ManagedCustomerService extends AdwordsOperationService {
+class ManagedCustomerService extends BaseService<IManagedCustomer, 'ManagedCustomerService'> {
   public static readonly namespace = 'https://adwords.google.com/api/adwords/mcm';
 
-  private static readonly selectorFields: string[] = [
-    'AccountLabels',
-    'CanManageClients',
-    'CurrencyCode',
-    'CustomerId',
-    'DateTimeZone',
-    'Name',
-    'TestAccount',
-  ];
-
-  private soapService: SoapService;
-  constructor(opts: IManagedCustomerServiceOpts) {
-    super();
-    this.soapService = opts.soapService;
+  constructor(options: IOperationServiceOptions) {
+    const serviceInfo: IServiceInfo = {
+      idField: 'Id',
+      operationType: 'AdOperation',
+      selectorFields: [
+        'AccountLabels',
+        'CanManageClients',
+        'CurrencyCode',
+        'CustomerId',
+        'DateTimeZone',
+        'Name',
+        'TestAccount',
+      ],
+    };
+    super(options, serviceInfo);
   }
 
-  /**
-   * Get the account hierarchy under the current account
-   *
-   * @author dulin
-   * @returns
-   * @memberof ManagedCustomerService
-   */
-  public async getAccountHierarchy() {
+  public async getAccountHierarchy(): Promise<IPage<IManagedCustomer>> {
     const serviceSelector: ISelector = {
-      fields: ManagedCustomerService.selectorFields,
+      fields: this.serviceInfo.selectorFields,
     };
     return this.get(serviceSelector);
   }
-
-  protected async get<ServiceSelector = ISelector, Rval = IManagedCustomerPage>(
-    serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
-      // console.log('get managed costomers successfully. rval: ', pd.json(rval));
-      return rval;
-    });
-  }
 }
 
-export { ManagedCustomerService, IManagedCustomerPage, IManagedCustomerServiceOpts };
+export { ManagedCustomerService };

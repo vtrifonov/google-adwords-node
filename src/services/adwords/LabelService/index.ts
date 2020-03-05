@@ -3,11 +3,10 @@ import _ from 'lodash';
 
 import { AdwordsOperationService } from '../../core/AdwordsOperationService';
 import { SoapService } from '../../core';
-import { ILabelPage } from './LabelPage';
 import { ILabelOperation } from './LabelOperation';
-import { ILabelReturnValue } from './LabelReturnValue';
-import { ISelector, ITextLabel } from '../../../types/adwords';
+import { ISelector, ITextLabel, ILabel } from '../../../types/adwords';
 import { Operator, Label } from '../../../types/enum';
+import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface ILabelServiceOpts {
   soapService: SoapService;
@@ -61,18 +60,18 @@ class LabelService extends AdwordsOperationService {
     return this.mutate(operaitons);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = ILabelPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<ILabel>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
       return rval;
     });
   }
 
-  protected async mutate<Operation = ILabelOperation, Rval = ILabelReturnValue>(
+  protected async mutate<Operation = ILabelOperation, Rval = IListReturnValue<ILabel>>(
     operaitons: Operation[],
-  ): Promise<Rval | undefined> {
-    return this.soapService.mutateAsync<Operation, Rval>(operaitons).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.mutateAsync<Operation, Rval>(operaitons).then((rval: Rval) => {
       return rval;
     });
   }

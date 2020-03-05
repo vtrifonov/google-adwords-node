@@ -2,9 +2,9 @@ import xml2js from 'xml2js';
 import _ from 'lodash';
 import { pd } from 'pretty-data';
 
-import { OptionsWithUri, XMLService, IHttpService } from '../../core';
-import { ReportDefinition } from '../ReportDefinitionService/enum/ReportDefinition';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
+import { OptionsWithUri, XMLService, IHttpService } from '../core';
+import { ReportDefinition } from './ReportDefinitionService/enum/ReportDefinition';
+import { IReportDefinition } from './ReportDefinitionService/ReportDefinition';
 
 interface IReportServiceOpts {
   httpService: IHttpService;

@@ -72,8 +72,8 @@ class LocationCriterionService extends AdwordsOperationService {
 
   protected async get<ServiceSelector = ISelector, Rval = ILocationCriterion[]>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
       return rval;
     });
   }

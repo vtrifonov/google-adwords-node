@@ -1,14 +1,13 @@
 import { pd } from 'pretty-data';
 import { SoapService, AdwordsOperationService } from '../../core';
-import { IAdGroupPage } from './AdGroupPage';
 import { IAdGroupOperation } from './AdGroupOperation';
-import { IAdGroupReturnValue } from './AdGroupReturnValue';
 import { ISelector } from '../../../types/adwords';
 import { Predicate, Operator } from '../../../types/enum';
 import { IAdGroup } from './AdGroup';
 import { ITargetingSetting, IExplorerAutoOptimizerSetting } from './Setting';
 import { settings } from 'cluster';
 import { ITargetingSettingDetail } from './TargetingSettingDetail';
+import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface IAdGroupServiceOpts {
   soapService: SoapService;
@@ -114,13 +113,13 @@ class AdGroupService extends AdwordsOperationService {
     return this.mutate(operations);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IAdGroupPage>(serviceSelector: ServiceSelector) {
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IAdGroup>>(serviceSelector: ServiceSelector) {
     return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
       return rval;
     });
   }
 
-  protected async mutate<Operation = IAdGroupOperation, Rval = IAdGroupReturnValue>(operations: Operation[]) {
+  protected async mutate<Operation = IAdGroupOperation, Rval = IListReturnValue<IAdGroup>>(operations: Operation[]) {
     return this.soapService.mutateAsync<Operation, Rval>(operations, 'AdGroupOperation').then((rval: Rval) => {
       return rval;
     });
@@ -155,4 +154,4 @@ class AdGroupService extends AdwordsOperationService {
   }
 }
 
-export { AdGroupService, IAdGroupServiceOpts, IAdGroupPage, IAdGroupOperation, IAdGroupReturnValue, IAdGroup };
+export { AdGroupService, IAdGroupServiceOpts, IAdGroupOperation, IAdGroup };

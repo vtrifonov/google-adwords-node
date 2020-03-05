@@ -5,14 +5,12 @@ import { ISelector, IPaging } from '../../../types/adwords';
 import { Predicate, Operator } from '../../../types/enum';
 import { AdwordsOperationService } from '../../core/AdwordsOperationService';
 import { ICampaignOperation } from './CampaignOperation';
-import { ICampaignReturnValue } from './CampaignReturnValue';
-import { ICampaignPage } from './CampaignPage';
 import { ICampaign } from './Campaign';
 import { CampaignStatus } from './enum/CampaignStatus';
 import { ServingStatus } from './enum/ServingStatus';
 import { ICampaignLabelOperation } from './CampaignLabelOperation';
-import { ICampaignLabelReturnValue } from './CampaignLabelReturnValue';
 import { ICampaignLabel } from './CampaignLabel';
+import { IListReturnValue, IPage } from '../../../types/abstract';
 
 interface ICampaignServiceOpts {
   soapService: SoapService;
@@ -230,17 +228,17 @@ class CampaignService extends AdwordsOperationService {
     return this.mutateLabelAsync(operations);
   }
 
-  protected async mutateLabelAsync<Operation = ICampaignLabelOperation, Rval = ICampaignLabelReturnValue>(
+  protected async mutateLabelAsync<Operation = ICampaignLabelOperation, Rval = IListReturnValue<ICampaignLabel>>(
     operations: Operation[],
   ) {
     return this.soapService
       .mutateLabelAsync<Operation, Rval>(operations, 'CampaignLabelOperation')
-      .then((rval: Rval | undefined) => {
+      .then((rval: Rval) => {
         return rval;
       });
   }
 
-  protected async mutate<Operation = ICampaignOperation, Rval = ICampaignReturnValue>(
+  protected async mutate<Operation = ICampaignOperation, Rval = IListReturnValue<ICampaign>>(
     operations: Operation[],
   ): Promise<Rval> {
     try {
@@ -251,9 +249,9 @@ class CampaignService extends AdwordsOperationService {
     }
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = ICampaignPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<ICampaign>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
+  ): Promise<Rval> {
     return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
       return rval;
     });
@@ -287,9 +285,7 @@ class CampaignService extends AdwordsOperationService {
 export { CampaignService, ICampaignServiceOpts };
 export * from './Budget';
 export * from './Campaign';
-export * from './CampaignPage';
 export * from './CampaignOperation';
-export * from './CampaignReturnValue';
 export * from './enum/CampaignStatus';
 export * from './enum/AdvertisingChannelType';
 export * from './enum/ServingStatus';

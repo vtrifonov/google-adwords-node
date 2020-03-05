@@ -107,6 +107,25 @@ class SoapService extends AdwordsOperationService {
   }
 
   /**
+   * mutate single operation
+   *
+   * @author vtrifonov
+   * @template request
+   * @template Response
+   * @param {RequestType} request
+   * @returns {Promise<Response>}
+   * @memberof SoapService
+   */
+  public async mutateSingleAsync<RequestType, Rval>(request: RequestType): Promise<Rval> {
+    if (!request) {
+      throw new Error('empty operation passed');
+    }
+    const client = await this.beforeSendRequest();
+    const response = await client.mutateAsync(request);
+    return this.parseMutateResponse<Rval>(response);
+  }
+
+  /**
    * parse mutate response
    *
    * @author dulin
@@ -146,7 +165,7 @@ class SoapService extends AdwordsOperationService {
    * @returns {Promise<Rval>}
    * @memberof SoapService
    */
-  public async get<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval | undefined> {
+  public async get<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval> {
     const credentials: IOAuthCredential = await this.authService.refreshCredentials();
     const client = await this.createSoapClient(this.url, credentials);
 
@@ -176,11 +195,11 @@ class SoapService extends AdwordsOperationService {
    * @author dulin
    * @template Rval
    * @param {IResponse<Rval>} response
-   * @returns {(Rval | undefined)}
+   * @returns {Rval}
    * @memberof SoapService
    */
-  public parseGetResponse<Rval>(response: IResponse<Rval>): Rval | undefined {
-    return _.get(response, ['rval'], undefined);
+  public parseGetResponse<Rval>(response: IResponse<Rval>): Rval {
+    return _.get(response, ['rval']);
   }
 
   private async beforeSendRequest(): Promise<soap.Client> {

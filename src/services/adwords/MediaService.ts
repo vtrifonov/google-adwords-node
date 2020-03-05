@@ -1,8 +1,8 @@
 import { pd } from 'pretty-data';
 
-import { AdwordsOperationService, SoapService } from '../../core';
-import { IMediaPage } from './MediaPage';
-import { ISelector, IAudio, IImage, IVideo, IMediaBundle } from '../../../types/adwords';
+import { AdwordsOperationService, SoapService } from '../core';
+import { ISelector, IAudio, IImage, IVideo, IMediaBundle } from '../../types/adwords';
+import { IPage } from '../../types/abstract';
 
 class MediaService extends AdwordsOperationService {
   private static readonly selectorFields: string[] = [
@@ -50,9 +50,9 @@ class MediaService extends AdwordsOperationService {
       });
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IMediaPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IAudio | IImage | IMediaBundle | IVideo>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
+  ): Promise<Rval> {
     return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
       return rval;
     });

@@ -3,10 +3,9 @@ import { pd } from 'pretty-data';
 import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector, IPaging, IKeyword, IGender, IAgeRange } from '../../../types/adwords';
 import { Ad, Predicate, Criterion, CriterionUse, Operator } from '../../../types/enum';
-import { IAdGroupCriterionPage } from './AdGroupCriterionPage';
 import { IAdGroupCriterionOperation } from './AdGroupCriterionOperation';
-import { IAdGroupCriterionReturnValue } from './AdGroupCriterionReturnValue';
 import { IBiddableAdGroupCriterion, INegativeAdGroupCriterion } from './AdGroupCriterion';
+import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface IAdGroupCriterionServiceOpts {
   soapService: SoapService;
@@ -204,17 +203,18 @@ class AdGroupCriterionService extends AdwordsOperationService {
     return this.mutate(operaions);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IAdGroupCriterionPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
       return rval;
     });
   }
 
-  protected async mutate<Operation = IAdGroupCriterionOperation, Rval = IAdGroupCriterionReturnValue>(
-    operaions: Operation[],
-  ): Promise<Rval | undefined> {
+  protected async mutate<
+    Operation = IAdGroupCriterionOperation,
+    Rval = IListReturnValue<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>
+  >(operaions: Operation[]): Promise<Rval> {
     return this.soapService
       .mutateAsync<Operation, Rval>(operaions, /** operationType = */ 'AdGroupCriterionOperation')
       .then((rval: Rval) => {
@@ -225,11 +225,9 @@ class AdGroupCriterionService extends AdwordsOperationService {
 
 export {
   AdGroupCriterionService,
-  IAdGroupCriterionPage,
   IAdGroupCriterionServiceOpts,
   Criterion,
   IAdGroupCriterionOperation,
-  IAdGroupCriterionReturnValue,
   IBiddableAdGroupCriterion,
   INegativeAdGroupCriterion,
 };

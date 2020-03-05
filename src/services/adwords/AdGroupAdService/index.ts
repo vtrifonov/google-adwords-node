@@ -1,13 +1,13 @@
+import { IListReturnValue } from './../../../types/abstract/ListReturnValue';
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
 import { ISelector, IPaging, IExpandedTextAd, IResponsiveDisplayAd } from '../../../types/adwords';
 import { Predicate, Ad, Operator } from '../../../types/enum';
-import { IAdGroupAdReturnValue } from './AdGroupAdReturnValue';
 import { IAdGroupAdOperation } from './AdGroupAdOperation';
-import { IAdGroupAdPage } from './AdGroupAdPage';
 import { IAdGroupAd } from './AdGroupAd';
 import _ from 'lodash';
+import { IPage } from '../../../types/abstract';
 
 interface IAdGroupAdServiceOpts {
   soapService: SoapService;
@@ -263,17 +263,17 @@ class AdGroupAdService extends AdwordsOperationService {
     return this.mutate(operations);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IAdGroupAdPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IAdGroupAd>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
+  ): Promise<Rval> {
     return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
       return rval;
     });
   }
 
-  protected async mutate<Operation = IAdGroupAdOperation, Rval = IAdGroupAdReturnValue>(
+  protected async mutate<Operation = IAdGroupAdOperation, Rval = IListReturnValue<IAdGroupAd>>(
     operations: Operation[],
-  ): Promise<Rval | undefined> {
+  ): Promise<Rval> {
     return this.soapService
       .mutateAsync<Operation, Rval>(operations, /** operationType = */ 'AdGroupAdOperation')
       .then((rval) => {
@@ -285,6 +285,4 @@ class AdGroupAdService extends AdwordsOperationService {
 export { AdGroupAdService, IAdGroupAdServiceOpts };
 export * from './AdGroupAd';
 export * from './AdGroupAdOperation';
-export * from './AdGroupAdPage';
 export * from './AdGroupAdPolicySummary';
-export * from './AdGroupAdReturnValue';

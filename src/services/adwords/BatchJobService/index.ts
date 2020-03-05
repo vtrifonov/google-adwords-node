@@ -2,7 +2,8 @@ import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector } from '../../../types/adwords';
-import { IBatchJobPage } from './BatchJobPage';
+import { IPage } from '../../../types/abstract';
+import { IBatchJob } from './BatchJob';
 
 class BatchJobService extends AdwordsOperationService {
   /**
@@ -28,9 +29,9 @@ class BatchJobService extends AdwordsOperationService {
     return this.get(serviceSelector);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IBatchJobPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IBatchJob>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
+  ): Promise<Rval> {
     return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
       return rval;
     });

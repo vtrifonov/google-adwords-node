@@ -3,10 +3,9 @@ import { pd } from 'pretty-data';
 import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector, IPaging } from '../../../types/adwords';
 import { Ad, Predicate, Feed, Operator } from '../../../types/enum';
-import { IAdGroupExtensionSettingPage } from './AdGroupExtensionSettingPage';
 import { IAdGroupExtensionSettingOperation } from './AdGroupExtensionSettingOperation';
-import { IAdGroupExtensionSettingReturnValue } from './AdGroupExtensionSettingReturnValue';
 import { IAdGroupExtensionSetting } from './AdGroupExtensionSetting';
+import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface IAdGroupExtensionSettingServiceOpts {
   soapService: SoapService;
@@ -89,17 +88,18 @@ class AdGroupExtensionSettingService extends AdwordsOperationService {
     return this.mutate(operaions);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IAdGroupExtensionSettingPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IAdGroupExtensionSetting>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
       return rval;
     });
   }
 
-  protected async mutate<Operation = IAdGroupExtensionSettingOperation, Rval = IAdGroupExtensionSettingReturnValue>(
-    operaions: Operation[],
-  ): Promise<Rval | undefined> {
+  protected async mutate<
+    Operation = IAdGroupExtensionSettingOperation,
+    Rval = IListReturnValue<IAdGroupExtensionSetting>
+  >(operaions: Operation[]): Promise<Rval> {
     return this.soapService
       .mutateAsync<Operation, Rval>(operaions, /** operationType = */ 'AdGroupExtensionSettingOperation')
       .then((rval: Rval) => {
@@ -111,8 +111,6 @@ class AdGroupExtensionSettingService extends AdwordsOperationService {
 export {
   AdGroupExtensionSettingService,
   IAdGroupExtensionSetting,
-  IAdGroupExtensionSettingPage,
   IAdGroupExtensionSettingServiceOpts,
   IAdGroupExtensionSettingOperation,
-  IAdGroupExtensionSettingReturnValue,
 };

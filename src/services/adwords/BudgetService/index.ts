@@ -6,8 +6,7 @@ import { ISelector, IPaging } from '../../../types/adwords';
 import { Predicate, Operator } from '../../../types/enum';
 import { IBudget } from './Budget';
 import { IBudgetOperation } from './BudgetOperation';
-import { IBudgetPage } from './BudgetPage';
-import { IBudgetReturnValue } from './BudgetReturnValue';
+import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface IBudgetServiceOpts {
   soapService: SoapService;
@@ -128,15 +127,15 @@ class BudgetService extends AdwordsOperationService {
     return this.mutate(operations);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IBudgetPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<IBudget>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((response: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((response: Rval) => {
       return response;
     });
   }
 
-  protected async mutate<Operation = IBudgetOperation, Response = IBudgetReturnValue>(
+  protected async mutate<Operation = IBudgetOperation, Response = IListReturnValue<IBudget>>(
     operations: Operation[],
   ): Promise<Response> {
     try {
@@ -152,8 +151,6 @@ export { BudgetService, IBudgetServiceOpts };
 export * from './ApiError';
 export * from './Budget';
 export * from './BudgetOperation';
-export * from './BudgetPage';
-export * from './BudgetReturnValue';
 export * from './FieldPathElement';
 export * from './Money';
 export * from './enum/Budget';

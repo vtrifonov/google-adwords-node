@@ -1,24 +1,21 @@
 abstract class AdwordsOperationService {
-  protected get<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval | undefined> {
+  protected get<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval> {
     throw new Error('The method get does not overrided.');
   }
 
-  protected getAsync<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval | undefined> {
+  protected getAsync<ServiceSelector, Rval>(serviceSelector: ServiceSelector): Promise<Rval> {
     throw new Error('The method getAsync does not overrided.');
   }
 
-  protected mutate<Operation, Rval>(operations: Operation[]): Promise<Rval | undefined> {
+  protected mutate<Operation, Rval>(operations: Operation[]): Promise<Rval> {
     throw new Error('The method mutate does not overrided.');
   }
 
-  protected mutateAsync<Operation, Rval>(operations: Operation[], operationType?: string): Promise<Rval | undefined> {
+  protected mutateAsync<Operation, Rval>(operations: Operation[], operationType?: string): Promise<Rval> {
     throw new Error('The method mutateAsync does not overrided.');
   }
 
-  protected mutateLabelAsync<Operation, Rval>(
-    operations: Operation[],
-    operationType?: string,
-  ): Promise<Rval | undefined> {
+  protected mutateLabelAsync<Operation, Rval>(operations: Operation[], operationType?: string): Promise<Rval> {
     throw new Error('The method mutateLabelAsync does not overrided.');
   }
 

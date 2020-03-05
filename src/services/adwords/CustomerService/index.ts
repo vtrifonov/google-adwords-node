@@ -38,6 +38,12 @@ class CustomerService extends AdwordsOperationService {
       .then(this.parseResponse);
   }
 
+  public async update(customer: ICustomer): Promise<ICustomer> {
+    return this.soapService.mutateSingleAsync<{ customer: ICustomer }, ICustomer>({ customer }).then((rval) => {
+      return rval;
+    });
+  }
+
   private parseResponse(response: IResponse<ICustomer[]>): ICustomer[] {
     return _.get(response, [0, 'rval'], []);
   }

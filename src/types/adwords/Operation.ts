@@ -6,4 +6,8 @@ interface IOperation<Type = any> extends IAttributes<Type> {
   'Operation.Type'?: string;
 }
 
-export { IOperation };
+interface IBaseOperation<T, Type = any> extends IOperation<Type> {
+  operand: T;
+}
+
+export { IOperation, IBaseOperation };

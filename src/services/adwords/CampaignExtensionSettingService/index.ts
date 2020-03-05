@@ -3,10 +3,9 @@ import { pd } from 'pretty-data';
 import { AdwordsOperationService, SoapService } from '../../core';
 import { ISelector, IPaging } from '../../../types/adwords';
 import { Predicate, Feed, Operator } from '../../../types/enum';
-import { ICampaignExtensionSettingPage } from './CampaignExtensionSettingPage';
 import { ICampaignExtensionSettingOperation } from './CampaignExtensionSettingOperation';
-import { ICampaignExtensionSettingReturnValue } from './CampaignExtensionSettingReturnValue';
 import { ICampaignExtensionSetting } from './CampaignExtensionSetting';
+import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface ICampaignExtensionSettingServiceOpts {
   soapService: SoapService;
@@ -89,17 +88,18 @@ class CampaignExtensionSettingService extends AdwordsOperationService {
     return this.mutate(operaions);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = ICampaignExtensionSettingPage>(
+  protected async get<ServiceSelector = ISelector, Rval = IPage<ICampaignExtensionSetting>>(
     serviceSelector: ServiceSelector,
-  ): Promise<Rval | undefined> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval | undefined) => {
+  ): Promise<Rval> {
+    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
       return rval;
     });
   }
 
-  protected async mutate<Operation = ICampaignExtensionSettingOperation, Rval = ICampaignExtensionSettingReturnValue>(
-    operaions: Operation[],
-  ): Promise<Rval | undefined> {
+  protected async mutate<
+    Operation = ICampaignExtensionSettingOperation,
+    Rval = IListReturnValue<ICampaignExtensionSetting>
+  >(operaions: Operation[]): Promise<Rval> {
     return this.soapService
       .mutateAsync<Operation, Rval>(operaions, /** operationType = */ 'CampaignExtensionSettingOperation')
       .then((rval: Rval) => {
@@ -111,8 +111,6 @@ class CampaignExtensionSettingService extends AdwordsOperationService {
 export {
   CampaignExtensionSettingService,
   ICampaignExtensionSetting,
-  ICampaignExtensionSettingPage,
   ICampaignExtensionSettingServiceOpts,
   ICampaignExtensionSettingOperation,
-  ICampaignExtensionSettingReturnValue,
 };
