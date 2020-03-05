@@ -1,4 +1,4 @@
-import { IPolicyViolationKey } from '../../../types/adwords';
+import { IPolicyViolationKey } from './AdServices';
 
 export interface IExemptionRequest {
   key: IPolicyViolationKey;

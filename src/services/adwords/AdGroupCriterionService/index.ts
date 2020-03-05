@@ -1,13 +1,12 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, IPaging } from '../../../types/adwords';
+import { ISelector, IPaging, IKeyword, IGender, IAgeRange } from '../../../types/adwords';
 import { Ad, Predicate, Criterion, CriterionUse, Operator } from '../../../types/enum';
 import { IAdGroupCriterionPage } from './AdGroupCriterionPage';
 import { IAdGroupCriterionOperation } from './AdGroupCriterionOperation';
 import { IAdGroupCriterionReturnValue } from './AdGroupCriterionReturnValue';
 import { IBiddableAdGroupCriterion, INegativeAdGroupCriterion } from './AdGroupCriterion';
-import { IKeyword, IGender, IAgeRange } from './Criterion';
 
 interface IAdGroupCriterionServiceOpts {
   soapService: SoapService;

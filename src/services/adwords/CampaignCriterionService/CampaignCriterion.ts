@@ -1,5 +1,5 @@
-import { ILocation, IProximity } from './Criterion';
 import { CampaignCriterion } from './enum/CampaignCriterion';
+import { ILocation, IProximity } from '../../../types/adwords';
 
 interface ICampaignCriterionRaw {
   campaignId: string;

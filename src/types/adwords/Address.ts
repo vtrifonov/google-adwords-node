@@ -1,4 +1,4 @@
-import { StringOrNull } from '../../../types/core';
+import { StringOrNull } from '../core';
 
 interface IAddressRaw {
   streetAddress: StringOrNull;
@@ -12,4 +12,4 @@ interface IAddressRaw {
 
 interface IAddress extends Partial<IAddressRaw> {}
 
-export { IAddress };
+export { IAddressRaw, IAddress };

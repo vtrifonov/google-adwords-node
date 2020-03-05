@@ -1,4 +1,4 @@
-import { ILocation } from './Location';
+import { ILocation } from '../../../types/adwords';
 
 export interface ILocationCriterion {
   location: ILocation;

@@ -288,4 +288,3 @@ export * from './AdGroupAdOperation';
 export * from './AdGroupAdPage';
 export * from './AdGroupAdPolicySummary';
 export * from './AdGroupAdReturnValue';
-export * from './ExemptionRequest';

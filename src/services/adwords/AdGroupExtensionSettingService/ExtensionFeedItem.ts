@@ -1,11 +1,10 @@
 import { IPriceTableRow } from './PriceTableRow';
 import { IFeedItemPolicySummary } from './FeedItemPolicySummary';
-import { IAttributes, IUrlList, ICustomParameters } from '../../../types/adwords';
+import { IAttributes, IUrlList, ICustomParameters, IKeyword, ILocation } from '../../../types/adwords';
 import { IFeedItemDevicePreference } from './FeedItemDevicePreference';
 import { IFeedItemScheduling } from './FeedItemScheduling';
 import { IFeedItemCampaignTargeting } from './FeedItemCampaignTargeting';
 import { IFeedItemAdGroupTargeting } from './FeedItemAdGroupTargeting';
-import { IKeyword, ILocation } from './Criterion';
 import { IFeedItemGeoRestriction } from './FeedItemGeoRestriction';
 import { ICallConversionType } from './CallConversionType';
 import { IMoneyWithCurrency } from './Money';

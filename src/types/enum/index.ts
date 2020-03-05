@@ -20,5 +20,6 @@ export * from './PriceExtensionPriceUnit';
 export * from './PriceExtensionType';
 export * from './PromotionExtensionDiscountModifier';
 export * from './PromotionExtensionOccasion';
+export * from './Proximity';
 export * from './SortOrder';
 export * from './TemplateElementField';

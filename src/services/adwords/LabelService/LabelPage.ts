@@ -1,4 +1,4 @@
-import { ITextLabel } from "../../../types/adwords";
+import { ITextLabel } from '../../../types/adwords';
 
 export interface ILabelPage {
   entries: ITextLabel[];
