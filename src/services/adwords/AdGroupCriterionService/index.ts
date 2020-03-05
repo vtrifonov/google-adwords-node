@@ -1,9 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, IPaging, IKeyword, IGender, IAgeRange } from '../../../types/adwords';
+import { ISelector, IPaging, IKeyword, IGender, IAgeRange, IOperation } from '../../../types/adwords';
 import { Ad, Predicate, Criterion, CriterionUse, Operator } from '../../../types/enum';
-import { IAdGroupCriterionOperation } from './AdGroupCriterionOperation';
 import { IBiddableAdGroupCriterion, INegativeAdGroupCriterion } from './AdGroupCriterion';
 import { IPage, IListReturnValue } from '../../../types/abstract';
 
@@ -191,15 +190,18 @@ class AdGroupCriterionService extends AdwordsOperationService {
    * @memberof AdGroupCriterionService
    */
   public async add(adGroupCriterions: Array<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>) {
-    const operaions: IAdGroupCriterionOperation[] = adGroupCriterions.map(
-      (adGroupCriterion: IBiddableAdGroupCriterion | INegativeAdGroupCriterion) => {
-        const adGroupCriterionOperation: IAdGroupCriterionOperation = {
-          operator: Operator.ADD,
-          operand: AdGroupCriterionService.setType(adGroupCriterion),
-        };
-        return adGroupCriterionOperation;
-      },
-    );
+    const operaions: Array<
+      IOperation<IBiddableAdGroupCriterion | INegativeAdGroupCriterion, 'AdGroupCriterionOperation'>
+    > = adGroupCriterions.map((adGroupCriterion: IBiddableAdGroupCriterion | INegativeAdGroupCriterion) => {
+      const adGroupCriterionOperation: IOperation<
+        IBiddableAdGroupCriterion | INegativeAdGroupCriterion,
+        'AdGroupCriterionOperation'
+      > = {
+        operator: Operator.ADD,
+        operand: AdGroupCriterionService.setType(adGroupCriterion),
+      };
+      return adGroupCriterionOperation;
+    });
     return this.mutate(operaions);
   }
 
@@ -212,7 +214,7 @@ class AdGroupCriterionService extends AdwordsOperationService {
   }
 
   protected async mutate<
-    Operation = IAdGroupCriterionOperation,
+    Operation = IOperation<IBiddableAdGroupCriterion | INegativeAdGroupCriterion, 'AdGroupCriterionOperation'>,
     Rval = IListReturnValue<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>
   >(operaions: Operation[]): Promise<Rval> {
     return this.soapService
@@ -227,7 +229,6 @@ export {
   AdGroupCriterionService,
   IAdGroupCriterionServiceOpts,
   Criterion,
-  IAdGroupCriterionOperation,
   IBiddableAdGroupCriterion,
   INegativeAdGroupCriterion,
 };

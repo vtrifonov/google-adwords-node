@@ -2,10 +2,9 @@ import { pd } from 'pretty-data';
 import _ from 'lodash';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, IPaging } from '../../../types/adwords';
+import { ISelector, IPaging, IOperation } from '../../../types/adwords';
 import { Predicate, Operator } from '../../../types/enum';
 import { IBudget } from './Budget';
-import { IBudgetOperation } from './BudgetOperation';
 import { IPage, IListReturnValue } from '../../../types/abstract';
 
 interface IBudgetServiceOpts {
@@ -97,7 +96,7 @@ class BudgetService extends AdwordsOperationService {
   public async add(budget: IBudget) {
     // TODO: validate budget
     // TODO: support multiple add
-    const operations: IBudgetOperation[] = [
+    const operations: Array<IOperation<IBudget, 'BudgetOperation'>> = [
       {
         operator: Operator.ADD,
         operand: budget,
@@ -107,7 +106,7 @@ class BudgetService extends AdwordsOperationService {
   }
 
   public async update(budget: IBudget) {
-    const operation: IBudgetOperation = {
+    const operation: IOperation<IBudget, 'BudgetOperation'> = {
       operator: Operator.SET,
       operand: budget,
     };
@@ -115,9 +114,9 @@ class BudgetService extends AdwordsOperationService {
   }
 
   public async remove(budgetIds: string[]) {
-    const operations: IBudgetOperation[] = budgetIds.map((budgetId: string) => {
+    const operations: Array<IOperation<IBudget, 'BudgetOperation'>> = budgetIds.map((budgetId: string) => {
       const operand: IBudget = { budgetId };
-      const operation: IBudgetOperation = {
+      const operation: IOperation<IBudget, 'BudgetOperation'> = {
         operator: Operator.REMOVE,
         operand,
       };
@@ -135,7 +134,7 @@ class BudgetService extends AdwordsOperationService {
     });
   }
 
-  protected async mutate<Operation = IBudgetOperation, Response = IListReturnValue<IBudget>>(
+  protected async mutate<Operation = IOperation<IBudget, 'BudgetOperation'>, Response = IListReturnValue<IBudget>>(
     operations: Operation[],
   ): Promise<Response> {
     try {
@@ -150,7 +149,6 @@ class BudgetService extends AdwordsOperationService {
 export { BudgetService, IBudgetServiceOpts };
 export * from './ApiError';
 export * from './Budget';
-export * from './BudgetOperation';
 export * from './FieldPathElement';
 export * from './Money';
 export * from './enum/Budget';

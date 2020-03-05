@@ -1,10 +1,9 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, IAttributes, ILocation, IProximity } from '../../../types/adwords';
+import { ISelector, IAttributes, ILocation, IProximity, IOperation } from '../../../types/adwords';
 import { Predicate, Criterion, Operator } from '../../../types/enum';
-import { ICampaignCriterionOperation } from './CampaignCriterionOperation';
-import { ICampaignCriterion } from './CampaignCriterion';
+import { ICampaignCriterion, INegativeCampaignCriterion } from './CampaignCriterion';
 import { IListReturnValue, IPage } from '../../../types/abstract';
 
 interface ICampaignCriterionServiceOpts {
@@ -144,21 +143,22 @@ class CampaignCriterionService extends AdwordsOperationService {
    * @memberof CampaignCriterionService
    */
   public async add(campaignCriterionOperations: ICampaignCriterion[]) {
-    const opertions: ICampaignCriterionOperation[] = campaignCriterionOperations.map(
-      (campaignCriterion: ICampaignCriterion) => {
-        const operation: ICampaignCriterionOperation = {
-          operator: Operator.ADD,
-          operand: CampaignCriterionService.setType(campaignCriterion),
-        };
-        return operation;
-      },
-    );
+    const opertions: Array<
+      IOperation<INegativeCampaignCriterion | ICampaignCriterion, 'CampaignCriterionOperation'>
+    > = campaignCriterionOperations.map((campaignCriterion: ICampaignCriterion) => {
+      const operation: IOperation<INegativeCampaignCriterion | ICampaignCriterion, 'CampaignCriterionOperation'> = {
+        operator: Operator.ADD,
+        operand: CampaignCriterionService.setType(campaignCriterion),
+      };
+      return operation;
+    });
     return this.mutate(opertions);
   }
 
-  protected async mutate<Operaiton = ICampaignCriterionOperation, Rval = IListReturnValue<ICampaignCriterion>>(
-    opertions: Operaiton[],
-  ): Promise<Rval> {
+  protected async mutate<
+    Operaiton = IOperation<INegativeCampaignCriterion | ICampaignCriterion, 'CampaignCriterionOperation'>,
+    Rval = IListReturnValue<ICampaignCriterion>
+  >(opertions: Operaiton[]): Promise<Rval> {
     return this.soapService.mutateAsync<Operaiton, Rval>(opertions, 'CampaignCriterionOperation').then((rval: Rval) => {
       return rval;
     });
@@ -173,11 +173,5 @@ class CampaignCriterionService extends AdwordsOperationService {
   }
 }
 
-export {
-  CampaignCriterionService,
-  ICampaignCriterion,
-  ICampaignCriterionOperation,
-  ICampaignCriterionServiceOpts,
-  Criterion,
-};
+export { CampaignCriterionService, ICampaignCriterion, ICampaignCriterionServiceOpts, Criterion };
 export * from './enum/CampaignCriterion';

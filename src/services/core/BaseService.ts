@@ -1,7 +1,7 @@
 import { IAttributes } from './../../types/adwords/Attributes';
 import { SoapService, ISoapServiceOpts } from './SoapService';
 import { AdwordsOperationService } from './AdwordsOperationService';
-import { ISelector, IOperation, IBaseOperation, IPaging, IPredicate } from '../../types/adwords';
+import { ISelector, IOperation, IPaging, IPredicate } from '../../types/adwords';
 import { Operator, Predicate } from '../../types/enum';
 import { IListReturnValue, IPage } from '../../types/abstract';
 
@@ -57,8 +57,8 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
   }
 
   public add(operands: T[]) {
-    const operations: Array<IBaseOperation<T, TName>> = operands.map((operand: T) => {
-      const operation: IBaseOperation<T, TName> = {
+    const operations: Array<IOperation<T, TName>> = operands.map((operand: T) => {
+      const operation: IOperation<T, TName> = {
         operator: Operator.ADD,
         operand: this.setType(operand),
       };
@@ -68,8 +68,8 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
   }
 
   public update(operands: T[]) {
-    const operations: Array<IBaseOperation<T, TName>> = operands.map((operand: T) => {
-      const operation: IBaseOperation<T, TName> = {
+    const operations: Array<IOperation<T, TName>> = operands.map((operand: T) => {
+      const operation: IOperation<T, TName> = {
         operator: Operator.SET,
         operand,
       };
@@ -99,7 +99,7 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
     });
   }
 
-  protected async mutate<MutateOperation = IBaseOperation<T, TName>, Rval = IListReturnValue<T>>(
+  protected async mutate<MutateOperation = IOperation<T, TName>, Rval = IListReturnValue<T>>(
     operations: MutateOperation[],
   ): Promise<Rval> {
     return this.soapService

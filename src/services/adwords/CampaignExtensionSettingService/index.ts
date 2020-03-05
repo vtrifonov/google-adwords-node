@@ -1,9 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, IPaging } from '../../../types/adwords';
+import { ISelector, IPaging, IOperation } from '../../../types/adwords';
 import { Predicate, Feed, Operator } from '../../../types/enum';
-import { ICampaignExtensionSettingOperation } from './CampaignExtensionSettingOperation';
 import { ICampaignExtensionSetting } from './CampaignExtensionSetting';
 import { IPage, IListReturnValue } from '../../../types/abstract';
 
@@ -76,15 +75,18 @@ class CampaignExtensionSettingService extends AdwordsOperationService {
    * @memberof CampaignExtensionSettingService
    */
   public async add(campaignExtensionSettings: ICampaignExtensionSetting[]) {
-    const operaions: ICampaignExtensionSettingOperation[] = campaignExtensionSettings.map(
-      (campaignExtensionSetting: ICampaignExtensionSetting) => {
-        const campaignExtensionSettingOperation: ICampaignExtensionSettingOperation = {
-          operator: Operator.ADD,
-          operand: campaignExtensionSetting,
-        };
-        return campaignExtensionSettingOperation;
-      },
-    );
+    const operaions: Array<
+      IOperation<ICampaignExtensionSetting, 'CampaignExtensionSettingOperation'>
+    > = campaignExtensionSettings.map((campaignExtensionSetting: ICampaignExtensionSetting) => {
+      const campaignExtensionSettingOperation: IOperation<
+        ICampaignExtensionSetting,
+        'CampaignExtensionSettingOperation'
+      > = {
+        operator: Operator.ADD,
+        operand: campaignExtensionSetting,
+      };
+      return campaignExtensionSettingOperation;
+    });
     return this.mutate(operaions);
   }
 
@@ -97,7 +99,7 @@ class CampaignExtensionSettingService extends AdwordsOperationService {
   }
 
   protected async mutate<
-    Operation = ICampaignExtensionSettingOperation,
+    Operation = IOperation<ICampaignExtensionSetting, 'CampaignExtensionSettingOperation'>,
     Rval = IListReturnValue<ICampaignExtensionSetting>
   >(operaions: Operation[]): Promise<Rval> {
     return this.soapService
@@ -108,9 +110,4 @@ class CampaignExtensionSettingService extends AdwordsOperationService {
   }
 }
 
-export {
-  CampaignExtensionSettingService,
-  ICampaignExtensionSetting,
-  ICampaignExtensionSettingServiceOpts,
-  ICampaignExtensionSettingOperation,
-};
+export { CampaignExtensionSettingService, ICampaignExtensionSetting, ICampaignExtensionSettingServiceOpts };

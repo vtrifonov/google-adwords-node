@@ -1,14 +1,12 @@
 import _ from 'lodash';
 
 import { SoapService } from '../../core';
-import { ISelector, IPaging } from '../../../types/adwords';
+import { ISelector, IPaging, IOperation } from '../../../types/adwords';
 import { Predicate, Operator } from '../../../types/enum';
 import { AdwordsOperationService } from '../../core/AdwordsOperationService';
-import { ICampaignOperation } from './CampaignOperation';
 import { ICampaign } from './Campaign';
 import { CampaignStatus } from './enum/CampaignStatus';
 import { ServingStatus } from './enum/ServingStatus';
-import { ICampaignLabelOperation } from './CampaignLabelOperation';
 import { ICampaignLabel } from './CampaignLabel';
 import { IListReturnValue, IPage } from '../../../types/abstract';
 
@@ -183,7 +181,7 @@ class CampaignService extends AdwordsOperationService {
   }
 
   public async add(campaign: ICampaign) {
-    const operations: ICampaignOperation[] = [
+    const operations: Array<IOperation<ICampaign, 'CampaignOperation'>> = [
       {
         operator: Operator.ADD,
         operand: this.setType(campaign),
@@ -194,7 +192,7 @@ class CampaignService extends AdwordsOperationService {
 
   public async update(campaign: ICampaign) {
     // TODO: validate campaign
-    const operation: ICampaignOperation[] = [
+    const operation: Array<IOperation<ICampaign, 'CampaignOperation'>> = [
       {
         operator: Operator.SET,
         operand: campaign,
@@ -208,7 +206,7 @@ class CampaignService extends AdwordsOperationService {
       id: campaignId,
       status: CampaignStatus.REMOVED,
     };
-    const operations: ICampaignOperation[] = [
+    const operations: Array<IOperation<ICampaign, 'CampaignOperation'>> = [
       {
         operator: Operator.SET,
         operand: campaign,
@@ -219,7 +217,7 @@ class CampaignService extends AdwordsOperationService {
 
   public async addLabel(campaignLabel: ICampaignLabel) {
     // TODO: validate campaignLabel
-    const operations: ICampaignLabelOperation[] = [
+    const operations: Array<IOperation<ICampaignLabel, 'CampaignLabelOperation'>> = [
       {
         operator: Operator.ADD,
         operand: campaignLabel,
@@ -228,9 +226,10 @@ class CampaignService extends AdwordsOperationService {
     return this.mutateLabelAsync(operations);
   }
 
-  protected async mutateLabelAsync<Operation = ICampaignLabelOperation, Rval = IListReturnValue<ICampaignLabel>>(
-    operations: Operation[],
-  ) {
+  protected async mutateLabelAsync<
+    Operation = IOperation<ICampaignLabel, 'CampaignLabelOperation'>,
+    Rval = IListReturnValue<ICampaignLabel>
+  >(operations: Operation[]) {
     return this.soapService
       .mutateLabelAsync<Operation, Rval>(operations, 'CampaignLabelOperation')
       .then((rval: Rval) => {
@@ -238,7 +237,7 @@ class CampaignService extends AdwordsOperationService {
       });
   }
 
-  protected async mutate<Operation = ICampaignOperation, Rval = IListReturnValue<ICampaign>>(
+  protected async mutate<Operation = IOperation<ICampaign, 'CampaignOperation'>, Rval = IListReturnValue<ICampaign>>(
     operations: Operation[],
   ): Promise<Rval> {
     try {
@@ -285,7 +284,6 @@ class CampaignService extends AdwordsOperationService {
 export { CampaignService, ICampaignServiceOpts };
 export * from './Budget';
 export * from './Campaign';
-export * from './CampaignOperation';
 export * from './enum/CampaignStatus';
 export * from './enum/AdvertisingChannelType';
 export * from './enum/ServingStatus';

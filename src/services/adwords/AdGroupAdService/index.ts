@@ -2,9 +2,8 @@ import { IListReturnValue } from './../../../types/abstract/ListReturnValue';
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, IPaging, IExpandedTextAd, IResponsiveDisplayAd } from '../../../types/adwords';
+import { ISelector, IPaging, IExpandedTextAd, IResponsiveDisplayAd, IOperation } from '../../../types/adwords';
 import { Predicate, Ad, Operator } from '../../../types/enum';
-import { IAdGroupAdOperation } from './AdGroupAdOperation';
 import { IAdGroupAd } from './AdGroupAd';
 import _ from 'lodash';
 import { IPage } from '../../../types/abstract';
@@ -242,8 +241,8 @@ class AdGroupAdService extends AdwordsOperationService {
    * @memberof AdGroupAdService
    */
   public add(adGroupAds: IAdGroupAd[]) {
-    const operations: IAdGroupAdOperation[] = adGroupAds.map((adGroupAd: IAdGroupAd) => {
-      const operation: IAdGroupAdOperation = {
+    const operations: Array<IOperation<IAdGroupAd, 'AdGroupAdOperation'>> = adGroupAds.map((adGroupAd: IAdGroupAd) => {
+      const operation: IOperation<IAdGroupAd, 'AdGroupAdOperation'> = {
         operator: Operator.ADD,
         operand: AdGroupAdService.setType(adGroupAd),
       };
@@ -253,8 +252,8 @@ class AdGroupAdService extends AdwordsOperationService {
   }
 
   public update(adGroupAds: IAdGroupAd[]) {
-    const operations: IAdGroupAdOperation[] = adGroupAds.map((adGroupAd: IAdGroupAd) => {
-      const operation: IAdGroupAdOperation = {
+    const operations: Array<IOperation<IAdGroupAd, 'AdGroupAdOperation'>> = adGroupAds.map((adGroupAd: IAdGroupAd) => {
+      const operation: IOperation<IAdGroupAd, 'AdGroupAdOperation'> = {
         operator: Operator.SET,
         operand: adGroupAd,
       };
@@ -271,7 +270,7 @@ class AdGroupAdService extends AdwordsOperationService {
     });
   }
 
-  protected async mutate<Operation = IAdGroupAdOperation, Rval = IListReturnValue<IAdGroupAd>>(
+  protected async mutate<Operation = IOperation<IAdGroupAd, 'AdGroupAdOperation'>, Rval = IListReturnValue<IAdGroupAd>>(
     operations: Operation[],
   ): Promise<Rval> {
     return this.soapService
@@ -284,5 +283,4 @@ class AdGroupAdService extends AdwordsOperationService {
 
 export { AdGroupAdService, IAdGroupAdServiceOpts };
 export * from './AdGroupAd';
-export * from './AdGroupAdOperation';
 export * from './AdGroupAdPolicySummary';

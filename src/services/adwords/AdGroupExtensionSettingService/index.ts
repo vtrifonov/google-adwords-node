@@ -1,9 +1,8 @@
 import { pd } from 'pretty-data';
 
 import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, IPaging } from '../../../types/adwords';
+import { ISelector, IPaging, IOperation } from '../../../types/adwords';
 import { Ad, Predicate, Feed, Operator } from '../../../types/enum';
-import { IAdGroupExtensionSettingOperation } from './AdGroupExtensionSettingOperation';
 import { IAdGroupExtensionSetting } from './AdGroupExtensionSetting';
 import { IPage, IListReturnValue } from '../../../types/abstract';
 
@@ -76,15 +75,15 @@ class AdGroupExtensionSettingService extends AdwordsOperationService {
    * @memberof AdGroupExtensionSettingService
    */
   public async add(adGroupExtensionSettings: IAdGroupExtensionSetting[]) {
-    const operaions: IAdGroupExtensionSettingOperation[] = adGroupExtensionSettings.map(
-      (adGroupExtensionSetting: IAdGroupExtensionSetting) => {
-        const adGroupExtensionSettingOperation: IAdGroupExtensionSettingOperation = {
-          operator: Operator.ADD,
-          operand: adGroupExtensionSetting,
-        };
-        return adGroupExtensionSettingOperation;
-      },
-    );
+    const operaions: Array<
+      IOperation<IAdGroupExtensionSetting, 'AdGroupExtensionSetting'>
+    > = adGroupExtensionSettings.map((adGroupExtensionSetting: IAdGroupExtensionSetting) => {
+      const adGroupExtensionSettingOperation: IOperation<IAdGroupExtensionSetting, 'AdGroupExtensionSetting'> = {
+        operator: Operator.ADD,
+        operand: adGroupExtensionSetting,
+      };
+      return adGroupExtensionSettingOperation;
+    });
     return this.mutate(operaions);
   }
 
@@ -97,7 +96,7 @@ class AdGroupExtensionSettingService extends AdwordsOperationService {
   }
 
   protected async mutate<
-    Operation = IAdGroupExtensionSettingOperation,
+    Operation = IOperation<IAdGroupExtensionSetting, 'AdGroupExtensionSetting'>,
     Rval = IListReturnValue<IAdGroupExtensionSetting>
   >(operaions: Operation[]): Promise<Rval> {
     return this.soapService
@@ -108,9 +107,4 @@ class AdGroupExtensionSettingService extends AdwordsOperationService {
   }
 }
 
-export {
-  AdGroupExtensionSettingService,
-  IAdGroupExtensionSetting,
-  IAdGroupExtensionSettingServiceOpts,
-  IAdGroupExtensionSettingOperation,
-};
+export { AdGroupExtensionSettingService, IAdGroupExtensionSetting, IAdGroupExtensionSettingServiceOpts };

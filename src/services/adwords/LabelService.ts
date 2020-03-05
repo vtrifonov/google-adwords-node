@@ -1,12 +1,11 @@
 import { pd } from 'pretty-data';
 import _ from 'lodash';
 
-import { AdwordsOperationService } from '../../core/AdwordsOperationService';
-import { SoapService } from '../../core';
-import { ILabelOperation } from './LabelOperation';
-import { ISelector, ITextLabel, ILabel } from '../../../types/adwords';
-import { Operator, Label } from '../../../types/enum';
-import { IPage, IListReturnValue } from '../../../types/abstract';
+import { AdwordsOperationService } from '../core/AdwordsOperationService';
+import { SoapService } from '../core';
+import { ISelector, ITextLabel, ILabel, IOperation } from '../../types/adwords';
+import { Operator, Label } from '../../types/enum';
+import { IPage, IListReturnValue } from '../../types/abstract';
 
 interface ILabelServiceOpts {
   soapService: SoapService;
@@ -51,7 +50,7 @@ class LabelService extends AdwordsOperationService {
         'xsi:type': Label.Type.TextLabel,
       },
     };
-    const operaitons: ILabelOperation[] = [
+    const operaitons: Array<IOperation<ITextLabel, 'LabelOperation'>> = [
       {
         operator: Operator.ADD,
         operand: _.defaultsDeep(label, defaultLabel),
@@ -68,7 +67,7 @@ class LabelService extends AdwordsOperationService {
     });
   }
 
-  protected async mutate<Operation = ILabelOperation, Rval = IListReturnValue<ILabel>>(
+  protected async mutate<Operation = IOperation<ITextLabel, 'LabelOperation'>, Rval = IListReturnValue<ILabel>>(
     operaitons: Operation[],
   ): Promise<Rval> {
     return this.soapService.mutateAsync<Operation, Rval>(operaitons).then((rval: Rval) => {

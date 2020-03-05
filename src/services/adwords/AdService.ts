@@ -1,4 +1,4 @@
-import { IPage } from './../../../types/abstract';
+import { IPage } from './../../types/abstract';
 import {
   IAd,
   IExpandedTextAd,
@@ -11,11 +11,11 @@ import {
   IMultiAssetResponsiveDisplayAd,
   IUniversalApAd,
   IPaging,
-} from '../../../types/adwords';
-import { BaseService, IServiceInfo } from '../../core';
-import { IOperationServiceOptions } from '../../core';
+} from '../../types/adwords';
+import { BaseService, IServiceInfo } from '../core';
+import { IOperationServiceOptions } from '../core';
 import _ from 'lodash';
-import { Ad, Predicate } from '../../../types/enum';
+import { Ad, Predicate } from '../../types/enum';
 
 class AdService extends BaseService<PartialAd, 'AdService'> {
   // TODO: better type guard

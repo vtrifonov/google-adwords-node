@@ -1,13 +1,11 @@
 import { IAttributes } from './Attributes';
 import { Operator } from '../enum';
+import { IExemptionRequest } from './ExemptionRequest';
 
-interface IOperation<Type = any> extends IAttributes<Type> {
+export interface IOperation<T, Type = any> extends IAttributes<Type> {
+  operand: T;
   operator: Operator;
+  exemptionRequests?: IExemptionRequest[];
+  ignorablePolicyTopicIds?: string[];
   'Operation.Type'?: string;
 }
-
-interface IBaseOperation<T, Type = any> extends IOperation<Type> {
-  operand: T;
-}
-
-export { IOperation, IBaseOperation };

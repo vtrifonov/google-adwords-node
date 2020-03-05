@@ -1,7 +1,6 @@
 import { pd } from 'pretty-data';
 import { SoapService, AdwordsOperationService } from '../../core';
-import { IAdGroupOperation } from './AdGroupOperation';
-import { ISelector } from '../../../types/adwords';
+import { ISelector, IOperation } from '../../../types/adwords';
 import { Predicate, Operator } from '../../../types/enum';
 import { IAdGroup } from './AdGroup';
 import { ITargetingSetting, IExplorerAutoOptimizerSetting } from './Setting';
@@ -104,7 +103,7 @@ class AdGroupService extends AdwordsOperationService {
   }
 
   public async add(adGroup: IAdGroup) {
-    const operations: IAdGroupOperation[] = [
+    const operations: Array<IOperation<IAdGroup, 'AdGroupOperation'>> = [
       {
         operator: Operator.ADD,
         operand: this.setType(adGroup),
@@ -119,7 +118,9 @@ class AdGroupService extends AdwordsOperationService {
     });
   }
 
-  protected async mutate<Operation = IAdGroupOperation, Rval = IListReturnValue<IAdGroup>>(operations: Operation[]) {
+  protected async mutate<Operation = IOperation<IAdGroup, 'AdGroupOperation'>, Rval = IListReturnValue<IAdGroup>>(
+    operations: Operation[],
+  ) {
     return this.soapService.mutateAsync<Operation, Rval>(operations, 'AdGroupOperation').then((rval: Rval) => {
       return rval;
     });
@@ -154,4 +155,4 @@ class AdGroupService extends AdwordsOperationService {
   }
 }
 
-export { AdGroupService, IAdGroupServiceOpts, IAdGroupOperation, IAdGroup };
+export { AdGroupService, IAdGroupServiceOpts, IAdGroup };
