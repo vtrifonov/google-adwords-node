@@ -289,5 +289,3 @@ export * from './AdGroupAdPage';
 export * from './AdGroupAdPolicySummary';
 export * from './AdGroupAdReturnValue';
 export * from './ExemptionRequest';
-export * from './Label';
-export * from './LabelAttribute';

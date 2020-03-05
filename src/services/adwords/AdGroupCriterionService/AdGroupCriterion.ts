@@ -1,10 +1,9 @@
 import { IKeyword, IGender, IAgeRange } from './Criterion';
-import { ITextLabel } from '../CampaignService/Label';
 import { IBid } from './Bid';
 import { IQualityInfo } from './QualityInfo';
 import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
 import { IUrlList } from './UrlList';
-import { IAttributes, ICustomParameters } from '../../../types/adwords';
+import { IAttributes, ICustomParameters, ITextLabel } from '../../../types/adwords';
 import { CriterionUse, SystemServingStatus, ApprovalStatus, UserStatus } from '../../../types/enum';
 
 interface IAdGroupCriterion<Type> extends IAttributes<Type> {

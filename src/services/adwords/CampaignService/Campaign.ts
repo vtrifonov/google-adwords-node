@@ -1,6 +1,5 @@
 import { IBudget } from './Budget';
 import { INetworkSetting } from './NetworkSetting';
-import { ITextLabel } from './Label';
 import { IFrequencyCap } from './FrequencyCap';
 import { IConversionOptimizerEligibility } from './ConversionOptimizerEligibility';
 import { IGeoTargetTypeSetting } from './Setting';
@@ -12,7 +11,7 @@ import { AdvertisingChannelSubType } from './enum/AdvertisingChannelSubType';
 import { AdvertisingChannelType } from './enum/AdvertisingChannelType';
 import { CampaignTrialType } from './enum/CampaignTrialType';
 import { IStringStringMapEntry } from './String_StringMapEntry';
-import { ICustomParameters } from '../../../types/adwords';
+import { ICustomParameters, ITextLabel } from '../../../types/adwords';
 
 interface ICampaignRaw {
   readonly id: string;

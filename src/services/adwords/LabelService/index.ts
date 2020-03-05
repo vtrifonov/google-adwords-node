@@ -6,9 +6,8 @@ import { SoapService } from '../../core';
 import { ILabelPage } from './LabelPage';
 import { ILabelOperation } from './LabelOperation';
 import { ILabelReturnValue } from './LabelReturnValue';
-import { ITextLabel, Label } from './Label';
-import { ISelector } from '../../../types/adwords';
-import { Operator } from '../../../types/enum';
+import { ISelector, ITextLabel } from '../../../types/adwords';
+import { Operator, Label } from '../../../types/enum';
 
 interface ILabelServiceOpts {
   soapService: SoapService;

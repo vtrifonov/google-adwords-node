@@ -9,6 +9,7 @@ export * from './FeedItem';
 export * from './Gender';
 export * from './GeoRestriction';
 export * from './KeywordMatchType';
+export * from './Label';
 export * from './LocationTargetingStatus';
 export * from './Media';
 export * from './MinuteOfHour';

@@ -1,9 +1,8 @@
 import { ITargetingSetting, IExplorerAutoOptimizerSetting } from './Setting';
-import { ITextLabel } from '../CampaignService/Label';
 import { IAdGroupAdRotationMode } from './AdGroupAdRotationMode';
 import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
 import { AdGroupStatus, CriterionTypeGroup, AdGroupType } from '../../../types/enum';
-import { ICustomParameters } from '../../../types/adwords';
+import { ICustomParameters, ITextLabel } from '../../../types/adwords';
 
 interface IAdGroupRaw {
   id: string;
