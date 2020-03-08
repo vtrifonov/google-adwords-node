@@ -49,6 +49,12 @@ interface IExpandedTextAd
   path2?: string;
 }
 
+interface ITextAd extends Partial<IAdRaw<'TextAd'>> {
+  headline: string;
+  description1: string;
+  description2?: string;
+}
+
 interface IResponsiveDisplayAd
   extends Partial<Omit<IAdRaw<'ResponsiveDisplayAd'>, 'url' | 'displayUrl' | 'finalAppUrls' | 'devicePreference'>> {
   marketingImage: Partial<IImage>;
@@ -133,6 +139,7 @@ type PartialAd = Partial<
   | IResponsiveDisplayAd
   | IResponsiveSearchAd
   | ITemplateAd
+  | ITextAd
   | IUniversalApAd
 >;
 
@@ -146,6 +153,7 @@ export {
   IResponsiveDisplayAd,
   IResponsiveSearchAd,
   ITemplateAd,
+  ITextAd,
   IUniversalApAd,
   PartialAd,
 };

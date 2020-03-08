@@ -1,6 +1,7 @@
 import { IAccountLabel } from './AccountLabel';
+import { IAttributes } from '../../../types/adwords';
 
-interface IManagedCustomerRaw {
+interface IManagedCustomerRaw extends IAttributes {
   name: string;
   readonly customerId: string;
   canManageClients: boolean;

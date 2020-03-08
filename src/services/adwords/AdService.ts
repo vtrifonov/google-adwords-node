@@ -11,6 +11,7 @@ import {
   IMultiAssetResponsiveDisplayAd,
   IUniversalApAd,
   IPaging,
+  ITextAd,
 } from '../../types/adwords';
 import { BaseService, IServiceInfo } from '../core';
 import { IOperationServiceOptions } from '../core';
@@ -39,6 +40,9 @@ class AdService extends BaseService<PartialAd, 'AdService'> {
   }
   public static isUniversalApAd(ad: PartialAd): ad is IUniversalApAd {
     return _.some(['headlines', 'descriptions'], (prop) => prop in ad);
+  }
+  public static isTextAd(ad: PartialAd): ad is ITextAd {
+    return _.some(['headline', 'description1'], (prop) => prop in ad);
   }
 
   constructor(options: IOperationServiceOptions) {
@@ -131,6 +135,8 @@ class AdService extends BaseService<PartialAd, 'AdService'> {
       operand.attributes = { 'xsi:type': 'MultiAssetResponsiveDisplayAd' };
     } else if (AdService.isUniversalApAd(operand)) {
       operand.attributes = { 'xsi:type': 'UniversalApAd' };
+    } else if (AdService.isTextAd(operand)) {
+      operand.attributes = { 'xsi:type': 'TextAd' };
     } else {
       operand.attributes = { 'xsi:type': 'ProductAd' };
     }

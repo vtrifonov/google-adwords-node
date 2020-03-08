@@ -1,4 +1,4 @@
-export interface IAttributes<Type> {
+export interface IAttributes<Type = any> {
   attributes?: {
     'xsi:type': Type;
   };

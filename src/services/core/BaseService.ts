@@ -15,7 +15,7 @@ export interface IServiceInfo {
   selectorFields: string[];
 }
 
-export abstract class BaseService<T, TName> extends AdwordsOperationService {
+export abstract class BaseService<T extends IAttributes, TName> extends AdwordsOperationService {
   public static readonly namespace;
   protected readonly soapService: SoapService;
   protected readonly serviceInfo: IServiceInfo;
@@ -58,9 +58,12 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
 
   public add(operands: T[]) {
     const operations: Array<IOperation<T, TName>> = operands.map((operand: T) => {
+      if (!operand.attributes || !operand.attributes['xsi:type']) {
+        operand = this.setType(operand);
+      }
       const operation: IOperation<T, TName> = {
         operator: Operator.ADD,
-        operand: this.setType(operand),
+        operand,
       };
       return operation;
     });
