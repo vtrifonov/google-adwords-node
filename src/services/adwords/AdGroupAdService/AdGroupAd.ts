@@ -1,11 +1,11 @@
 import { AdGroupAd } from '../../../types/enum';
-import { IExpandedTextAd, IResponsiveDisplayAd, ITextLabel } from '../../../types/adwords';
+import { IExpandedTextAd, IResponsiveDisplayAd, ITextLabel, ITextAd, IImageAd } from '../../../types/adwords';
 
 interface IAdGroupAd {
   adGroupId: string;
   status?: AdGroupAd.Status;
   // TODO:
-  ad: Partial<IExpandedTextAd | IResponsiveDisplayAd>;
+  ad: Partial<IExpandedTextAd | IResponsiveDisplayAd | ITextAd | IImageAd>;
   // TODO
   readonly policySummary?: any;
   labels?: ITextLabel[];

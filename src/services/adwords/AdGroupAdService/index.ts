@@ -2,7 +2,15 @@ import { IListReturnValue } from './../../../types/abstract/ListReturnValue';
 import { pd } from 'pretty-data';
 
 import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, IPaging, IExpandedTextAd, IResponsiveDisplayAd, IOperation } from '../../../types/adwords';
+import {
+  ISelector,
+  IPaging,
+  IExpandedTextAd,
+  IResponsiveDisplayAd,
+  IOperation,
+  ITextAd,
+  IImageAd,
+} from '../../../types/adwords';
 import { Predicate, Ad, Operator } from '../../../types/enum';
 import { IAdGroupAd } from './AdGroupAd';
 import _ from 'lodash';
@@ -14,10 +22,20 @@ interface IAdGroupAdServiceOpts {
 
 class AdGroupAdService extends AdwordsOperationService {
   // TODO: better type guard
-  public static isExpandedTextAd(ad: Partial<IExpandedTextAd | IResponsiveDisplayAd>): ad is IExpandedTextAd {
+  public static isExpandedTextAd(
+    ad: Partial<IExpandedTextAd | IResponsiveDisplayAd | ITextAd | IImageAd>,
+  ): ad is IExpandedTextAd {
     return _.every(['headlinePart1', 'description'], (prop) => prop in ad);
   }
-  public static isResponsiveDisplayAd(ad: Partial<IExpandedTextAd | IResponsiveDisplayAd>): ad is IResponsiveDisplayAd {
+  public static isTextAd(ad: Partial<IExpandedTextAd | IResponsiveDisplayAd | ITextAd | IImageAd>): ad is ITextAd {
+    return _.every(['headline', 'description1'], (prop) => prop in ad);
+  }
+  public static isImageAd(ad: Partial<IExpandedTextAd | IResponsiveDisplayAd | ITextAd | IImageAd>): ad is IImageAd {
+    return _.some(['adToCopyImageFrom', 'image'], (prop) => prop in ad);
+  }
+  public static isResponsiveDisplayAd(
+    ad: Partial<IExpandedTextAd | IResponsiveDisplayAd | ITextAd | IImageAd>,
+  ): ad is IResponsiveDisplayAd {
     return _.every(['dynamicDisplayAdSettings', 'shortHeadline'], (prop) => prop in ad);
   }
 
@@ -26,6 +44,10 @@ class AdGroupAdService extends AdwordsOperationService {
       operand.ad.attributes = { 'xsi:type': 'ExpandedTextAd' };
     } else if (AdGroupAdService.isResponsiveDisplayAd(operand.ad)) {
       operand.ad.attributes = { 'xsi:type': 'ResponsiveDisplayAd' };
+    } else if (AdGroupAdService.isImageAd(operand.ad)) {
+      operand.ad.attributes = { 'xsi:type': 'ImageAd' };
+    } else if (AdGroupAdService.isTextAd(operand.ad)) {
+      operand.ad.attributes = { 'xsi:type': 'TextAd' };
     }
     return operand;
   }
@@ -207,6 +229,23 @@ class AdGroupAdService extends AdwordsOperationService {
           field: 'AdType',
           operator: Predicate.Operator.IN,
           values: [Ad.Type.EXPANDED_TEXT_AD],
+        },
+      ],
+    };
+    if (paging) {
+      serviceSelector.paging = paging;
+    }
+    return this.get(serviceSelector);
+  }
+
+  public async getAllImageAd(paging?: IPaging) {
+    const serviceSelector: ISelector = {
+      fields: AdGroupAdService.selectorFields,
+      predicates: [
+        {
+          field: 'AdType',
+          operator: Predicate.Operator.IN,
+          values: [Ad.Type.IMAGE_AD],
         },
       ],
     };
