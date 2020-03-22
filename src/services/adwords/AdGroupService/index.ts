@@ -1,25 +1,11 @@
-import { pd } from 'pretty-data';
-import { SoapService, AdwordsOperationService } from '../../core';
-import { ISelector, IOperation } from '../../../types/adwords';
-import { Predicate, Operator } from '../../../types/enum';
 import { IAdGroup } from './AdGroup';
+import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core';
+import { Ad, Predicate } from '../../../types/enum';
+import { IPaging, ISelector } from '../../../types/adwords';
+import { IPage } from '../../../types/abstract';
 import { ITargetingSetting, IExplorerAutoOptimizerSetting } from './Setting';
-import { settings } from 'cluster';
-import { ITargetingSettingDetail } from './TargetingSettingDetail';
-import { IPage, IListReturnValue } from '../../../types/abstract';
 
-interface IAdGroupServiceOpts {
-  soapService: SoapService;
-}
-
-/**
- * https://developers.google.com/adwords/api/docs/reference/v201809/AdGroupService
- *
- * @author dulin
- * @class AdGroupService
- * @extends {AdwordsOperationService}
- */
-class AdGroupService extends AdwordsOperationService {
+class AdGroupService extends BaseService<IAdGroup, 'AdGroupService'> {
   public static isTargetingSetting(
     setting: ITargetingSetting | IExplorerAutoOptimizerSetting,
   ): setting is ITargetingSetting {
@@ -31,53 +17,41 @@ class AdGroupService extends AdwordsOperationService {
   ): setting is IExplorerAutoOptimizerSetting {
     return 'optIn' in setting;
   }
-  /**
-   * https://developers.google.com/adwords/api/docs/appendix/selectorfields?hl=zh-cn#v201809-AdGroupService
-   *
-   * @private
-   * @static
-   * @memberof AdGroupService
-   */
-  private static readonly selectorFields = [
-    'AdGroupType',
-    'AdRotationMode',
-    'BaseAdGroupId',
-    'BaseCampaignId',
-    'BiddingStrategyId',
-    'BiddingStrategyName',
-    'BiddingStrategySource',
-    'BiddingStrategyType',
-    'CampaignId',
-    'CampaignName',
-    'ContentBidCriterionTypeGroup',
-    'CpcBid',
-    'CpmBid',
-    'EnhancedCpcEnabled',
-    'FinalUrlSuffix',
-    'Id',
-    'Labels',
-    'Name',
-    'Settings',
-    'Status',
-    'TargetCpa',
-    'TargetCpaBid',
-    'TargetCpaBidSource',
-    'TargetRoasOverride',
-    'TrackingUrlTemplate',
-    'UrlCustomParameters',
-  ];
 
-  private soapService: SoapService;
-  constructor(options: IAdGroupServiceOpts) {
-    super();
-    this.soapService = options.soapService;
-  }
-
-  public async getAll() {
-    const serviceSelector: ISelector = {
-      fields: AdGroupService.selectorFields,
+  constructor(options: IOperationServiceOptions) {
+    const serviceInfo: IServiceInfo = {
+      idField: 'Id',
+      operationType: 'AdGroupOperation',
+      selectorFields: [
+        'AdGroupType',
+        'AdRotationMode',
+        'BaseAdGroupId',
+        'BaseCampaignId',
+        'BiddingStrategyId',
+        'BiddingStrategyName',
+        'BiddingStrategySource',
+        'BiddingStrategyType',
+        'CampaignId',
+        'CampaignName',
+        'ContentBidCriterionTypeGroup',
+        'CpcBid',
+        'CpmBid',
+        'EnhancedCpcEnabled',
+        'FinalUrlSuffix',
+        'Id',
+        'Labels',
+        'Name',
+        'Settings',
+        'Status',
+        'TargetCpa',
+        'TargetCpaBid',
+        'TargetCpaBidSource',
+        'TargetRoasOverride',
+        'TrackingUrlTemplate',
+        'UrlCustomParameters',
+      ],
     };
-    return this.get(serviceSelector);
+    super(options, serviceInfo);
   }
 
   /**
@@ -88,45 +62,33 @@ class AdGroupService extends AdwordsOperationService {
    * @returns
    * @memberof AdGroupService
    */
-  public async getAllByCampaignIds(campaignIds: string[]) {
-    const serviceSelector: ISelector = {
-      fields: AdGroupService.selectorFields,
-      predicates: [
-        {
-          field: 'CampaignId',
-          operator: Predicate.Operator.IN,
-          values: campaignIds,
-        },
-      ],
-    };
-    return this.get(serviceSelector);
-  }
-
-  public async add(adGroup: IAdGroup) {
-    const operations: Array<IOperation<IAdGroup, 'AdGroupOperation'>> = [
+  public async getAllByCampaignIds(campaignIds: string[], paging?: IPaging) {
+    const predicates = [
       {
-        operator: Operator.ADD,
-        operand: this.setType(adGroup),
+        field: 'CampaignId',
+        operator: Predicate.Operator.IN,
+        values: campaignIds,
       },
     ];
-    return this.mutate(operations);
+    return this.getByPredicates(predicates);
   }
 
-  protected async get<ServiceSelector = ISelector, Rval = IPage<IAdGroup>>(serviceSelector: ServiceSelector) {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
-      return rval;
-    });
+  public async getNamesByIds(adGroupIds: string[], paging?: IPaging): Promise<IPage<IAdGroup>> {
+    const predicates = [
+      {
+        field: 'Id',
+        operator: Predicate.Operator.IN,
+        values: adGroupIds,
+      },
+    ];
+    return this.getByPredicates(predicates, paging, ['Id', 'Name']);
   }
 
-  protected async mutate<Operation = IOperation<IAdGroup, 'AdGroupOperation'>, Rval = IListReturnValue<IAdGroup>>(
-    operations: Operation[],
-  ) {
-    return this.soapService.mutateAsync<Operation, Rval>(operations, 'AdGroupOperation').then((rval: Rval) => {
-      return rval;
-    });
+  protected needToSetAttribute(operand: IAdGroup) {
+    return true;
   }
 
-  private setType(operand: IAdGroup) {
+  protected setType(operand: IAdGroup) {
     if (operand.settings && operand.settings.length) {
       operand.settings.forEach((setting: ITargetingSetting | IExplorerAutoOptimizerSetting) => {
         if (AdGroupService.isTargetingSetting(setting)) {
@@ -155,4 +117,4 @@ class AdGroupService extends AdwordsOperationService {
   }
 }
 
-export { AdGroupService, IAdGroupServiceOpts, IAdGroup };
+export { AdGroupService };

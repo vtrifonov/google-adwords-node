@@ -1,5 +1,4 @@
 import { IPriceTableRow } from './PriceTableRow';
-import { IFeedItemPolicySummary } from './FeedItemPolicySummary';
 import { IAttributes, IUrlList, ICustomParameters, IKeyword, ILocation } from '../../../types/adwords';
 import { IFeedItemDevicePreference } from './FeedItemDevicePreference';
 import { IFeedItemScheduling } from './FeedItemScheduling';
@@ -18,6 +17,7 @@ import {
   PromotionExtensionDiscountModifier,
   PromotionExtensionOccasion,
 } from '../../../types/enum';
+import { IFeedItemPolicySummary } from '../../../types/adwords/AdServices/PolicySummary';
 
 interface IExtensionFeedItemRaw<Type> extends IAttributes<Type> {
   readonly feedId: number;

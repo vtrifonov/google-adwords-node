@@ -1,5 +1,6 @@
 import { CampaignCriterion } from './enum/CampaignCriterion';
 import { ILocation, IProximity } from '../../../types/adwords';
+import { IStringStringMapEntry } from '../CampaignService/String_StringMapEntry';
 
 interface ICampaignCriterionRaw {
   campaignId: string;
@@ -9,7 +10,7 @@ interface ICampaignCriterionRaw {
   bidModifier: number;
   campaignCriterionStatus: CampaignCriterion.CampaignCriterionStatus;
   readonly baseCampaignId: string;
-  // forwardCompatibilityMap: any;
+  forwardCompatibilityMap?: IStringStringMapEntry[];
   'CampaignCriterion.Type': string;
 }
 

@@ -3,6 +3,7 @@ import { IAdGroupAdRotationMode } from './AdGroupAdRotationMode';
 import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
 import { AdGroupStatus, CriterionTypeGroup, AdGroupType } from '../../../types/enum';
 import { ICustomParameters, ITextLabel } from '../../../types/adwords';
+import { IStringStringMapEntry } from '../CampaignService/String_StringMapEntry';
 
 interface IAdGroupRaw {
   id: string;
@@ -28,8 +29,7 @@ interface IAdGroupRaw {
   urlCustomParameters: ICustomParameters;
   adGroupType: AdGroupType;
   adGroupAdRotationMode: IAdGroupAdRotationMode;
-  // TODO
-  // forwardCompatibilityMap
+  forwardCompatibilityMap?: IStringStringMapEntry[];
 }
 
 interface IAdGroup extends Partial<IAdGroupRaw> {}

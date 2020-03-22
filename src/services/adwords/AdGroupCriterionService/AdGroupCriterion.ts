@@ -4,6 +4,7 @@ import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
 import { IUrlList } from './UrlList';
 import { IAttributes, ICustomParameters, ITextLabel, IKeyword, IGender, IAgeRange } from '../../../types/adwords';
 import { CriterionUse, SystemServingStatus, ApprovalStatus, UserStatus } from '../../../types/enum';
+import { IStringStringMapEntry } from '../CampaignService/String_StringMapEntry';
 
 interface IAdGroupCriterion<Type> extends IAttributes<Type> {
   adGroupId: string;
@@ -12,7 +13,7 @@ interface IAdGroupCriterion<Type> extends IAttributes<Type> {
   criterion: IKeyword | IGender | IAgeRange;
   labels: ITextLabel[];
 
-  // forwardCompatibilityMap: any;
+  forwardCompatibilityMap?: IStringStringMapEntry[];
   readonly baseCampaignId: string;
   readonly baseAdGroupId: string;
   'AdGroupCriterion.Type': string;

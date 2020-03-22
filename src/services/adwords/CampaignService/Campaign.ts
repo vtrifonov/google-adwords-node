@@ -34,7 +34,7 @@ interface ICampaignRaw {
   biddingStrategyConfiguration: IBiddingStrategyConfiguration;
   readonly campaignTrialType: CampaignTrialType;
   readonly baseCampaignId: string;
-  forwardCompatibilityMap: IStringStringMapEntry[];
+  forwardCompatibilityMap?: IStringStringMapEntry[];
   trackingUrlTemplate: string;
   finalUrlSuffix: string;
   urlCustomParameters: ICustomParameters;

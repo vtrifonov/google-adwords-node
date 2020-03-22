@@ -15,7 +15,7 @@ export interface IServiceInfo {
   selectorFields: string[];
 }
 
-export abstract class BaseService<T extends IAttributes, TName> extends AdwordsOperationService {
+export abstract class BaseService<T, TName> extends AdwordsOperationService {
   public static readonly namespace;
   protected readonly soapService: SoapService;
   protected readonly serviceInfo: IServiceInfo;
@@ -36,7 +36,7 @@ export abstract class BaseService<T extends IAttributes, TName> extends AdwordsO
     return this.get(serviceSelector);
   }
 
-  public async getByAdIds(ids: string[], paging?: IPaging) {
+  public async getByIds(ids: string[], paging?: IPaging) {
     if (!this.serviceInfo.idField) {
       return Promise.reject('Id select not supported by this service type');
     }
@@ -58,7 +58,7 @@ export abstract class BaseService<T extends IAttributes, TName> extends AdwordsO
 
   public add(operands: T[]) {
     const operations: Array<IOperation<T, TName>> = operands.map((operand: T) => {
-      if (!operand.attributes || !operand.attributes['xsi:type']) {
+      if (this.needToSetAttribute(operand)) {
         operand = this.setType(operand);
       }
       const operation: IOperation<T, TName> = {
@@ -81,9 +81,13 @@ export abstract class BaseService<T extends IAttributes, TName> extends AdwordsO
     return this.mutate(operations);
   }
 
-  public async getByPredicates(predicates: IPredicate[], paging?: IPaging): Promise<IPage<T>> {
+  public async getByPredicates(
+    predicates: IPredicate[],
+    paging?: IPaging,
+    selectorFields?: string[],
+  ): Promise<IPage<T>> {
     const serviceSelector: ISelector = {
-      fields: this.serviceInfo.selectorFields,
+      fields: selectorFields ? selectorFields : this.serviceInfo.selectorFields,
       predicates,
     };
     if (paging) {
@@ -94,6 +98,10 @@ export abstract class BaseService<T extends IAttributes, TName> extends AdwordsO
 
   protected setType(operand: T): T {
     return operand;
+  }
+
+  protected needToSetAttribute(operand: T): boolean {
+    return !(operand as any).attributes || !(operand as any).attributes['xsi:type'];
   }
 
   protected async get<ServiceSelector = ISelector, Rval = IPage<T>>(serviceSelector: ServiceSelector): Promise<Rval> {

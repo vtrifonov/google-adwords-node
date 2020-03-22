@@ -1,4 +1,3 @@
-export * from './AdGroupAdService';
 export * from './AdGroupCriterionService';
 export * from './AdGroupExtensionSettingService';
 export * from './AdGroupService';
@@ -14,6 +13,7 @@ export * from './LocationCriterionService';
 export * from './ManagedCustomerService';
 export * from './ReportDefinitionService';
 export * from './Reports';
+export * from './AdGroupAdService';
 export * from './AdService';
 export * from './AdWordsService';
 export * from './LabelService';

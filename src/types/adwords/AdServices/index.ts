@@ -1,4 +1,5 @@
 export * from './Ad';
+export * from './AdGroupAd';
 export * from './AdUnionId';
 export * from './Asset';
 export * from './AssetLink';
