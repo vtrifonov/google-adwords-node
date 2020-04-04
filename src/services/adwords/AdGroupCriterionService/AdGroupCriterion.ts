@@ -2,7 +2,15 @@ import { IBid } from './Bid';
 import { IQualityInfo } from './QualityInfo';
 import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
 import { IUrlList } from './UrlList';
-import { IAttributes, ICustomParameters, ITextLabel, IKeyword, IGender, IAgeRange } from '../../../types/adwords';
+import {
+  IAttributes,
+  ICustomParameters,
+  ITextLabel,
+  IKeyword,
+  IGender,
+  IAgeRange,
+  PartialCriterion,
+} from '../../../types/adwords';
 import { CriterionUse, SystemServingStatus, ApprovalStatus, UserStatus } from '../../../types/enum';
 import { IStringStringMapEntry } from '../CampaignService/String_StringMapEntry';
 
@@ -10,7 +18,7 @@ interface IAdGroupCriterion<Type> extends IAttributes<Type> {
   adGroupId: string;
   readonly criterionUse: CriterionUse;
   // TODO
-  criterion: IKeyword | IGender | IAgeRange;
+  criterion: PartialCriterion;
   labels: ITextLabel[];
 
   forwardCompatibilityMap?: IStringStringMapEntry[];
@@ -42,10 +50,13 @@ interface IBiddableAdGroupCriterion extends Partial<IBiddableAdGroupCriterionRaw
 interface INegativeAdGroupCriterionRaw<Type> extends IAdGroupCriterion<Type> {}
 interface INegativeAdGroupCriterion extends Partial<INegativeAdGroupCriterionRaw<'NegativeAdGroupCriterion'>> {}
 
+type PartialAdGroupCriterion = Partial<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>;
+
 export {
   IAdGroupCriterion,
   IBiddableAdGroupCriterion,
   IBiddableAdGroupCriterionRaw,
   INegativeAdGroupCriterion,
   INegativeAdGroupCriterionRaw,
+  PartialAdGroupCriterion,
 };

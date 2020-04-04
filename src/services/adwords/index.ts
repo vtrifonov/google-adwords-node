@@ -8,6 +8,7 @@ export * from './CampaignCriterionService';
 export * from './CampaignExtensionSettingService';
 export * from './CampaignService';
 export * from './CustomerService';
+export * from './FeedItemService';
 export * from './LabelService';
 export * from './LocationCriterionService';
 export * from './ManagedCustomerService';

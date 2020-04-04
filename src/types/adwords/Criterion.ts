@@ -38,4 +38,6 @@ interface IProximity extends ICriterionRaw<'Proximity'> {
   address: IAddress;
 }
 
-export { IKeyword, IGender, IAgeRange, ICriterion, ICriterionRaw, ILocation, IProximity };
+type PartialCriterion = Partial<IKeyword | IGender | IAgeRange | ILocation | IProximity>;
+
+export { IKeyword, IGender, IAgeRange, ICriterion, ICriterionRaw, ILocation, IProximity, PartialCriterion };

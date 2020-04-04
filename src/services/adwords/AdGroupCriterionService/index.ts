@@ -1,234 +1,139 @@
-import { pd } from 'pretty-data';
+import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core';
+import { PartialAdGroupCriterion, IBiddableAdGroupCriterion } from './AdGroupCriterion';
+import { CriterionUse, Predicate, Criterion } from '../../../types/enum';
+import { IKeyword, PartialCriterion, IGender, IAgeRange, IPaging } from '../../../types/adwords';
 
-import { AdwordsOperationService, SoapService } from '../../core';
-import { ISelector, IPaging, IKeyword, IGender, IAgeRange, IOperation } from '../../../types/adwords';
-import { Ad, Predicate, Criterion, CriterionUse, Operator } from '../../../types/enum';
-import { IBiddableAdGroupCriterion, INegativeAdGroupCriterion } from './AdGroupCriterion';
-import { IPage, IListReturnValue } from '../../../types/abstract';
-
-interface IAdGroupCriterionServiceOpts {
-  soapService: SoapService;
-}
-
-class AdGroupCriterionService extends AdwordsOperationService {
-  public static setType(operand: IBiddableAdGroupCriterion | INegativeAdGroupCriterion) {
-    if (AdGroupCriterionService.isBiddableAdGroupCriterion(operand)) {
-      operand.attributes = { 'xsi:type': 'BiddableAdGroupCriterion' };
-    } else if (AdGroupCriterionService.isNegativeAdGroupCriterion(operand)) {
-      operand.attributes = { 'xsi:type': 'NegativeAdGroupCriterion' };
-    }
-    if (operand.criterion) {
-      if (AdGroupCriterionService.isKeyword(operand.criterion)) {
-        operand.criterion.attributes = { 'xsi:type': 'Keyword' };
-      } else if (AdGroupCriterionService.isGender(operand.criterion)) {
-        operand.criterion.attributes = { 'xsi:type': 'Gender' };
-      } else if (AdGroupCriterionService.isAgeRange(operand.criterion)) {
-        operand.criterion.attributes = { 'xsi:type': 'AgeRange' };
-      }
-    }
-    return operand;
-  }
-  public static isBiddableAdGroupCriterion(
-    operand: IBiddableAdGroupCriterion | INegativeAdGroupCriterion,
-  ): operand is IBiddableAdGroupCriterion {
+class AdGroupCriterionService extends BaseService<PartialAdGroupCriterion, 'AdGroupCriterionService'> {
+  public static isBiddableAdGroupCriterion(operand: PartialAdGroupCriterion): operand is IBiddableAdGroupCriterion {
     return operand.criterionUse === CriterionUse.BIDDABLE;
   }
-  public static isNegativeAdGroupCriterion(operand: IBiddableAdGroupCriterion | INegativeAdGroupCriterion) {
+
+  public static isNegativeAdGroupCriterion(operand: PartialAdGroupCriterion) {
     return operand.criterionUse === CriterionUse.NEGATIVE;
   }
-  public static isKeyword(criterion: IKeyword | IGender | IAgeRange): criterion is IKeyword {
+  public static isKeyword(criterion: PartialCriterion): criterion is IKeyword {
     return 'matchType' in criterion;
   }
-  public static isGender(criterion: IKeyword | IGender | IAgeRange): criterion is IGender {
+  public static isGender(criterion: PartialCriterion): criterion is IGender {
     return 'genderType' in criterion;
   }
-  public static isAgeRange(criterion: IKeyword | IGender | IAgeRange): criterion is IAgeRange {
+  public static isAgeRange(criterion: PartialCriterion): criterion is IAgeRange {
     return 'ageRangeType' in criterion;
   }
 
-  private static readonly selectorFields: string[] = [
-    'AdGroupId',
-    'AgeRangeType',
-    'AppId',
-    'AppPaymentModelType',
-    'ApprovalStatus',
-    'BaseAdGroupId',
-    'BaseCampaignId',
-    'BidModifier',
-    'BiddingStrategyId',
-    'BiddingStrategyName',
-    'BiddingStrategySource',
-    'BiddingStrategyType',
-    'CaseValue',
-    'ChannelId',
-    'ChannelName',
-    'CpcBid',
-    'CpcBidSource',
-    'CpmBid',
-    'CpmBidSource',
-    'CriteriaCoverage',
-    'CriteriaSamples',
-    'CriteriaType',
-    'CriterionUse',
-    'CustomAffinityId',
-    'CustomIntentId',
-    'DisapprovalReasons',
-    'DisplayName',
-    'EnhancedCpcEnabled',
-    'FinalAppUrls',
-    'FinalMobileUrls',
-    'FinalUrlSuffix',
-    'FinalUrls',
-    'FirstPageCpc',
-    'FirstPositionCpc',
-    'GenderType',
-    'Id',
-    'IncomeRangeType',
-    'KeywordMatchType',
-    'KeywordText',
-    'Labels',
-    'MobileAppCategoryId',
-    'Parameter',
-    'ParentCriterionId',
-    'ParentType',
-    'PartitionType',
-    'Path',
-    'PlacementUrl',
-    'QualityScore',
-    'Status',
-    'SystemServingStatus',
-    'TopOfPageCpc',
-    'TrackingUrlTemplate',
-    'UrlCustomParameters',
-    'UserInterestId',
-    'UserInterestName',
-    'UserInterestParentId',
-    'UserListEligibleForDisplay',
-    'UserListEligibleForSearch',
-    'UserListId',
-    'UserListMembershipStatus',
-    'UserListName',
-    'VerticalId',
-    'VerticalParentId',
-    'VideoId',
-    'VideoName',
-  ];
-
-  private soapService: SoapService;
-  constructor(options: IAdGroupCriterionServiceOpts) {
-    super();
-    this.soapService = options.soapService;
-  }
-
-  public async getByAdGroupIds(adGroupIds: string[]) {
-    const serviceSelector: ISelector = {
-      fields: AdGroupCriterionService.selectorFields,
-      predicates: [
-        {
-          field: 'AdGroupId',
-          operator: Predicate.Operator.IN,
-          values: adGroupIds,
-        },
+  constructor(options: IOperationServiceOptions) {
+    const serviceInfo: IServiceInfo = {
+      idField: 'Id',
+      operationType: 'AdGroupCriterionOperation',
+      selectorFields: [
+        'AdGroupId',
+        'AgeRangeType',
+        'AppId',
+        'AppPaymentModelType',
+        'ApprovalStatus',
+        'BaseAdGroupId',
+        'BaseCampaignId',
+        'BidModifier',
+        'BiddingStrategyId',
+        'BiddingStrategyName',
+        'BiddingStrategySource',
+        'BiddingStrategyType',
+        'CaseValue',
+        'ChannelId',
+        'ChannelName',
+        'CpcBid',
+        'CpcBidSource',
+        'CpmBid',
+        'CpmBidSource',
+        'CriteriaCoverage',
+        'CriteriaSamples',
+        'CriteriaType',
+        'CriterionUse',
+        'CustomAffinityId',
+        'CustomIntentId',
+        'DisapprovalReasons',
+        'DisplayName',
+        'EnhancedCpcEnabled',
+        'FinalAppUrls',
+        'FinalMobileUrls',
+        'FinalUrlSuffix',
+        'FinalUrls',
+        'FirstPageCpc',
+        'FirstPositionCpc',
+        'GenderType',
+        'Id',
+        'IncomeRangeType',
+        'KeywordMatchType',
+        'KeywordText',
+        'Labels',
+        'MobileAppCategoryId',
+        'Parameter',
+        'ParentCriterionId',
+        'ParentType',
+        'PartitionType',
+        'Path',
+        'PlacementUrl',
+        'QualityScore',
+        'Status',
+        'SystemServingStatus',
+        'TopOfPageCpc',
+        'TrackingUrlTemplate',
+        'UrlCustomParameters',
+        'UserInterestId',
+        'UserInterestName',
+        'UserInterestParentId',
+        'UserListEligibleForDisplay',
+        'UserListEligibleForSearch',
+        'UserListId',
+        'UserListMembershipStatus',
+        'UserListName',
+        'VerticalId',
+        'VerticalParentId',
+        'VideoId',
+        'VideoName',
       ],
     };
-    return this.get(serviceSelector);
+    super(options, serviceInfo);
   }
 
-  public async getAll(paging?: IPaging) {
-    const serviceSelector: ISelector = {
-      fields: AdGroupCriterionService.selectorFields,
-    };
-    if (paging) {
-      serviceSelector.paging = paging;
-    }
-    return this.get(serviceSelector);
+  public async getByAdGroupIds(adGroupIds: string[], paging?: IPaging) {
+    const predicates = [
+      {
+        field: 'AdGroupId',
+        operator: Predicate.Operator.IN,
+        values: adGroupIds,
+      },
+    ];
+    return this.getByPredicates(predicates, paging);
   }
 
   public async getAllByType(criterionType: Criterion.Type, paging?: IPaging) {
-    const serviceSelector: ISelector = {
-      fields: AdGroupCriterionService.selectorFields,
-      predicates: [
-        {
-          field: 'CriteriaType',
-          operator: Predicate.Operator.IN,
-          values: [criterionType],
-        },
-      ],
-    };
-    if (paging) {
-      serviceSelector.paging = paging;
-    }
-    return this.get(serviceSelector);
+    const predicates = [
+      {
+        field: 'CriteriaType',
+        operator: Predicate.Operator.IN,
+        values: [criterionType],
+      },
+    ];
+    return this.getByPredicates(predicates, paging);
   }
 
-  public async getKeywordCriterionByAdGroupIds(adGroupIds: string[]) {
-    const serviceSelector: ISelector = {
-      fields: AdGroupCriterionService.selectorFields,
-      predicates: [
-        {
-          field: 'AdGroupId',
-          operator: Predicate.Operator.IN,
-          values: adGroupIds,
-        },
-        {
-          field: 'CriteriaType',
-          operator: Predicate.Operator.EQUALS,
-          values: [Criterion.Type.KEYWORD],
-        },
-      ],
-    };
-    return this.get(serviceSelector);
-  }
-
-  /**
-   * add ad group criterion such as Keyword, Gender. Support partial failure
-   * https://developers.google.com/adwords/api/docs/guides/partial-failure
-   *
-   * @author dulin
-   * @param {(Array<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>)} adGroupCriterions
-   * @returns
-   * @memberof AdGroupCriterionService
-   */
-  public async add(adGroupCriterions: Array<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>) {
-    const operaions: Array<
-      IOperation<IBiddableAdGroupCriterion | INegativeAdGroupCriterion, 'AdGroupCriterionOperation'>
-    > = adGroupCriterions.map((adGroupCriterion: IBiddableAdGroupCriterion | INegativeAdGroupCriterion) => {
-      const adGroupCriterionOperation: IOperation<
-        IBiddableAdGroupCriterion | INegativeAdGroupCriterion,
-        'AdGroupCriterionOperation'
-      > = {
-        operator: Operator.ADD,
-        operand: AdGroupCriterionService.setType(adGroupCriterion),
-      };
-      return adGroupCriterionOperation;
-    });
-    return this.mutate(operaions);
-  }
-
-  protected async get<ServiceSelector = ISelector, Rval = IPage<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>>(
-    serviceSelector: ServiceSelector,
-  ): Promise<Rval> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval: Rval) => {
-      return rval;
-    });
-  }
-
-  protected async mutate<
-    Operation = IOperation<IBiddableAdGroupCriterion | INegativeAdGroupCriterion, 'AdGroupCriterionOperation'>,
-    Rval = IListReturnValue<IBiddableAdGroupCriterion | INegativeAdGroupCriterion>
-  >(operaions: Operation[]): Promise<Rval> {
-    return this.soapService
-      .mutateAsync<Operation, Rval>(operaions, /** operationType = */ 'AdGroupCriterionOperation')
-      .then((rval: Rval) => {
-        return rval;
-      });
+  public async getKeywordCriterionByAdGroupIds(adGroupIds: string[], paging?: IPaging) {
+    const predicates = [
+      {
+        field: 'AdGroupId',
+        operator: Predicate.Operator.IN,
+        values: adGroupIds,
+      },
+      {
+        field: 'CriteriaType',
+        operator: Predicate.Operator.EQUALS,
+        values: [Criterion.Type.KEYWORD],
+      },
+    ];
+    return this.getByPredicates(predicates, paging);
   }
 }
 
-export {
-  AdGroupCriterionService,
-  IAdGroupCriterionServiceOpts,
-  Criterion,
-  IBiddableAdGroupCriterion,
-  INegativeAdGroupCriterion,
-};
+export { AdGroupCriterionService };
+export * from './AdGroupCriterion';

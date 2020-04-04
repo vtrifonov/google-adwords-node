@@ -96,12 +96,16 @@ class SoapService extends AdwordsOperationService {
    * @returns {Promise<Response>}
    * @memberof SoapService
    */
-  public async mutateAsync<Operation, Rval>(operations: Operation[], operationType?: string): Promise<Rval> {
+  public async mutateAsync<Operation, Rval>(
+    operations: Operation[],
+    operationType?: string,
+    modifyInputOperand?: (original: any) => any,
+  ): Promise<Rval> {
     if (!operations.length) {
       throw new Error('operation array is empty');
     }
     const client = await this.beforeSendRequest();
-    const request = this.formMutateRequest({ operations, operationType, mutateMethod: 'mutate' });
+    const request = this.formMutateRequest({ operations, operationType, mutateMethod: 'mutate' }, modifyInputOperand);
     const response = await client.mutateAsync(request);
     return this.parseMutateResponse<Rval>(response);
   }
@@ -233,14 +237,21 @@ class SoapService extends AdwordsOperationService {
     return parameter;
   }
 
-  private formMutateRequest(options: { operationType?: string; [key: string]: any }) {
+  private formMutateRequest(
+    options: { operationType?: string; [key: string]: any },
+    modifyInputOperand?: (original: any) => any,
+  ) {
     const request: { operations: Array<IOperation<any>> } = { operations: [] };
     const mutateMethod = this.description[this.serviceName][`${this.serviceName}InterfacePort`][options.mutateMethod];
     const operations = options.operations;
+    let inputOperand = mutateMethod.input['operations[]'].operand;
+    if (modifyInputOperand) {
+      inputOperand = modifyInputOperand(inputOperand);
+    }
 
     if (_.keys(mutateMethod.input).indexOf('operations[]') > -1) {
       _.each(operations, (operation) => {
-        operation.operand = this.matchJSONKeyOrder(operation.operand, mutateMethod.input['operations[]'].operand);
+        operation.operand = this.matchJSONKeyOrder(operation.operand, inputOperand);
         request.operations.push(operation);
       });
     }

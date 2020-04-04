@@ -118,3 +118,4 @@ class AdGroupService extends BaseService<IAdGroup, 'AdGroupService'> {
 }
 
 export { AdGroupService };
+export * from './AdGroup';
