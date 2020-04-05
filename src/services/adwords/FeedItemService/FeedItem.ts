@@ -1,7 +1,7 @@
 import { FeedItem } from '../../../types/enum';
 import { IFeedItemPolicySummary } from '../../../types/adwords/AdServices/PolicySummary';
-import { IFeedItemGeoRestriction } from '../AdGroupExtensionSettingService/FeedItemGeoRestriction';
 import { ICustomParameters } from '../../../types/adwords';
+import { IFeedItemGeoRestriction } from '../ExtensionSettingService/FeedItemGeoRestriction';
 
 interface IFeedItem {
   readonly feedId: number;

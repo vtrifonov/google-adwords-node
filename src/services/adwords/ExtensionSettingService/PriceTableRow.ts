@@ -1,6 +1,5 @@
-import { IUrlList } from './UrlList';
-import { IMoneyWithCurrency } from './Money';
 import { PriceExtensionPriceUnit } from '../../../types/enum';
+import { IUrlList, IMoneyWithCurrency } from '../../../types/adwords';
 
 export interface IPriceTableRow {
   header: string;

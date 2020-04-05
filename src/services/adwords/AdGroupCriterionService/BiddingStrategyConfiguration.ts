@@ -1,4 +1,4 @@
-import { ICpcBid, ICpaBid, ICpmBid } from './Bids';
+import { PartialBid } from '../../../types/adwords';
 
 enum BiddingStrategyType {
   MANUAL_CPC = 'MANUAL_CPC',
@@ -27,7 +27,7 @@ interface IBiddingStrategyConfiguration {
   readonly biddingStrategySource?: BiddingStrategySource;
   // TODO:
   biddingScheme: any;
-  bids: Array<ICpcBid | ICpaBid | ICpmBid>;
+  bids: PartialBid[];
   targetRoasOverride: number;
 }
 

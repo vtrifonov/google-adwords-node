@@ -1,15 +1,11 @@
 import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core';
 import { Predicate, Feed } from '../../../types/enum';
 import { IPaging } from '../../../types/adwords';
-import { ICampaignExtensionSetting } from './CampaignExtensionSetting';
-import { ISitelinkFeedItem } from './ExtensionFeedItem';
 import { KeysEnum } from '../../../types/abstract';
-import { PartialExtensionFeedItem } from '../AdGroupExtensionSettingService/ExtensionFeedItem';
+import { IEntityExtensionSetting } from './EntityExtensionSetting';
+import { PartialExtensionFeedItem } from './ExtensionFeedItem';
 
-class CampaignExtensionSettingService extends BaseService<
-  ICampaignExtensionSetting,
-  'CampaignExtensionSettingService'
-> {
+abstract class BaseExtensionSettingService<T extends IEntityExtensionSetting, TName> extends BaseService<T, TName> {
   private static modifyInputOperand(original: any): any {
     const extensionNode = original.extensionSetting['extensions[]'];
     // TODO
@@ -105,19 +101,29 @@ class CampaignExtensionSettingService extends BaseService<
     return original;
   }
 
-  constructor(options: IOperationServiceOptions) {
+  protected readonly entityIdFieldName?: string;
+
+  constructor(options: IOperationServiceOptions, operationType: string, entityIdFieldName?: string) {
     const serviceInfo: IServiceInfo = {
-      operationType: 'CampaignExtensionSettingOperation',
-      selectorFields: ['CampaignId', 'ExtensionType', 'Extensions', 'PlatformRestrictions'],
-      modifyMutateInputOperand: CampaignExtensionSettingService.modifyInputOperand,
+      operationType,
+      selectorFields: (entityIdFieldName ? [entityIdFieldName] : []).concat([
+        'ExtensionType',
+        'Extensions',
+        'PlatformRestrictions',
+      ]),
+      modifyMutateInputOperand: BaseExtensionSettingService.modifyInputOperand,
     };
     super(options, serviceInfo);
+    this.entityIdFieldName = entityIdFieldName;
   }
 
-  public async getByCampaignIds(campaignIds: string[], paging?: IPaging) {
+  public async getByEntityIds(campaignIds: string[], paging?: IPaging) {
+    if (!this.entityIdFieldName) {
+      return null;
+    }
     const predicates = [
       {
-        field: 'CampaignId',
+        field: this.entityIdFieldName,
         operator: Predicate.Operator.IN,
         values: campaignIds,
       },
@@ -139,5 +145,5 @@ class CampaignExtensionSettingService extends BaseService<
   }
 }
 
-export { CampaignExtensionSettingService };
-export * from './CampaignExtensionSetting';
+export { BaseExtensionSettingService };
+export * from './EntityExtensionSetting';

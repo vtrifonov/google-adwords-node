@@ -150,5 +150,4 @@ export { BudgetService, IBudgetServiceOpts };
 export * from './ApiError';
 export * from './Budget';
 export * from './FieldPathElement';
-export * from './Money';
 export * from './enum/Budget';

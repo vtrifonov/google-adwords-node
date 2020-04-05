@@ -1,4 +1,4 @@
-import { IComparableValue } from '../../../types/abstract';
+import { IComparableValue } from '../abstract';
 
 interface IMoney extends IComparableValue {
   microAmount: number;

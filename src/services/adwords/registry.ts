@@ -7,9 +7,12 @@ import { BudgetService } from './BudgetService';
 import { FeedItemService } from './FeedItemService';
 import { LabelService } from './LabelService';
 import { AdGroupCriterionService } from './AdGroupCriterionService';
-import { AdGroupExtensionSettingService } from './AdGroupExtensionSettingService';
+import {
+  AdGroupExtensionSettingService,
+  CampaignExtensionSettingService,
+  CustomerExtensionSettingService,
+} from './ExtensionSettingService';
 import { CampaignCriterionService } from './CampaignCriterionService';
-import { CampaignExtensionSettingService } from './CampaignExtensionSettingService';
 import { LocationCriterionService } from './LocationCriterionService';
 import { ManagedCustomerService } from './ManagedCustomerService';
 import { CustomerService } from './CustomerService';
@@ -41,6 +44,7 @@ interface IServiceMap {
   AdGroupExtensionSettingService: AdGroupExtensionSettingService;
   CampaignCriterionService: CampaignCriterionService;
   CampaignExtensionSettingService: CampaignExtensionSettingService;
+  CustomerExtensionSettingService: CustomerExtensionSettingService;
   LocationCriterionService: LocationCriterionService;
   ManagedCustomerService: ManagedCustomerService;
   CustomerService: CustomerService;
@@ -71,6 +75,7 @@ const registryService = RegistryService.init()
   .register(AdGroupExtensionSettingService)
   .register(CampaignExtensionSettingService)
   .register(CampaignCriterionService)
+  .register(CustomerExtensionSettingService)
   .register(LocationCriterionService)
   .register(ManagedCustomerService)
   .register(CustomerService)

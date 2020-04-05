@@ -1,7 +1,7 @@
 import { IMoney } from './Money';
-import { IAttributes } from '../../../types/adwords';
-import { BidSource } from '../../../types/enum';
-import { IBids } from '../../../types/abstract';
+import { IBids } from '../abstract';
+import { IAttributes } from './Attributes';
+import { BidSource } from '../enum';
 
 interface ICpaBid extends IBids, IAttributes<'CpaBid'> {
   bid: IMoney;
@@ -18,4 +18,6 @@ interface ICpmBid extends IBids, IAttributes<'CpmBid'> {
   readonly cpmBidSource?: BidSource;
 }
 
-export { ICpaBid, ICpcBid, ICpmBid };
+type PartialBid = Partial<ICpcBid | ICpaBid | ICpmBid>;
+
+export { ICpaBid, ICpcBid, ICpmBid, PartialBid };

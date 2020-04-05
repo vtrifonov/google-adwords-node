@@ -1,5 +1,5 @@
-import { IMoney } from './Money';
 import { Budget } from './enum/Budget';
+import { IMoney } from '../../../types/adwords';
 
 export interface IBudget {
   budgetId?: string;

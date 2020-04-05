@@ -1,12 +1,17 @@
 import { IPriceTableRow } from './PriceTableRow';
-import { IAttributes, IUrlList, ICustomParameters, IKeyword, ILocation } from '../../../types/adwords';
+import {
+  IAttributes,
+  IUrlList,
+  ICustomParameters,
+  IKeyword,
+  ILocation,
+  IMoneyWithCurrency,
+} from '../../../types/adwords';
 import { IFeedItemDevicePreference } from './FeedItemDevicePreference';
 import { IFeedItemScheduling } from './FeedItemScheduling';
 import { IFeedItemCampaignTargeting } from './FeedItemCampaignTargeting';
 import { IFeedItemAdGroupTargeting } from './FeedItemAdGroupTargeting';
 import { IFeedItemGeoRestriction } from './FeedItemGeoRestriction';
-import { ICallConversionType } from './CallConversionType';
-import { IMoneyWithCurrency } from './Money';
 import _ from 'lodash';
 import {
   FeedItem,
@@ -18,6 +23,7 @@ import {
   PromotionExtensionOccasion,
 } from '../../../types/enum';
 import { IFeedItemPolicySummary } from '../../../types/adwords/AdServices/PolicySummary';
+import { ICallConversionType } from './CallConversionType';
 
 interface IExtensionFeedItemRaw<Type> extends IAttributes<Type> {
   readonly feedId: number;

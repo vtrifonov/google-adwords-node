@@ -1,16 +1,7 @@
 import { IBid } from './Bid';
 import { IQualityInfo } from './QualityInfo';
 import { IBiddingStrategyConfiguration } from './BiddingStrategyConfiguration';
-import { IUrlList } from './UrlList';
-import {
-  IAttributes,
-  ICustomParameters,
-  ITextLabel,
-  IKeyword,
-  IGender,
-  IAgeRange,
-  PartialCriterion,
-} from '../../../types/adwords';
+import { IAttributes, ICustomParameters, ITextLabel, PartialCriterion, IUrlList } from '../../../types/adwords';
 import { CriterionUse, SystemServingStatus, ApprovalStatus, UserStatus } from '../../../types/enum';
 import { IStringStringMapEntry } from '../CampaignService/String_StringMapEntry';
 
