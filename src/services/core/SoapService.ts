@@ -229,10 +229,11 @@ class SoapService extends AdwordsOperationService {
       {},
     );
     let parameter = {};
+    const selector = this.matchJSONKeyOrder(serviceSelector, getInput.selector || getInput.serviceSelector);
     if (getInput.selector) {
-      parameter = { selector: serviceSelector };
+      parameter = { selector };
     } else if (getInput.serviceSelector) {
-      parameter = { serviceSelector };
+      parameter = { serviceSelector: selector };
     }
     return parameter;
   }
