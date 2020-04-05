@@ -29,9 +29,9 @@ interface IBiddableAdGroupCriterionRaw<Type> extends IAdGroupCriterion<Type> {
   userStatus: UserStatus;
   biddingStrategyConfiguration: IBiddingStrategyConfiguration;
   bidModifier: number;
-  finalUrls: IUrlList[];
-  finalMobileUrls: IUrlList[];
-  finalAppUrls: IUrlList[];
+  finalUrls: IUrlList;
+  finalMobileUrls: IUrlList;
+  finalAppUrls: IUrlList;
   trackingUrlTemplate: string;
   finalUrlSuffix: string;
   urlCustomParameters: ICustomParameters;
