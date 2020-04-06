@@ -4,8 +4,8 @@ import { ICustomParameters } from '../../../types/adwords';
 import { IFeedItemGeoRestriction } from '../ExtensionSettingService/FeedItemGeoRestriction';
 
 interface IFeedItem {
-  readonly feedId: number;
-  feedItemId: number;
+  readonly feedId: string;
+  feedItemId: string;
   readonly status: FeedItem.Status;
   readonly startTime: string;
   readonly endTime: string;

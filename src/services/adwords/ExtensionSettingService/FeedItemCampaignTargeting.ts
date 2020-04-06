@@ -1,3 +1,3 @@
 export interface IFeedItemCampaignTargeting {
-  TargetingCampaignId: number;
+  TargetingCampaignId: string;
 }

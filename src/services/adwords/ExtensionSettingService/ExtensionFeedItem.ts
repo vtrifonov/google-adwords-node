@@ -26,8 +26,8 @@ import { IFeedItemPolicySummary } from '../../../types/adwords/AdServices/Policy
 import { ICallConversionType } from './CallConversionType';
 
 interface IExtensionFeedItemRaw<Type> extends IAttributes<Type> {
-  readonly feedId: number;
-  feedItemId: number;
+  readonly feedId: string;
+  feedItemId: string;
   readonly status: FeedItem.Status;
   readonly feedType: Feed.Type;
   readonly startTime: string;

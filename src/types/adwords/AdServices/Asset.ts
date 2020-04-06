@@ -3,7 +3,7 @@ import { Asset, AssetStatus, MediaMimeType } from '../../enum';
 import { IImageDimensionInfo } from './ImageDimensionInfo';
 
 interface IAssetRaw<Type> extends IAttributes<Type> {
-  assetId: number;
+  assetId: string;
   assetName: string;
   readonly assetSubtype?: Asset.Type;
   readonly assetStatus?: AssetStatus;

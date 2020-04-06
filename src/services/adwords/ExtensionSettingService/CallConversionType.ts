@@ -1,3 +1,3 @@
 export interface ICallConversionType {
-  conversionTypeId: number;
+  conversionTypeId: string;
 }

@@ -89,7 +89,7 @@ interface IImageAd extends Partial<IAdRaw<'ImageAd'>> {
 interface IProductAd extends Partial<Omit<IAdRaw<'ProductAd'>, 'url' | 'finalUrl' | 'displayUrl' | 'finalAppUrls'>> {}
 
 interface ITemplateAd extends Partial<IAdRaw<'TemplateAd'>> {
-  templateId: number;
+  templateId: string;
   adUnionId?: PartialAdUnionId;
   templateElements: ITemplateElement[];
   adAsImage?: IImage;

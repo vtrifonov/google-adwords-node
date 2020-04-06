@@ -1,3 +1,3 @@
 export interface IFeedItemAdGroupTargeting {
-  TargetingAdGroupId: number;
+  TargetingAdGroupId: string;
 }

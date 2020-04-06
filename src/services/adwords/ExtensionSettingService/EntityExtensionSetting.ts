@@ -7,11 +7,11 @@ interface IEntityExtensionSetting {
 }
 
 interface IAdGroupExtensionSetting extends IEntityExtensionSetting {
-  adGroupId: number;
+  adGroupId: string;
 }
 
 interface ICampaignExtensionSetting extends IEntityExtensionSetting {
-  campaignId: number;
+  campaignId: string;
 }
 
 interface ICustomerExtensionSetting extends IEntityExtensionSetting {}
