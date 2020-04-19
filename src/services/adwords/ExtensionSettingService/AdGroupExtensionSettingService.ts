@@ -6,7 +6,7 @@ export class AdGroupExtensionSettingService extends BaseExtensionSettingService<
   IAdGroupExtensionSetting,
   'AdGroupExtensionSettingService'
 > {
-  constructor(options: IOperationServiceOptions) {
-    super(options, 'AdGroupExtensionSettingOperation', 'AdGroupId');
+  constructor(operationServiceOptions: IOperationServiceOptions) {
+    super(operationServiceOptions, 'AdGroupExtensionSettingOperation', 'AdGroupId');
   }
 }

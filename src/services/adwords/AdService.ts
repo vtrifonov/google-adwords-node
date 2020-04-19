@@ -45,7 +45,7 @@ class AdService extends BaseService<PartialAd, 'AdService'> {
     return _.some(['headline', 'description1'], (prop) => prop in ad);
   }
 
-  constructor(options: IOperationServiceOptions) {
+  constructor(operationServiceOptions: IOperationServiceOptions) {
     const serviceInfo: IServiceInfo = {
       idField: 'Id',
       operationType: 'AdOperation',
@@ -104,7 +104,7 @@ class AdService extends BaseService<PartialAd, 'AdService'> {
         'Url',
       ],
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
   }
 
   public async getAllByType(adType: Ad.Type, paging?: IPaging): Promise<IPage<PartialAd> | undefined> {

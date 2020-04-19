@@ -1,7 +1,8 @@
 import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core';
 import { PartialAdGroupCriterion, IBiddableAdGroupCriterion } from './AdGroupCriterion';
-import { CriterionUse, Predicate, Criterion } from '../../../types/enum';
-import { IKeyword, PartialCriterion, IGender, IAgeRange, IPaging } from '../../../types/adwords';
+import { CriterionUse, Predicate, Criterion, Operator } from '../../../types/enum';
+import { IKeyword, PartialCriterion, IGender, IAgeRange, IPaging, IOperation } from '../../../types/adwords';
+import { IListReturnValue, KeysEnum } from '../../..';
 
 class AdGroupCriterionService extends BaseService<PartialAdGroupCriterion, 'AdGroupCriterionService'> {
   public static isBiddableAdGroupCriterion(operand: PartialAdGroupCriterion): operand is IBiddableAdGroupCriterion {
@@ -21,7 +22,45 @@ class AdGroupCriterionService extends BaseService<PartialAdGroupCriterion, 'AdGr
     return 'ageRangeType' in criterion;
   }
 
-  constructor(options: IOperationServiceOptions) {
+  private static modifyInputOperand(original: any): any {
+    const adGroupCriterionKeys: KeysEnum<PartialAdGroupCriterion> = {
+      // IAdGroupCriterion
+      attributes: false,
+      adGroupId: true,
+      criterionUse: true,
+      criterion: true,
+      labels: true,
+      forwardCompatibilityMap: true,
+      baseCampaignId: true,
+      baseAdGroupId: true,
+      'AdGroupCriterion.Type': false,
+      // IBiddableAdGroupCriterion
+      userStatus: true,
+      systemServingStatus: true,
+      approvalStatus: true,
+      disapprovalReasons: true,
+      firstPageCpc: true,
+      topOfPageCpc: true,
+      firstPositionCpc: true,
+      qualityInfo: true,
+      biddingStrategyConfiguration: true,
+      bidModifier: true,
+      finalUrls: true,
+      finalMobileUrls: true,
+      finalAppUrls: true,
+      trackingUrlTemplate: true,
+      finalUrlSuffix: true,
+      urlCustomParameters: true,
+    };
+    Object.keys(adGroupCriterionKeys).forEach((key) => {
+      if (!original[key] && adGroupCriterionKeys[key]) {
+        original[key] = 'any';
+      }
+    });
+    return original;
+  }
+
+  constructor(operationServiceOptions: IOperationServiceOptions) {
     const serviceInfo: IServiceInfo = {
       idField: 'Id',
       operationType: 'AdGroupCriterionOperation',
@@ -92,8 +131,9 @@ class AdGroupCriterionService extends BaseService<PartialAdGroupCriterion, 'AdGr
         'VideoId',
         'VideoName',
       ],
+      modifyMutateInputOperand: AdGroupCriterionService.modifyInputOperand,
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
   }
 
   public async getByAdGroupIds(adGroupIds: string[], paging?: IPaging) {
@@ -132,6 +172,43 @@ class AdGroupCriterionService extends BaseService<PartialAdGroupCriterion, 'AdGr
       },
     ];
     return this.getByPredicates(predicates, paging);
+  }
+
+  public async updateKeywords(
+    adGroupCriterionIds: string[],
+    updateAction: (keywordCriterion: IBiddableAdGroupCriterion) => void,
+  ): Promise<IListReturnValue<PartialAdGroupCriterion>> {
+    const adGroupCriterions = await (await this.getByIds(adGroupCriterionIds)).entries;
+    if (!adGroupCriterions) {
+      throw new Error('AdGroupCriterions with the given Ids were not found');
+    }
+
+    const keywordCriterions = adGroupCriterions.filter(
+      (x) => x.criterionUse === CriterionUse.BIDDABLE && x.criterion && x.criterion.type === Criterion.Type.KEYWORD,
+    );
+
+    if (!keywordCriterions || keywordCriterions.length === 0) {
+      return Promise.resolve({
+        value: [],
+        partialFailureErrors: [new Error('No Keywords in the list')],
+      });
+    }
+
+    keywordCriterions.forEach((adGroupCriterion) => {
+      const keywordCriterion = adGroupCriterion as IBiddableAdGroupCriterion;
+      delete keywordCriterion.biddingStrategyConfiguration;
+      updateAction(keywordCriterion);
+    });
+
+    const operations = keywordCriterions.map((operand) => {
+      const updateOperation: IOperation<PartialAdGroupCriterion, 'AdGroupCriterionService'> = {
+        operator: Operator.ADD,
+        operand,
+      };
+      return updateOperation;
+    });
+
+    return await this.mutate(operations);
   }
 }
 

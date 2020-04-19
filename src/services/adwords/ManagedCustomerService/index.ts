@@ -13,7 +13,7 @@ import { IPage } from '../../../types/abstract';
 class ManagedCustomerService extends BaseService<IManagedCustomer, 'ManagedCustomerService'> {
   public static readonly namespace = 'https://adwords.google.com/api/adwords/mcm';
 
-  constructor(options: IOperationServiceOptions) {
+  constructor(operationServiceOptions: IOperationServiceOptions) {
     const serviceInfo: IServiceInfo = {
       idField: 'Id',
       operationType: 'AdOperation',
@@ -27,7 +27,7 @@ class ManagedCustomerService extends BaseService<IManagedCustomer, 'ManagedCusto
         'TestAccount',
       ],
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
   }
 
   public async getAccountHierarchy(): Promise<IPage<IManagedCustomer>> {

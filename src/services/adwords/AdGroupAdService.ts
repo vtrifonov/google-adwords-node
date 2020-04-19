@@ -1,11 +1,13 @@
 import { BaseService, IOperationServiceOptions, IServiceInfo } from '../core';
-import { IAdGroupAd, IPaging } from '../../types/adwords';
-import { Ad, Predicate } from '../../types/enum';
-import { IPage } from '../../types/abstract';
+import { IAdGroupAd, IPaging, IImageAd, IOperation, IAd, PartialAd, IUpdateAdsResult } from '../../types/adwords';
+import { Ad, Predicate, Operator } from '../../types/enum';
+import { IPage, IListReturnValue } from '../../types/abstract';
 import { AdService } from './AdService';
 
 class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
-  constructor(options: IOperationServiceOptions) {
+  private readonly adService;
+
+  constructor(operationServiceOptions: IOperationServiceOptions) {
     const serviceInfo: IServiceInfo = {
       idField: 'Id',
       operationType: 'AdGroupAdOperation',
@@ -145,7 +147,11 @@ class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
         'YouTubeVideoIdString',
       ],
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
+    this.adService = this.operationServiceOptions.adWordsService.getService(
+      'AdService',
+      this.operationServiceOptions.options,
+    );
   }
 
   public async getAllByType(adType: Ad.Type, paging?: IPaging): Promise<IPage<IAdGroupAd> | undefined> {
@@ -187,6 +193,48 @@ class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
     );
   }
 
+  public async updateImageAd(
+    imageAdGroupAd: IAdGroupAd,
+    updateAction: (imageAd: IImageAd) => void,
+  ): Promise<IListReturnValue<IAdGroupAd>> {
+    return this.mutate(this.getImageAdUpdateOperations(imageAdGroupAd, updateAction));
+  }
+
+  public async updateAds(adGroupAdIds: string[], updateAction: (ad: PartialAd) => void): Promise<IUpdateAdsResult> {
+    const adGroupAds = await (await this.getByIds(adGroupAdIds)).entries;
+    if (!adGroupAdIds) {
+      throw new Error('AdGroups with the given Ids were not found');
+    }
+
+    const imageAds = adGroupAds.filter((x) => x.ad.type === Ad.Type.IMAGE_AD);
+    const otherAds = adGroupAds.filter((x) => x.ad.type !== Ad.Type.IMAGE_AD);
+
+    const result: IUpdateAdsResult = {};
+
+    if (otherAds && otherAds.length > 0) {
+      otherAds.forEach((adGroupAd) => updateAction(adGroupAd.ad));
+      const otherOperations: Array<IOperation<PartialAd>> = otherAds.map((adGroupAd) => {
+        const operation: IOperation<PartialAd> = {
+          operator: Operator.SET,
+          operand: adGroupAd.ad,
+        };
+        return operation;
+      });
+      result.adUpdates = await this.adService.mutate(otherOperations);
+    }
+
+    if (imageAds && imageAds.length > 0) {
+      const adGroupAdOperations: Array<IOperation<IAdGroupAd>> = [];
+      imageAds.forEach((imageAdGroupAd) => {
+        const imageAdUpdateOperations = this.getImageAdUpdateOperations(imageAdGroupAd, updateAction);
+        adGroupAdOperations.push(...imageAdUpdateOperations);
+      });
+      result.imageAdUpdates = await this.mutate(adGroupAdOperations);
+    }
+
+    return result;
+  }
+
   protected needToSetAttribute(operand: IAdGroupAd) {
     return operand.ad && (!operand.ad.attributes || !operand.ad.attributes['xsi:type']);
   }
@@ -212,6 +260,39 @@ class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
       operand.ad.attributes = { 'xsi:type': 'ProductAd' };
     }
     return operand;
+  }
+
+  private getImageAdUpdateOperations(
+    imageAdGroupAd: IAdGroupAd,
+    updateAction: (imageAd: IImageAd) => void,
+  ): Array<IOperation<IAdGroupAd>> {
+    // we cannot update an ImageAd, so we need to create a new ImageAd with AdGrouAd and remove the previous Image AdGroupAd
+    const imageAd = imageAdGroupAd.ad as IImageAd;
+    delete imageAd.image;
+    const newImageAd: IImageAd = JSON.parse(JSON.stringify(imageAd));
+    newImageAd.adToCopyImageFrom = imageAd.id;
+    delete newImageAd.id;
+
+    const newImageAdGroupAd: IAdGroupAd = {
+      adGroupId: imageAdGroupAd.adGroupId,
+      ad: newImageAd,
+      status: imageAdGroupAd.status,
+      forwardCompatibilityMap: imageAdGroupAd.forwardCompatibilityMap,
+    };
+
+    updateAction(newImageAd);
+
+    const addOperation: IOperation<IAdGroupAd, 'AdGroupAdService'> = {
+      operator: Operator.ADD,
+      operand: newImageAdGroupAd,
+    };
+
+    const deleteOperation: IOperation<IAdGroupAd, 'AdGroupAdService'> = {
+      operator: Operator.REMOVE,
+      operand: imageAdGroupAd,
+    };
+
+    return [addOperation, deleteOperation];
   }
 }
 

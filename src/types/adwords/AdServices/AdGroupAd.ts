@@ -12,7 +12,7 @@ interface IAdGroupAd {
   labels?: ITextLabel[];
   readonly baseCampaignId?: string;
   readonly baseAdGroupId?: string;
-  readonly forwardCompatibilityMap?: IString_StringMapEntry[];
+  forwardCompatibilityMap?: IString_StringMapEntry[];
   readonly adStrengthInfo?: any;
 }
 

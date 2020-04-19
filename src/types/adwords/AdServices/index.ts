@@ -12,5 +12,6 @@ export * from './PolicyTopicEvidence';
 export * from './PolicyViolationKey';
 export * from './TemplateElement';
 export * from './TemplateElementField';
+export * from './UpdateAdsResult';
 export * from './UrlData';
 export * from './UrlList';

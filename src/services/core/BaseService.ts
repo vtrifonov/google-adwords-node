@@ -1,12 +1,17 @@
-import { IAttributes } from './../../types/adwords/Attributes';
-import { SoapService, ISoapServiceOpts } from './SoapService';
+import { SoapService } from './SoapService';
 import { AdwordsOperationService } from './AdwordsOperationService';
 import { ISelector, IOperation, IPaging, IPredicate } from '../../types/adwords';
 import { Operator, Predicate } from '../../types/enum';
 import { IListReturnValue, IPage } from '../../types/abstract';
+import { HttpService } from './HttpService';
+import { AdWordsService, ReportService, IServiceDeps, IServiceOpts } from '../adwords';
 
 export interface IOperationServiceOptions {
   soapService: SoapService;
+  httpService: HttpService;
+  adWordsService: AdWordsService;
+  reportsService: ReportService;
+  options?: Partial<IServiceOpts & IServiceDeps>;
 }
 
 export interface IServiceInfo {
@@ -20,12 +25,12 @@ export interface IServiceInfo {
 
 export abstract class BaseService<T, TName> extends AdwordsOperationService {
   public static readonly namespace;
-  protected readonly soapService: SoapService;
+  protected readonly operationServiceOptions: IOperationServiceOptions;
   protected readonly serviceInfo: IServiceInfo;
 
-  constructor(options: IOperationServiceOptions, serviceInfo: IServiceInfo) {
+  constructor(operationServiceOptions: IOperationServiceOptions, serviceInfo: IServiceInfo) {
     super();
-    this.soapService = options.soapService;
+    this.operationServiceOptions = operationServiceOptions;
     this.serviceInfo = serviceInfo;
   }
 
@@ -84,6 +89,17 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
     return this.mutate(operations);
   }
 
+  public delete(operands: T[]) {
+    const operations: Array<IOperation<T, TName>> = operands.map((operand: T) => {
+      const operation: IOperation<T, TName> = {
+        operator: Operator.REMOVE,
+        operand,
+      };
+      return operation;
+    });
+    return this.mutate(operations);
+  }
+
   public async getByPredicates(
     predicates: IPredicate[],
     paging?: IPaging,
@@ -99,6 +115,20 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
     return this.get(serviceSelector);
   }
 
+  public async mutate<MutateOperation = IOperation<T, TName>, Rval = IListReturnValue<T>>(
+    operations: MutateOperation[],
+  ): Promise<Rval> {
+    return this.operationServiceOptions.soapService
+      .mutateAsync<MutateOperation, Rval>(
+        operations,
+        this.serviceInfo.operationType,
+        this.serviceInfo.modifyMutateInputOperand,
+      )
+      .then((rval) => {
+        return rval;
+      });
+  }
+
   protected setType(operand: T): T {
     return operand;
   }
@@ -108,22 +138,8 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
   }
 
   protected async get<ServiceSelector = ISelector, Rval = IPage<T>>(serviceSelector: ServiceSelector): Promise<Rval> {
-    return this.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
+    return this.operationServiceOptions.soapService.get<ServiceSelector, Rval>(serviceSelector).then((rval) => {
       return rval;
     });
-  }
-
-  protected async mutate<MutateOperation = IOperation<T, TName>, Rval = IListReturnValue<T>>(
-    operations: MutateOperation[],
-  ): Promise<Rval> {
-    return this.soapService
-      .mutateAsync<MutateOperation, Rval>(
-        operations,
-        this.serviceInfo.operationType,
-        this.serviceInfo.modifyMutateInputOperand,
-      )
-      .then((rval) => {
-        return rval;
-      });
   }
 }

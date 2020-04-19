@@ -123,7 +123,9 @@ class AdWordsService {
     const httpService = new HttpService(httpServiceOpts);
     const reportService = new ReportService({ httpService });
 
-    return new (ServiceClass as any)(Object.assign({}, { soapService, httpService, reportService }, options));
+    return new (ServiceClass as any)(
+      Object.assign({}, { soapService, httpService, reportService, adWordsService: this, options }, options),
+    );
   }
 }
 

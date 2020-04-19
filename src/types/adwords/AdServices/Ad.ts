@@ -83,7 +83,7 @@ interface IResponsiveSearchAd
 interface IImageAd extends Partial<IAdRaw<'ImageAd'>> {
   image?: IImage;
   name: string;
-  readonly adToCopyImageFrom?: string;
+  adToCopyImageFrom?: string;
 }
 
 interface IProductAd extends Partial<Omit<IAdRaw<'ProductAd'>, 'url' | 'finalUrl' | 'displayUrl' | 'finalAppUrls'>> {}

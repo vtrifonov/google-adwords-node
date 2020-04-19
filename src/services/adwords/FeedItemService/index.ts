@@ -2,7 +2,7 @@ import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core'
 import { IFeedItem } from './FeedItem';
 
 class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
-  constructor(options: IOperationServiceOptions) {
+  constructor(operationServiceOptions: IOperationServiceOptions) {
     const serviceInfo: IServiceInfo = {
       idField: 'FeedItemId',
       operationType: 'FeedItemOperation',
@@ -18,7 +18,7 @@ class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
         'UrlCustomParameters',
       ],
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
   }
 }
 

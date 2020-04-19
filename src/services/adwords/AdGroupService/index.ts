@@ -18,7 +18,7 @@ class AdGroupService extends BaseService<IAdGroup, 'AdGroupService'> {
     return 'optIn' in setting;
   }
 
-  constructor(options: IOperationServiceOptions) {
+  constructor(operationServiceOptions: IOperationServiceOptions) {
     const serviceInfo: IServiceInfo = {
       idField: 'Id',
       operationType: 'AdGroupOperation',
@@ -51,7 +51,7 @@ class AdGroupService extends BaseService<IAdGroup, 'AdGroupService'> {
         'UrlCustomParameters',
       ],
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
   }
 
   /**

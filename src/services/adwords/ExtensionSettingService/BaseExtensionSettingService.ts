@@ -103,7 +103,7 @@ abstract class BaseExtensionSettingService<T extends IEntityExtensionSetting, TN
 
   protected readonly entityIdFieldName?: string;
 
-  constructor(options: IOperationServiceOptions, operationType: string, entityIdFieldName?: string) {
+  constructor(operationServiceOptions: IOperationServiceOptions, operationType: string, entityIdFieldName?: string) {
     const serviceInfo: IServiceInfo = {
       operationType,
       selectorFields: (entityIdFieldName ? [entityIdFieldName] : []).concat([
@@ -113,7 +113,7 @@ abstract class BaseExtensionSettingService<T extends IEntityExtensionSetting, TN
       ]),
       modifyMutateInputOperand: BaseExtensionSettingService.modifyInputOperand,
     };
-    super(options, serviceInfo);
+    super(operationServiceOptions, serviceInfo);
     this.entityIdFieldName = entityIdFieldName;
   }
 

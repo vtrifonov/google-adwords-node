@@ -6,7 +6,7 @@ export class CampaignExtensionSettingService extends BaseExtensionSettingService
   ICampaignExtensionSetting,
   'CampaignExtensionSettingService'
 > {
-  constructor(options: IOperationServiceOptions) {
-    super(options, 'CampaignExtensionSettingOperation', 'CampaignId');
+  constructor(operationServiceOptions: IOperationServiceOptions) {
+    super(operationServiceOptions, 'CampaignExtensionSettingOperation', 'CampaignId');
   }
 }
