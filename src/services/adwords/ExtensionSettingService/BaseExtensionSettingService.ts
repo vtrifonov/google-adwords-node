@@ -1,9 +1,9 @@
 import { BaseService, IOperationServiceOptions, IServiceInfo } from '../../core';
-import { Predicate, Feed } from '../../../types/enum';
-import { IPaging } from '../../../types/adwords';
-import { KeysEnum } from '../../../types/abstract';
+import { Predicate, Feed, Operator } from '../../../types/enum';
+import { IPaging, IOperation } from '../../../types/adwords';
+import { KeysEnum, IListReturnValue } from '../../../types/abstract';
 import { IEntityExtensionSetting } from './EntityExtensionSetting';
-import { PartialExtensionFeedItem } from './ExtensionFeedItem';
+import { PartialExtensionFeedItem, ISitelinkFeedItem } from './ExtensionFeedItem';
 
 abstract class BaseExtensionSettingService<T extends IEntityExtensionSetting, TName> extends BaseService<T, TName> {
   private static modifyInputOperand(original: any): any {
@@ -142,6 +142,56 @@ abstract class BaseExtensionSettingService<T extends IEntityExtensionSetting, TN
     ];
 
     return this.getByPredicates(predicates, paging);
+  }
+
+  public async updateSitelinks(
+    sitelinkIds: string[],
+    updateAction: (sitelink: PartialExtensionFeedItem) => void,
+  ): Promise<IListReturnValue<T>> {
+    const extensionSettings = await (await this.getAllByType(Feed.Type.SITELINK)).entries;
+
+    const siteLinkSettings = extensionSettings.filter((x) =>
+      x.extensionSetting.extensions.some(
+        (extension) => extension.feedItemId && sitelinkIds.includes(extension.feedItemId),
+      ),
+    );
+
+    if (!siteLinkSettings || siteLinkSettings.length === 0) {
+      return Promise.resolve({
+        value: [],
+        partialFailureErrors: [new Error('No Sitelinks in the list')],
+      });
+    }
+
+    const alreadyUpdatedIds: string[] = [];
+    const operations: Array<IOperation<T, TName>> = [];
+
+    siteLinkSettings.forEach((siteLinkSetting) => {
+      const sitelinksToUpdate = siteLinkSetting.extensionSetting.extensions.filter(
+        (extension) =>
+          extension.feedItemId &&
+          sitelinkIds.includes(extension.feedItemId) &&
+          !alreadyUpdatedIds.includes(extension.feedItemId),
+      );
+      sitelinksToUpdate.forEach((feedItem) => {
+        if (feedItem.feedItemId) {
+          alreadyUpdatedIds.push(feedItem.feedItemId);
+        }
+        const sitelink = feedItem as PartialExtensionFeedItem;
+        updateAction(sitelink);
+      });
+
+      // add update only if there are extensions that are not updated yet
+      if (sitelinksToUpdate.length > 0) {
+        const updateOperation: IOperation<T, TName> = {
+          operator: Operator.SET,
+          operand: siteLinkSetting,
+        };
+        operations.push(updateOperation);
+      }
+    });
+
+    return await this.mutate(operations);
   }
 }
 

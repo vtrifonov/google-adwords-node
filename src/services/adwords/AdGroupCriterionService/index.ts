@@ -202,7 +202,7 @@ class AdGroupCriterionService extends BaseService<PartialAdGroupCriterion, 'AdGr
 
     const operations = keywordCriterions.map((operand) => {
       const updateOperation: IOperation<PartialAdGroupCriterion, 'AdGroupCriterionService'> = {
-        operator: Operator.ADD,
+        operator: Operator.SET,
         operand,
       };
       return updateOperation;
