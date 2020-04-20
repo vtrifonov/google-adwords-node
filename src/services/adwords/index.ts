@@ -6,6 +6,7 @@ export * from './BudgetService';
 export * from './CampaignCriterionService';
 export * from './CampaignService';
 export * from './CustomerService';
+export * from './CustomerSyncService';
 export * from './ExtensionSettingService';
 export * from './FeedItemService';
 export * from './LabelService';

@@ -33,6 +33,7 @@
         "@types/faker": "^4.1.6",
         "@types/jest": "^24.0.20",
         "@types/lodash": "^4.14.144",
+        "@types/moment-timezone": "^0.5.13",
         "@types/node": "^11.13.7",
         "@types/request": "^2.48.3",
         "@types/request-promise": "^4.1.44",
@@ -52,6 +53,7 @@
     "dependencies": {
         "lodash": "^4.17.15",
         "moment": "^2.24.0",
+        "moment-timezone": "^0.5.28",
         "pretty-data": "^0.40.0",
         "request": "^2.88.0",
         "request-promise": "^4.2.4",

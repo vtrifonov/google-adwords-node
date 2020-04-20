@@ -16,6 +16,7 @@ import { CampaignCriterionService } from './CampaignCriterionService';
 import { LocationCriterionService } from './LocationCriterionService';
 import { ManagedCustomerService } from './ManagedCustomerService';
 import { CustomerService } from './CustomerService';
+import { CustomerSyncService } from './CustomerSyncService';
 import { ReportDefinitionService } from './ReportDefinitionService';
 import {
   CampaignPerformanceReportService,
@@ -48,6 +49,7 @@ interface IServiceMap {
   LocationCriterionService: LocationCriterionService;
   ManagedCustomerService: ManagedCustomerService;
   CustomerService: CustomerService;
+  CustomerSyncService: CustomerSyncService;
   ReportDefinitionService: ReportDefinitionService;
   BatchJobService: BatchJobService;
   MediaService: MediaService;
@@ -79,6 +81,7 @@ const registryService = RegistryService.init()
   .register(LocationCriterionService)
   .register(ManagedCustomerService)
   .register(CustomerService)
+  .register(CustomerSyncService)
   .register(ReportDefinitionService)
   .register(BatchJobService)
   .register(MediaService)

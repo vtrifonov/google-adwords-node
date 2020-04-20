@@ -1,27 +1,9 @@
-import { SoapService } from './SoapService';
 import { AdwordsOperationService } from './AdwordsOperationService';
 import { ISelector, IOperation, IPaging, IPredicate } from '../../types/adwords';
 import { Operator, Predicate } from '../../types/enum';
 import { IListReturnValue, IPage } from '../../types/abstract';
-import { HttpService } from './HttpService';
-import { AdWordsService, ReportService, IServiceDeps, IServiceOpts } from '../adwords';
-
-export interface IOperationServiceOptions {
-  soapService: SoapService;
-  httpService: HttpService;
-  adWordsService: AdWordsService;
-  reportsService: ReportService;
-  options?: Partial<IServiceOpts & IServiceDeps>;
-}
-
-export interface IServiceInfo {
-  idField?: string;
-  operationType: string;
-  selectorFields: string[];
-  // the idea of this method is to allow modifying the input type as in some cases like in CampaignExtensionSettingService
-  // the input type does not inlcude details for sitelink fields like sitelinkFinalUrlSuffix
-  modifyMutateInputOperand?: ((original: any) => any) | undefined;
-}
+import { IOperationServiceOptions } from './OperationServiceOptions';
+import { IServiceInfo } from './ServiceInfo';
 
 export abstract class BaseService<T, TName> extends AdwordsOperationService {
   public static readonly namespace;
