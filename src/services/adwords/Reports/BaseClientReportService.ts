@@ -5,7 +5,7 @@ import { ReportDefinition } from '../ReportDefinitionService';
 import parser from 'xml2json';
 
 export abstract class BaseClientReportService implements IClientReportService {
-  private options?: Partial<IReportDownloadOptions> = {
+  protected options: Partial<IReportDownloadOptions> = {
     json: true,
     skipReportHeader: false,
     skipColumnHeader: true,
@@ -16,7 +16,7 @@ export abstract class BaseClientReportService implements IClientReportService {
 
   constructor(protected readonly reportService: IReportService, protected readonly reportInfo: IReportInfo) {}
 
-  public async get(reportDefinition: Partial<IReportDefinition>): Promise<string | IReport> {
+  public async get(reportDefinition: Partial<IReportDefinition> = {}): Promise<string | IReport> {
     if (!reportDefinition.selector) {
       reportDefinition.selector = {
         fields: this.reportInfo.selectorFields,

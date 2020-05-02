@@ -136,4 +136,12 @@ class ReportService implements IReportService {
   }
 }
 
-export { ReportService, IReportServiceOpts, IReportDownloadOptions, IReport, IReportService, IClientReportService };
+export {
+  ReportService,
+  IReportServiceOpts,
+  IReportDownloadOptions,
+  IReportDefinition,
+  IReport,
+  IReportService,
+  IClientReportService,
+};

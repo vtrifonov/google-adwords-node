@@ -1,6 +1,5 @@
 import { IReportService, IClientReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
 import { BaseClientReportService } from './BaseClientReportService';
 
 class AudiencePerformanceReportService extends BaseClientReportService implements IClientReportService {

@@ -1,6 +1,5 @@
 import { IReportService, IClientReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
 import { BaseClientReportService } from './BaseClientReportService';
 
 class AdGroupPerformanceReportService extends BaseClientReportService implements IClientReportService {
@@ -39,4 +38,4 @@ class AdGroupPerformanceReportService extends BaseClientReportService implements
   }
 }
 
-export { AdGroupPerformanceReportService, IReportDefinition };
+export { AdGroupPerformanceReportService };

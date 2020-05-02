@@ -30,6 +30,7 @@ import {
   KeywordlessQueryReportService,
   KeywordsPerformanceReportService,
   SearchQueryPerformanceReportService,
+  PlaceholderFeedItemReportService,
 } from './Reports';
 import { BatchJobService } from './BatchJobService';
 import { MediaService } from './MediaService';
@@ -65,6 +66,7 @@ interface IServiceMap {
   KeywordsPerformanceReportService: KeywordsPerformanceReportService;
   KeywordlessQueryReportService: KeywordlessQueryReportService;
   SearchQueryPerformanceReportService: SearchQueryPerformanceReportService;
+  PlaceholderFeedItemReportService: PlaceholderFeedItemReportService;
 }
 
 const registryService = RegistryService.init()
@@ -97,6 +99,7 @@ const registryService = RegistryService.init()
   .register(AudiencePerformanceReportService)
   .register(KeywordsPerformanceReportService)
   .register(KeywordlessQueryReportService)
+  .register(PlaceholderFeedItemReportService)
   .register(SearchQueryPerformanceReportService);
 
 export { registryService, IServiceMap };
