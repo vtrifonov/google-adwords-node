@@ -1,10 +1,8 @@
-import { ReportService, IClientReportService, IReport } from '../ReportService';
+import { IClientReportService, IReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
-import _ from 'lodash';
-import { ClientReportService } from './AbstractClientReportService';
+import { BaseClientReportService } from './BaseClientReportService';
 
-class AdPerformanceReportService extends ClientReportService implements IClientReportService {
+class AdPerformanceReportService extends BaseClientReportService implements IClientReportService {
   public static readonly reportName: string = 'Ad Performance Report';
   private static readonly attributes: string[] = [
     'AdGroupId',
@@ -19,7 +17,15 @@ class AdPerformanceReportService extends ClientReportService implements IClientR
     'Status',
   ];
   private static readonly segments: string[] = [];
-  private static readonly metrics: string[] = [];
+  private static readonly metrics: string[] = [
+    'Clicks',
+    'Impressions',
+    'Ctr',
+    'AverageCpc',
+    'Cost',
+    'Conversions',
+    'AveragePosition',
+  ];
 
   private static readonly selectorFields = [
     ...AdPerformanceReportService.attributes,
@@ -27,21 +33,12 @@ class AdPerformanceReportService extends ClientReportService implements IClientR
     ...AdPerformanceReportService.metrics,
   ];
 
-  private reportService: ReportService;
-  private constructor(opts: { reportService: ReportService }) {
-    super();
-    this.reportService = opts.reportService;
-  }
-
-  public async get(reportDefinition: Partial<IReportDefinition>) {
-    const reportDef: IReportDefinition = {
-      // order is matter
-      selector: _.get(reportDefinition, 'selector', { fields: AdPerformanceReportService.selectorFields }),
+  private constructor(opts: { reportService: IReportService }) {
+    super(opts.reportService, {
+      selectorFields: AdPerformanceReportService.selectorFields,
       reportName: AdPerformanceReportService.reportName,
       reportType: ReportDefinition.ReportType.AD_PERFORMANCE_REPORT,
-      dateRangeType: _.get(reportDefinition, 'dateRangeType', ReportDefinition.DateRangeType.ALL_TIME),
-    };
-    return this.reportService.reportDownload(reportDef, this.getOptions());
+    });
   }
 }
 

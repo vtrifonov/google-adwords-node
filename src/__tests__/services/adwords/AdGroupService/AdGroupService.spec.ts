@@ -39,7 +39,7 @@ describe.skip('AdGroupService test suites', () => {
         {
           details: [
             {
-              // order is matter
+              // order matters
               criterionTypeGroup: CriterionTypeGroup.USER_INTEREST_AND_LIST,
               targetAll: true,
             },
@@ -64,7 +64,7 @@ describe.skip('AdGroupService test suites', () => {
         {
           details: [
             {
-              // order is matter
+              // order matters
               criterionTypeGroup: CriterionTypeGroup.USER_INTEREST_AND_LIST,
               targetAll: true,
             },
@@ -88,7 +88,7 @@ describe.skip('AdGroupService test suites', () => {
         {
           details: [
             {
-              // order is matter
+              // order matters
               criterionTypeGroup: CriterionTypeGroup.USER_INTEREST_AND_LIST,
               targetAll: true,
             },
@@ -123,7 +123,7 @@ describe.skip('AdGroupService test suites', () => {
         {
           details: [
             {
-              // order is matter
+              // order matters
               criterionTypeGroup: CriterionTypeGroup.USER_INTEREST_AND_LIST,
               targetAll: true,
             },

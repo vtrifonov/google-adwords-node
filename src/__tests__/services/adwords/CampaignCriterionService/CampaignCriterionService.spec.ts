@@ -36,14 +36,14 @@ describe.skip('CampaignCriterionService test suites', () => {
   it.skip('#add - with proximity', async () => {
     const campaignId = '1895039275';
     const address: IAddress = {
-      // order is matter
+      // order matters
       streetAddress: '2560 saint',
       cityName: 'bronx',
       postalCode: '10461',
       countryCode: 'US',
     };
     const proximity: IProximity = {
-      // order is matter
+      // order matters
       radiusDistanceUnits: Proximity.DistanceUnits.KILOMETERS,
       radiusInUnits: 10,
       address,
@@ -65,14 +65,14 @@ describe.skip('CampaignCriterionService test suites', () => {
   it.skip('#add - with complex logic', async () => {
     const campaignId = '1895039275';
     const address: IAddress = {
-      // order is matter
+      // order matters
       streetAddress: '1155 6th ave.',
       cityName: 'NYC',
       postalCode: '10000',
       countryCode: 'US',
     };
     const proximity: IProximity = {
-      // order is matter
+      // order matters
       radiusDistanceUnits: Proximity.DistanceUnits.KILOMETERS,
       radiusInUnits: 10,
       address,

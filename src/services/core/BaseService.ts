@@ -7,10 +7,11 @@ import { IServiceInfo } from './ServiceInfo';
 
 export abstract class BaseService<T, TName> extends AdwordsOperationService {
   public static readonly namespace;
-  protected readonly operationServiceOptions: IOperationServiceOptions;
-  protected readonly serviceInfo: IServiceInfo;
 
-  constructor(operationServiceOptions: IOperationServiceOptions, serviceInfo: IServiceInfo) {
+  constructor(
+    protected readonly operationServiceOptions: IOperationServiceOptions,
+    protected readonly serviceInfo: IServiceInfo,
+  ) {
     super();
     this.operationServiceOptions = operationServiceOptions;
     this.serviceInfo = serviceInfo;

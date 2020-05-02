@@ -1,10 +1,8 @@
-import { ReportService, IClientReportService, IReport } from '../ReportService';
+import { IClientReportService, IReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
-import _ from 'lodash';
-import { ClientReportService } from './AbstractClientReportService';
+import { BaseClientReportService } from './BaseClientReportService';
 
-class AgeRangePerformanceReportService extends ClientReportService implements IClientReportService {
+class AgeRangePerformanceReportService extends BaseClientReportService implements IClientReportService {
   public static readonly reportName: string = 'Age Range Performance Report';
   private static readonly attributes: string[] = ['CampaignId', 'CampaignName', 'CampaignStatus', 'Criteria'];
 
@@ -24,22 +22,12 @@ class AgeRangePerformanceReportService extends ClientReportService implements IC
     ...AgeRangePerformanceReportService.metrics,
   ];
 
-  private reportService: ReportService;
-  private constructor(opts: { reportService: ReportService }) {
-    super();
-    this.reportService = opts.reportService;
-  }
-
-  public async get(reportDefinition: Partial<IReportDefinition>) {
-    const reportDef: IReportDefinition = {
-      // order is matter
-      selector: _.get(reportDefinition, 'selector', { fields: AgeRangePerformanceReportService.selectorFields }),
+  private constructor(opts: { reportService: IReportService }) {
+    super(opts.reportService, {
+      selectorFields: AgeRangePerformanceReportService.selectorFields,
       reportName: AgeRangePerformanceReportService.reportName,
       reportType: ReportDefinition.ReportType.AGE_RANGE_PERFORMANCE_REPORT,
-      dateRangeType: reportDefinition.dateRangeType || ReportDefinition.DateRangeType.ALL_TIME,
-    };
-
-    return this.reportService.reportDownload(reportDef, this.getOptions());
+    });
   }
 }
 

@@ -1,17 +1,8 @@
-import { ReportService, IClientReportService, IReport } from '../ReportService';
+import { IClientReportService, IReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService/enum/ReportDefinition';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
-import _ from 'lodash';
-import { ClientReportService } from './AbstractClientReportService';
+import { BaseClientReportService } from './BaseClientReportService';
 
-/**
- * https://developers.google.com/adwords/api/docs/appendix/reports/campaign-performance-report
- *
- * @author dulin
- * @class CampaignPerformanceReportService
- * @implements {IClientReportService}
- */
-class CampaignPerformanceReportService extends ClientReportService implements IClientReportService {
+class CampaignPerformanceReportService extends BaseClientReportService implements IClientReportService {
   public static readonly reportName: string = 'Campaign Performance Report';
   private static readonly attributes: string[] = [
     'CampaignId',
@@ -36,22 +27,12 @@ class CampaignPerformanceReportService extends ClientReportService implements IC
     ...CampaignPerformanceReportService.metrics,
   ];
 
-  private reportService: ReportService;
-  private constructor(opts: { reportService: ReportService }) {
-    super();
-    this.reportService = opts.reportService;
-  }
-
-  public async get(reportDefinition: Partial<IReportDefinition>) {
-    const reportDef: IReportDefinition = {
-      // order is matter
-      selector: _.get(reportDefinition, 'selector', { fields: CampaignPerformanceReportService.selectorFields }),
+  private constructor(opts: { reportService: IReportService }) {
+    super(opts.reportService, {
+      selectorFields: CampaignPerformanceReportService.selectorFields,
       reportName: CampaignPerformanceReportService.reportName,
       reportType: ReportDefinition.ReportType.CAMPAIGN_PERFORMANCE_REPORT,
-      dateRangeType: reportDefinition.dateRangeType || ReportDefinition.DateRangeType.ALL_TIME,
-    };
-
-    return this.reportService.reportDownload(reportDef, this.getOptions());
+    });
   }
 }
 

@@ -25,6 +25,7 @@ import {
   AgeRangePerformanceReportService,
   AdPerformanceReportService,
   AdGroupPerformanceReportService,
+  CriteriaPerformanceReportService,
   AudiencePerformanceReportService,
   KeywordlessQueryReportService,
   KeywordsPerformanceReportService,
@@ -59,6 +60,7 @@ interface IServiceMap {
   AgeRangePerformanceReportService: AgeRangePerformanceReportService;
   AdPerformanceReportService: AdPerformanceReportService;
   AdGroupPerformanceReportService: AdGroupPerformanceReportService;
+  CriteriaPerformanceReport: CriteriaPerformanceReportService;
   AudiencePerformanceReportService: AudiencePerformanceReportService;
   KeywordsPerformanceReportService: KeywordsPerformanceReportService;
   KeywordlessQueryReportService: KeywordlessQueryReportService;
@@ -91,6 +93,7 @@ const registryService = RegistryService.init()
   .register(AgeRangePerformanceReportService)
   .register(AdPerformanceReportService)
   .register(AdGroupPerformanceReportService)
+  .register(CriteriaPerformanceReportService)
   .register(AudiencePerformanceReportService)
   .register(KeywordsPerformanceReportService)
   .register(KeywordlessQueryReportService)

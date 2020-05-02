@@ -24,9 +24,9 @@ interface IReportDownloadFormData {
 }
 
 interface IReport {
-  'report-name': any[];
-  'data-range': any[];
-  table: any[];
+  'report-name': any;
+  'date-range': any;
+  table: any;
 }
 
 interface IReportService {
@@ -88,8 +88,29 @@ class ReportService implements IReportService {
           if (options && options.json) {
             return this.xmlParse(rval).then(
               (rvalJson: { report: IReport }): IReport => {
-                const defaultRvalJson: IReport = { table: [], 'data-range': [], 'report-name': [] };
-                return _.get(rvalJson, 'report', defaultRvalJson);
+                const defaultRvalJson: IReport = { table: {}, 'date-range': [], 'report-name': [] };
+                const result = _.get(rvalJson, 'report', defaultRvalJson);
+                if (
+                  result.table &&
+                  result.table.length === 1 &&
+                  result.table[0].row &&
+                  Array.isArray(result.table[0].row)
+                ) {
+                  result.table = result.table[0].row;
+                  result.table = result.table.map((x) => x.$ || x);
+                }
+
+                if (result['date-range'] && result['date-range'].length === 1) {
+                  result['date-range'] = result['date-range'][0].$ || result['date-range'][0];
+                  result['date-range'] = result['date-range'].name || result['date-range'];
+                }
+
+                if (result['report-name'] && result['report-name'].length === 1) {
+                  result['report-name'] = result['report-name'][0].$ || result['report-name'][0];
+                  result['report-name'] = result['report-name'].date || result['report-name'];
+                }
+
+                return result;
               },
             );
           }

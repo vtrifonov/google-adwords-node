@@ -1,10 +1,8 @@
-import { ReportService, IClientReportService, IReport } from '../ReportService';
-import { IReportDefinition } from '../ReportDefinitionService/ReportDefinition';
+import { IClientReportService, IReportService } from '../ReportService';
 import { ReportDefinition } from '../ReportDefinitionService';
-import _ from 'lodash';
-import { ClientReportService } from './AbstractClientReportService';
+import { BaseClientReportService } from './BaseClientReportService';
 
-class GeoPerformanceReportService extends ClientReportService implements IClientReportService {
+class GeoPerformanceReportService extends BaseClientReportService implements IClientReportService {
   public static readonly reportName: string = 'Geo Performance Report';
   private static readonly attributes: string[] = [
     'CampaignId',
@@ -31,22 +29,12 @@ class GeoPerformanceReportService extends ClientReportService implements IClient
     ...GeoPerformanceReportService.metrics,
   ];
 
-  private reportService: ReportService;
-  private constructor(opts: { reportService: ReportService }) {
-    super();
-    this.reportService = opts.reportService;
-  }
-
-  public async get(reportDefinition: Partial<IReportDefinition>) {
-    const reportDef: IReportDefinition = {
-      // order is matter
-      selector: _.get(reportDefinition, 'selector', { fields: GeoPerformanceReportService.selectorFields }),
+  private constructor(opts: { reportService: IReportService }) {
+    super(opts.reportService, {
+      selectorFields: GeoPerformanceReportService.selectorFields,
       reportName: GeoPerformanceReportService.reportName,
       reportType: ReportDefinition.ReportType.GEO_PERFORMANCE_REPORT,
-      dateRangeType: reportDefinition.dateRangeType || ReportDefinition.DateRangeType.ALL_TIME,
-    };
-
-    return this.reportService.reportDownload(reportDef, this.getOptions());
+    });
   }
 }
 
