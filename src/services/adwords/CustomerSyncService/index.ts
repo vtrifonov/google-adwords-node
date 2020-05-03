@@ -5,6 +5,7 @@ import { IDateTimeRange } from './DateTimeRange';
 import { ICustomerSyncSelector } from './CustomerSyncSelector';
 import moment from 'moment';
 import 'moment-timezone';
+import { ICheckEntities } from './CheckEntities';
 
 class CustomerSyncService extends AdwordsOperationService {
   public static readonly namespace = 'https://adwords.google.com/api/adwords/ch';
@@ -26,8 +27,7 @@ class CustomerSyncService extends AdwordsOperationService {
   public async getChanges(
     startDate: Date,
     endDate: Date,
-    campaignIds?: string[],
-    feedIds?: string[],
+    checkEntities: ICheckEntities,
     paging?: IPaging,
   ): Promise<ICustomerChangeData> {
     const dateTimeRange: IDateTimeRange = {
@@ -36,8 +36,8 @@ class CustomerSyncService extends AdwordsOperationService {
     };
     const serviceSelector: ICustomerSyncSelector = {
       dateTimeRange,
-      campaignIds: campaignIds ? campaignIds : [],
-      feedIds: feedIds ? feedIds : [],
+      campaignIds: checkEntities.campaignIds || [],
+      feedIds: checkEntities.feedIds || [],
       fields: CustomerSyncService.selectorFields,
       paging,
     };
