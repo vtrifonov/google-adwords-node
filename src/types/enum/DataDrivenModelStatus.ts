@@ -1,0 +1,7 @@
+export enum DataDrivenModelStatus {
+  UNKNOWN = 'UNKNOWN',
+  AVAILABLE = 'AVAILABLE',
+  STALE = 'STALE',
+  EXPIRED = 'EXPIRED',
+  NEVER_GENERATED = 'NEVER_GENERATED',
+}

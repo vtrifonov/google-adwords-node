@@ -5,6 +5,7 @@ export * from './BatchJobService';
 export * from './BudgetService';
 export * from './CampaignCriterionService';
 export * from './CampaignService';
+export * from './ConversionTrackerService';
 export * from './CustomerService';
 export * from './CustomerSyncService';
 export * from './ExtensionSettingService';

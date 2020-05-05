@@ -34,6 +34,7 @@ import {
 } from './Reports';
 import { BatchJobService } from './BatchJobService';
 import { MediaService } from './MediaService';
+import { ConversionTrackerService } from './ConversionTrackerService';
 
 interface IServiceMap {
   CampaignService: CampaignService;
@@ -46,6 +47,7 @@ interface IServiceMap {
   AdGroupCriterionService: AdGroupCriterionService;
   AdGroupExtensionSettingService: AdGroupExtensionSettingService;
   CampaignCriterionService: CampaignCriterionService;
+  ConversionTrackerService: ConversionTrackerService;
   CampaignExtensionSettingService: CampaignExtensionSettingService;
   CustomerExtensionSettingService: CustomerExtensionSettingService;
   LocationCriterionService: LocationCriterionService;
@@ -80,6 +82,7 @@ const registryService = RegistryService.init()
   .register(AdGroupCriterionService)
   .register(AdGroupExtensionSettingService)
   .register(CampaignExtensionSettingService)
+  .register(ConversionTrackerService)
   .register(CampaignCriterionService)
   .register(CustomerExtensionSettingService)
   .register(LocationCriterionService)
