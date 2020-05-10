@@ -47,6 +47,17 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
     return this.get(serviceSelector);
   }
 
+  public async getAllIds(): Promise<string[]> {
+    const idSelectField = this.serviceInfo.idField || 'Id';
+    const serviceSelector: ISelector = {
+      fields: [idSelectField],
+    };
+
+    const idFieldValue = idSelectField.charAt(0).toLowerCase() + idSelectField.slice(1);
+    const result = await this.get(serviceSelector);
+    return result.entries.map((x) => (x[idFieldValue] || '').toString());
+  }
+
   public add(operands: T[]) {
     const operations: Array<IOperation<T, TName>> = operands.map((operand: T) => {
       if (this.needToSetAttribute(operand)) {

@@ -12,4 +12,16 @@ export namespace Feed {
     PRICE = 'PRICE',
     PROMOTION = 'PROMOTION',
   }
+
+  export enum Status {
+    ENABLED = 'ENABLED',
+    REMOVED = 'REMOVED',
+    UNKNOWN = 'UNKNOWN',
+  }
+
+  export enum Origin {
+    USER = 'USER',
+    ADWORDS = 'ADWORDS',
+    UNKNOWN = 'UNKNOWN',
+  }
 }

@@ -9,6 +9,7 @@ export * from './ConversionTrackerService';
 export * from './CustomerService';
 export * from './CustomerSyncService';
 export * from './ExtensionSettingService';
+export * from './FeedService';
 export * from './FeedItemService';
 export * from './LabelService';
 export * from './LocationCriterionService';

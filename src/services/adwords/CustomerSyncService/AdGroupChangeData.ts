@@ -1,4 +1,4 @@
-import { ChangeStatus } from './enum/ChangeStatus';
+import { ChangeStatus } from '../../../types/enum';
 
 export interface IAdGroupChangeData {
   adGroupId: string;
