@@ -29,14 +29,14 @@ class CustomerSyncService extends AdwordsOperationService {
   }
 
   public async getChanges(
-    startDate: Date,
-    endDate: Date,
+    startDate: Date | string,
+    endDate: Date | string,
     checkEntities: ICheckEntities = { all: true },
     paging?: IPaging,
   ): Promise<ICustomerChangeData> {
     const dateTimeRange: IDateTimeRange = {
-      min: this.getStringDate(startDate),
-      max: this.getStringDate(endDate),
+      min: startDate instanceof String ? startDate.toString() : this.getStringDate(startDate as Date),
+      max: endDate instanceof String ? endDate.toString() : this.getStringDate(endDate as Date),
     };
 
     if (checkEntities.all) {
