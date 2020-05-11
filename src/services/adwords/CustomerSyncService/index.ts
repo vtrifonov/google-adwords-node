@@ -121,4 +121,4 @@ class CustomerSyncService extends AdwordsOperationService {
   }
 }
 
-export { CustomerSyncService };
+export { CustomerSyncService, ICustomerChangeData, IChangedIds, ICheckEntities };
