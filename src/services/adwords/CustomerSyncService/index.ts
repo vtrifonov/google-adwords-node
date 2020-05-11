@@ -35,8 +35,8 @@ class CustomerSyncService extends AdwordsOperationService {
     paging?: IPaging,
   ): Promise<ICustomerChangeData> {
     const dateTimeRange: IDateTimeRange = {
-      min: startDate instanceof String ? startDate.toString() : this.getStringDate(startDate as Date),
-      max: endDate instanceof String ? endDate.toString() : this.getStringDate(endDate as Date),
+      min: startDate instanceof Date ? this.getStringDate(startDate) : startDate.toString(),
+      max: endDate instanceof Date ? this.getStringDate(endDate) : endDate.toString(),
     };
 
     if (checkEntities.all) {
