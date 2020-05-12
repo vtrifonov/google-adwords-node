@@ -1,5 +1,6 @@
 import { ICampaignChangeData } from './CampaignChangeData';
 import { IFeedChangeData } from './FeedChangeData';
+import { IDateTimeRange } from './DateTimeRange';
 
 export interface IChangedIds {
   changedAds: string[];
@@ -8,6 +9,7 @@ export interface IChangedIds {
 }
 
 export interface ICustomerChangeData {
+  dateTimeRange: IDateTimeRange;
   changedCampaigns: ICampaignChangeData[];
   changedFeeds: IFeedChangeData[];
   lastChangeTimestamp: string;

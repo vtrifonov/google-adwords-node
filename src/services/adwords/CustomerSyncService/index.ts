@@ -60,6 +60,7 @@ class CustomerSyncService extends AdwordsOperationService {
     // do not return data for not changed items
     this.filterEmptyNodes(result);
     result.changedIds = this.getChangedIds(result);
+    result.dateTimeRange = dateTimeRange;
 
     return result;
   }
