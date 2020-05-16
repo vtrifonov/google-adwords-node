@@ -65,6 +65,10 @@ class CustomerSyncService extends AdwordsOperationService {
     return result;
   }
 
+  public getStringDate(date: Date): string {
+    return `${moment(date).format('YYYYMMDD HHmmss')} ${moment.tz.guess()}`;
+  }
+
   protected async get<ServiceSelector = ISelector, Rval = ICustomerChangeData>(
     serviceSelector: ServiceSelector,
   ): Promise<Rval> {
@@ -115,10 +119,6 @@ class CustomerSyncService extends AdwordsOperationService {
       changedFeedItems,
       changedCriterias,
     };
-  }
-
-  private getStringDate(date: Date): string {
-    return `${moment(date).format('YYYYMMDD HHmmss')} ${moment.tz.guess()}`;
   }
 }
 
