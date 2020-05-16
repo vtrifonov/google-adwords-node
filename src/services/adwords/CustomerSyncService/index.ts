@@ -56,6 +56,22 @@ class CustomerSyncService extends AdwordsOperationService {
       paging,
     };
 
+    if (
+      (!serviceSelector.campaignIds || serviceSelector.campaignIds.length === 0) &&
+      (!serviceSelector.feedIds || serviceSelector.feedIds.length === 0)
+    ) {
+      return {
+        dateTimeRange,
+        changedCampaigns: [],
+        changedFeeds: [],
+        changedIds: {
+          changedAds: [],
+          changedFeedItems: [],
+          changedCriterias: [],
+        },
+      };
+    }
+
     const result = await this.get(serviceSelector);
     // do not return data for not changed items
     this.filterEmptyNodes(result);
