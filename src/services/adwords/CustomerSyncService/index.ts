@@ -105,16 +105,14 @@ class CustomerSyncService extends AdwordsOperationService {
         (x.removedCampaignCriteria && x.removedCampaignCriteria.length > 0) ||
         (x.removedFeeds && x.removedFeeds.length > 0),
     );
-    result.newCampaigns = result.changedCampaigns.filter(
-        (x) => (x.campaignChangeStatus === ChangeStatus.NEW));
+    result.newCampaigns = result.changedCampaigns.filter((x) => x.campaignChangeStatus === ChangeStatus.NEW);
     result.changedFeeds = result.changedFeeds.filter(
       (x) =>
         (x.feedChangeStatus !== ChangeStatus.FIELDS_UNCHANGED && x.feedChangeStatus !== ChangeStatus.NEW) ||
         (x.changedFeedItems && x.changedFeedItems.length > 0) ||
         (x.removedFeedItems && x.removedFeedItems.length > 0),
     );
-    result.newFeeds = result.changedFeeds.filter(
-        (x) => (x.feedChangeStatus === ChangeStatus.NEW));
+    result.newFeeds = result.changedFeeds.filter((x) => x.feedChangeStatus === ChangeStatus.NEW);
   }
 
   private mapReduceArray<T, V>(item: T[], getField: (T) => V[]): V[] {
@@ -130,12 +128,12 @@ class CustomerSyncService extends AdwordsOperationService {
     );
 
     if (result.newCampaigns && result.newCampaigns.length > 0) {
-        const adsByCampaignIds = await this.operationServiceOptions.adWordsService
-            .getService('AdGroupAdService', this.operationServiceOptions.options)
-            .getAllIdsByCampaignIds(result.newCampaigns.map((x) => x.campaignId.toString()));
-        if (adsByCampaignIds && adsByCampaignIds.length > 0) {
-            changedAds.push(...adsByCampaignIds);
-        }
+      const adsByCampaignIds = await this.operationServiceOptions.adWordsService
+        .getService('AdGroupAdService', this.operationServiceOptions.options)
+        .getAllIdsByCampaignIds(result.newCampaigns.map((x) => x.campaignId.toString()));
+      if (adsByCampaignIds && adsByCampaignIds.length > 0) {
+        changedAds.push(...adsByCampaignIds);
+      }
     }
 
     const feedItems = result.changedFeeds.filter((x) => x.changedFeedItems);

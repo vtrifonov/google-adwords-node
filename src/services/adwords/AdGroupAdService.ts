@@ -1,5 +1,14 @@
 import { BaseService, IOperationServiceOptions, IServiceInfo } from '../core';
-import { IAdGroupAd, IPaging, IImageAd, IOperation, IAd, PartialAd, IUpdateAdsResult, IPredicate } from '../../types/adwords';
+import {
+  IAdGroupAd,
+  IPaging,
+  IImageAd,
+  IOperation,
+  IAd,
+  PartialAd,
+  IUpdateAdsResult,
+  IPredicate,
+} from '../../types/adwords';
 import { Ad, Predicate, Operator } from '../../types/enum';
 import { IPage, IListReturnValue } from '../../types/abstract';
 import { AdService } from './AdService';
@@ -156,11 +165,11 @@ class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
 
   public async getAllIdsByCampaignIds(campaignIds: string[]): Promise<string[]> {
     const predicates: IPredicate[] = [
-        {
-            field: 'BaseCampaignId',
-            operator: Predicate.Operator.IN,
-            values: campaignIds,
-        },
+      {
+        field: 'BaseCampaignId',
+        operator: Predicate.Operator.IN,
+        values: campaignIds,
+      },
     ];
     return await this.getIds(predicates);
   }
