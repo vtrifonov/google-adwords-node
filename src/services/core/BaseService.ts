@@ -48,14 +48,7 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
   }
 
   public async getAllIds(): Promise<string[]> {
-    const idSelectField = this.serviceInfo.idField || 'Id';
-    const serviceSelector: ISelector = {
-      fields: [idSelectField],
-    };
-
-    const idFieldValue = idSelectField.charAt(0).toLowerCase() + idSelectField.slice(1);
-    const result = await this.get(serviceSelector);
-    return (result.entries && result.entries.map((x) => (x[idFieldValue] || '').toString())) || [];
+    return this.getIds();
   }
 
   public add(operands: T[]) {
@@ -121,6 +114,21 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
       .then((rval) => {
         return rval;
       });
+  }
+
+  protected async getIds(predicates?: IPredicate[]): Promise<string[]> {
+    const idSelectField = this.serviceInfo.idField || 'Id';
+    const serviceSelector: ISelector = {
+      fields: [idSelectField]
+    };
+
+    if (predicates) {
+        serviceSelector.predicates = predicates;
+    }
+
+    const idFieldValue = idSelectField.charAt(0).toLowerCase() + idSelectField.slice(1);
+    const result = await this.get(serviceSelector);
+    return (result.entries && result.entries.map((x) => (x[idFieldValue] || '').toString())) || [];
   }
 
   protected setType(operand: T): T {

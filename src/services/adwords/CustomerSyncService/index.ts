@@ -75,7 +75,7 @@ class CustomerSyncService extends AdwordsOperationService {
     const result = await this.get(serviceSelector);
     // do not return data for not changed items
     this.filterEmptyNodes(result);
-    result.changedIds = this.getChangedIds(result);
+    result.changedIds = await this.getChangedIds(result);
     result.dateTimeRange = dateTimeRange;
 
     return result;
@@ -117,7 +117,7 @@ class CustomerSyncService extends AdwordsOperationService {
     return reduced;
   }
 
-  private getChangedIds(result: ICustomerChangeData): IChangedIds {
+  private async getChangedIds(result: ICustomerChangeData): Promise<IChangedIds> {
     const adgroupItems = result.changedCampaigns.filter((x) => x.changedAdGroups);
     const changedAds: string[] = _.uniq(
       this.mapReduceArray(adgroupItems, (x) => this.mapReduceArray(x.changedAdGroups, (y) => y.changedAds)),
@@ -125,6 +125,15 @@ class CustomerSyncService extends AdwordsOperationService {
 
     const feedItems = result.changedFeeds.filter((x) => x.changedFeedItems);
     const changedFeedItems: string[] = _.uniq(this.mapReduceArray(feedItems, (x) => x.changedFeedItems));
+
+    if (feedItems && feedItems.length > 0) {
+        const feedItemIdsByFeedIds = await this.operationServiceOptions.adWordsService
+            .getService('FeedItemService', this.operationServiceOptions.options)
+            .GetFeedItemsIds(feedItems.map(x => x.feedId));
+        if (feedItemIdsByFeedIds && feedItemIdsByFeedIds.length > 0) {
+            changedFeedItems.push(...feedItemIdsByFeedIds);
+        }
+    }
 
     const changedCriterias: string[] = _.uniq(
       this.mapReduceArray(adgroupItems, (x) => this.mapReduceArray(x.changedAdGroups, (y) => y.changedCriteria)),

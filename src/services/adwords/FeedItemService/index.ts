@@ -29,6 +29,17 @@ class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
     return this.getSitelinksFromFeedItems();
   }
 
+  public async GetFeedItemsIds(feedIds: string[]): Promise<string[]> {
+    const predicates: IPredicate[] = [
+        {
+          field: 'FeedId',
+          operator: Predicate.Operator.IN,
+          values: feedIds,
+        },
+    ];
+    return await this.getIds(predicates);
+  }
+
   public async updateSitelinksFeedItems(sitelinks: ISitelinkFeedItem[]): Promise<ISitelinkFeedItem[]> {
     const sitelinkFeeds = await this.operationServiceOptions.adWordsService
       .getService('FeedService', this.operationServiceOptions.options)
