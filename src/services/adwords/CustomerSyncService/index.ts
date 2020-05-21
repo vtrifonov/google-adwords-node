@@ -96,7 +96,7 @@ class CustomerSyncService extends AdwordsOperationService {
   }
 
   private filterEmptyNodes(result: ICustomerChangeData) {
-    result.changedCampaigns = result.changedCampaigns.filter(
+    const changedCampaigns = result.changedCampaigns.filter(
       (x) =>
         (x.campaignChangeStatus !== ChangeStatus.FIELDS_UNCHANGED && x.campaignChangeStatus !== ChangeStatus.NEW) ||
         (x.changedAdGroups && x.changedAdGroups.length > 0) ||
@@ -105,14 +105,18 @@ class CustomerSyncService extends AdwordsOperationService {
         (x.removedCampaignCriteria && x.removedCampaignCriteria.length > 0) ||
         (x.removedFeeds && x.removedFeeds.length > 0),
     );
-    result.newCampaigns = result.changedCampaigns.filter((x) => x.campaignChangeStatus === ChangeStatus.NEW);
-    result.changedFeeds = result.changedFeeds.filter(
+    const newCampaigns = result.changedCampaigns.filter((x) => x.campaignChangeStatus === ChangeStatus.NEW);
+    const changedFeeds = result.changedFeeds.filter(
       (x) =>
         (x.feedChangeStatus !== ChangeStatus.FIELDS_UNCHANGED && x.feedChangeStatus !== ChangeStatus.NEW) ||
         (x.changedFeedItems && x.changedFeedItems.length > 0) ||
         (x.removedFeedItems && x.removedFeedItems.length > 0),
     );
-    result.newFeeds = result.changedFeeds.filter((x) => x.feedChangeStatus === ChangeStatus.NEW);
+    const newFeeds = result.changedFeeds.filter((x) => x.feedChangeStatus === ChangeStatus.NEW);
+    result.changedCampaigns = changedCampaigns;
+    result.changedFeeds = changedFeeds;
+    result.newFeeds = newFeeds;
+    result.newCampaigns = newCampaigns;
   }
 
   private mapReduceArray<T, V>(item: T[], getField: (T) => V[]): V[] {
