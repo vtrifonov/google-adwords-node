@@ -215,11 +215,15 @@ class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
   private setAttributeValue(feed: IFeed, feedItem: IFeedItem, attributeName: string, setValue: (attributeValue) => {}) {
     const feedAttribute = feed.attributes.find((x) => x.name === attributeName);
     if (feedAttribute) {
+      if (!feedItem.attributeValues) {
+        feedItem.attributeValues = [];
+      }
       let attributeValue = (feedItem.attributeValues || []).find((x) => x.feedAttributeId === feedAttribute.id);
       if (!attributeValue) {
         attributeValue = {
           feedAttributeId: feedAttribute.id,
         };
+        feedItem.attributeValues.push(attributeValue);
       }
       setValue(attributeValue);
     }
