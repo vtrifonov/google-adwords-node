@@ -119,11 +119,11 @@ export abstract class BaseService<T, TName> extends AdwordsOperationService {
   protected async getIds(predicates?: IPredicate[]): Promise<string[]> {
     const idSelectField = this.serviceInfo.idField || 'Id';
     const serviceSelector: ISelector = {
-      fields: [idSelectField]
+      fields: [idSelectField],
     };
 
     if (predicates) {
-        serviceSelector.predicates = predicates;
+      serviceSelector.predicates = predicates;
     }
 
     const idFieldValue = idSelectField.charAt(0).toLowerCase() + idSelectField.slice(1);

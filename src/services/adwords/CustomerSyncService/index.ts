@@ -127,12 +127,12 @@ class CustomerSyncService extends AdwordsOperationService {
     const changedFeedItems: string[] = _.uniq(this.mapReduceArray(feedItems, (x) => x.changedFeedItems));
 
     if (feedItems && feedItems.length > 0) {
-        const feedItemIdsByFeedIds = await this.operationServiceOptions.adWordsService
-            .getService('FeedItemService', this.operationServiceOptions.options)
-            .GetFeedItemsIds(feedItems.map(x => x.feedId));
-        if (feedItemIdsByFeedIds && feedItemIdsByFeedIds.length > 0) {
-            changedFeedItems.push(...feedItemIdsByFeedIds);
-        }
+      const feedItemIdsByFeedIds = await this.operationServiceOptions.adWordsService
+        .getService('FeedItemService', this.operationServiceOptions.options)
+        .GetFeedItemsIds(feedItems.map((x) => x.feedId));
+      if (feedItemIdsByFeedIds && feedItemIdsByFeedIds.length > 0) {
+        changedFeedItems.push(...feedItemIdsByFeedIds);
+      }
     }
 
     const changedCriterias: string[] = _.uniq(

@@ -31,11 +31,11 @@ class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
 
   public async GetFeedItemsIds(feedIds: string[]): Promise<string[]> {
     const predicates: IPredicate[] = [
-        {
-          field: 'FeedId',
-          operator: Predicate.Operator.IN,
-          values: feedIds,
-        },
+      {
+        field: 'FeedId',
+        operator: Predicate.Operator.IN,
+        values: feedIds,
+      },
     ];
     return await this.getIds(predicates);
   }
