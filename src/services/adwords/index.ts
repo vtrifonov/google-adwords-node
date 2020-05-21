@@ -11,6 +11,7 @@ export * from './CustomerSyncService';
 export * from './ExtensionSettingService';
 export * from './FeedService';
 export * from './FeedItemService';
+export * from './FeedMappingService';
 export * from './LabelService';
 export * from './LocationCriterionService';
 export * from './ManagedCustomerService';

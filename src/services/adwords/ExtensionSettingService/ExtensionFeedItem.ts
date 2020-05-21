@@ -24,22 +24,16 @@ import {
 } from '../../../types/enum';
 import { IFeedItemPolicySummary } from '../../../types/adwords/AdServices/PolicySummary';
 import { ICallConversionType } from './CallConversionType';
+import { IFeedItem } from '../FeedItemService';
 
-interface IExtensionFeedItemRaw<Type> extends IAttributes<Type> {
-  readonly feedId: string;
-  feedItemId: string;
-  readonly status: FeedItem.Status;
+interface IExtensionFeedItemRaw<Type> extends IFeedItem, IAttributes<Type> {
   readonly feedType: Feed.Type;
-  readonly startTime: string;
-  readonly endTime: string;
   devicePreference: IFeedItemDevicePreference;
   scheduling: IFeedItemScheduling;
   campaignTargeting: IFeedItemCampaignTargeting;
   adGroupTargeting: IFeedItemAdGroupTargeting;
   keywordTargeting: IKeyword;
   geoTargeting: ILocation;
-  geoTargetingRestriction: IFeedItemGeoRestriction;
-  readonly policySummaries: IFeedItemPolicySummary[];
   'ExtensionFeedItem.Type': string;
 }
 

@@ -27,6 +27,9 @@ abstract class BaseExtensionSettingService<T extends IEntityExtensionSetting, TN
       geoTargetingRestriction: true,
       policySummaries: true,
       'ExtensionFeedItem.Type': false,
+      // IFeedItem
+      attributeValues: false,
+      urlCustomParameters: false,
       // IAppFeedItem
       appStore: true,
       appId: true,

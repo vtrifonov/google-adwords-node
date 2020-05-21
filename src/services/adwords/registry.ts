@@ -6,6 +6,7 @@ import { AdService } from './AdService';
 import { BudgetService } from './BudgetService';
 import { FeedService } from './FeedService';
 import { FeedItemService } from './FeedItemService';
+import { FeedMappingService } from './FeedMappingService';
 import { LabelService } from './LabelService';
 import { AdGroupCriterionService } from './AdGroupCriterionService';
 import {
@@ -45,6 +46,7 @@ interface IServiceMap {
   BudgetService: BudgetService;
   FeedService: FeedService;
   FeedItemService: FeedItemService;
+  FeedMappingService: FeedMappingService;
   LabelService: LabelService;
   AdGroupCriterionService: AdGroupCriterionService;
   AdGroupExtensionSettingService: AdGroupExtensionSettingService;
@@ -81,6 +83,7 @@ const registryService = RegistryService.init()
   .register(BudgetService)
   .register(FeedService)
   .register(FeedItemService)
+  .register(FeedMappingService)
   .register(LabelService)
   .register(AdGroupCriterionService)
   .register(AdGroupExtensionSettingService)

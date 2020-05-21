@@ -14,6 +14,7 @@ export * from './DataDrivenModelStatus';
 export * from './Feed';
 export * from './FeedAttribute';
 export * from './FeedItem';
+export * from './FeedMapping';
 export * from './Gender';
 export * from './GeoRestriction';
 export * from './KeywordMatchType';

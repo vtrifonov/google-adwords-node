@@ -2,6 +2,7 @@ import { FeedItem } from '../../../types/enum';
 import { IFeedItemPolicySummary } from '../../../types/adwords/AdServices/PolicySummary';
 import { ICustomParameters } from '../../../types/adwords';
 import { IFeedItemGeoRestriction } from '../ExtensionSettingService/FeedItemGeoRestriction';
+import { IFeedItemAttributeValue } from './FeedItemAttributeValue';
 
 interface IFeedItem {
   readonly feedId: string;
@@ -9,10 +10,10 @@ interface IFeedItem {
   readonly status: FeedItem.Status;
   readonly startTime: string;
   readonly endTime: string;
-  attributeValues: any[];
+  attributeValues?: IFeedItemAttributeValue[];
   readonly policySummaries: IFeedItemPolicySummary[];
   geoTargetingRestriction: IFeedItemGeoRestriction;
-  urlCustomParameters: ICustomParameters;
+  urlCustomParameters?: ICustomParameters;
 }
 
-export { IFeedItem };
+export { IFeedItem, IFeedItemAttributeValue, IFeedItemPolicySummary, IFeedItemGeoRestriction };
