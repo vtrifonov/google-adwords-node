@@ -151,7 +151,7 @@ class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
         feed,
         feedItem,
         'SitelinkUrl',
-        (attributeValue) => (attributeValue.stringValues = sitelink.sitelinkUrl.split(',')),
+        (attributeValue) => (attributeValue.stringValue = sitelink.sitelinkUrl.split(',')),
       );
       delete sitelink.sitelinkUrl;
     }
@@ -196,7 +196,7 @@ class FeedItemService extends BaseService<IFeedItem, 'FeedItemService'> {
         feed,
         feedItem,
         'SitelinkTrackingUrl',
-        (attributeValue) => (attributeValue.stringValues = sitelink.sitelinkTrackingUrlTemplate.split(',')),
+        (attributeValue) => (attributeValue.stringValue = sitelink.sitelinkTrackingUrlTemplate.split(',')),
       );
       delete sitelink.sitelinkTrackingUrlTemplate;
     }
