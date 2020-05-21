@@ -64,6 +64,8 @@ class CustomerSyncService extends AdwordsOperationService {
         dateTimeRange,
         changedCampaigns: [],
         changedFeeds: [],
+        newCampaigns: [],
+        newFeeds: [],
         changedIds: {
           changedAds: [],
           changedFeedItems: [],
@@ -96,19 +98,23 @@ class CustomerSyncService extends AdwordsOperationService {
   private filterEmptyNodes(result: ICustomerChangeData) {
     result.changedCampaigns = result.changedCampaigns.filter(
       (x) =>
-        x.campaignChangeStatus !== ChangeStatus.FIELDS_UNCHANGED ||
+        (x.campaignChangeStatus !== ChangeStatus.FIELDS_UNCHANGED && x.campaignChangeStatus !== ChangeStatus.NEW) ||
         (x.changedAdGroups && x.changedAdGroups.length > 0) ||
         (x.addedCampaignCriteria && x.addedCampaignCriteria.length > 0) ||
         (x.changedFeeds && x.changedFeeds.length > 0) ||
         (x.removedCampaignCriteria && x.removedCampaignCriteria.length > 0) ||
         (x.removedFeeds && x.removedFeeds.length > 0),
     );
+    result.newCampaigns = result.changedCampaigns.filter(
+        (x) => (x.campaignChangeStatus === ChangeStatus.NEW));
     result.changedFeeds = result.changedFeeds.filter(
       (x) =>
-        x.feedChangeStatus !== ChangeStatus.FIELDS_UNCHANGED ||
+        (x.feedChangeStatus !== ChangeStatus.FIELDS_UNCHANGED && x.feedChangeStatus !== ChangeStatus.NEW) ||
         (x.changedFeedItems && x.changedFeedItems.length > 0) ||
         (x.removedFeedItems && x.removedFeedItems.length > 0),
     );
+    result.newFeeds = result.changedFeeds.filter(
+        (x) => (x.feedChangeStatus === ChangeStatus.NEW));
   }
 
   private mapReduceArray<T, V>(item: T[], getField: (T) => V[]): V[] {
@@ -123,13 +129,22 @@ class CustomerSyncService extends AdwordsOperationService {
       this.mapReduceArray(adgroupItems, (x) => this.mapReduceArray(x.changedAdGroups, (y) => y.changedAds)),
     );
 
+    if (result.newCampaigns && result.newCampaigns.length > 0) {
+        const adsByCampaignIds = await this.operationServiceOptions.adWordsService
+            .getService('AdGroupAdService', this.operationServiceOptions.options)
+            .getAllIdsByCampaignIds(result.newCampaigns.map((x) => x.campaignId.toString()));
+        if (adsByCampaignIds && adsByCampaignIds.length > 0) {
+            changedAds.push(...adsByCampaignIds);
+        }
+    }
+
     const feedItems = result.changedFeeds.filter((x) => x.changedFeedItems);
     const changedFeedItems: string[] = _.uniq(this.mapReduceArray(feedItems, (x) => x.changedFeedItems));
 
-    if (feedItems && feedItems.length > 0) {
+    if (result.newFeeds && result.newFeeds.length > 0) {
       const feedItemIdsByFeedIds = await this.operationServiceOptions.adWordsService
         .getService('FeedItemService', this.operationServiceOptions.options)
-        .GetFeedItemsIds(feedItems.map((x) => x.feedId));
+        .GetFeedItemsIds(result.newFeeds.map((x) => x.feedId));
       if (feedItemIdsByFeedIds && feedItemIdsByFeedIds.length > 0) {
         changedFeedItems.push(...feedItemIdsByFeedIds);
       }

@@ -11,7 +11,9 @@ export interface IChangedIds {
 export interface ICustomerChangeData {
   dateTimeRange: IDateTimeRange;
   changedCampaigns: ICampaignChangeData[];
+  newCampaigns: ICampaignChangeData[];
   changedFeeds: IFeedChangeData[];
+  newFeeds: IFeedChangeData[];
   lastChangeTimestamp?: string;
   changedIds: IChangedIds;
 }
