@@ -232,7 +232,10 @@ class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
     const result: IUpdateAdsResult = {};
 
     if (otherAds && otherAds.length > 0) {
-      otherAds.forEach((adGroupAd) => updateAction(adGroupAd.ad));
+      otherAds.forEach((adGroupAd) => {
+        this.removeUnknownValues(adGroupAd.ad);
+        updateAction(adGroupAd.ad);
+      });
       const otherOperations: Array<IOperation<PartialAd>> = otherAds.map((adGroupAd) => {
         const operation: IOperation<PartialAd> = {
           operator: Operator.SET,
@@ -280,6 +283,23 @@ class AdGroupAdService extends BaseService<IAdGroupAd, 'AdGroupAdService'> {
       operand.ad.attributes = { 'xsi:type': 'ProductAd' };
     }
     return operand;
+  }
+
+  private isPrimitive(test): boolean {
+    return test !== Object(test);
+  }
+
+  private removeUnknownValues(operand: any) {
+    if (this.isPrimitive(operand)) {
+      return true;
+    }
+    Object.keys(operand).forEach((key) => {
+      if (operand[key] && operand[key] === 'UNKNOWN') {
+        delete operand[key];
+      } else {
+        this.removeUnknownValues(operand[key]);
+      }
+    });
   }
 
   private getImageAdUpdateOperations(
