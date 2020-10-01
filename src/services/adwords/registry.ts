@@ -37,6 +37,7 @@ import {
 import { BatchJobService } from './BatchJobService';
 import { MediaService } from './MediaService';
 import { ConversionTrackerService } from './ConversionTrackerService';
+import { TrialService } from './TrialService';
 
 interface IServiceMap {
   CampaignService: CampaignService;
@@ -73,6 +74,7 @@ interface IServiceMap {
   KeywordlessQueryReportService: KeywordlessQueryReportService;
   SearchQueryPerformanceReportService: SearchQueryPerformanceReportService;
   PlaceholderFeedItemReportService: PlaceholderFeedItemReportService;
+  TrialService: TrialService;
 }
 
 const registryService = RegistryService.init()
@@ -109,6 +111,7 @@ const registryService = RegistryService.init()
   .register(KeywordsPerformanceReportService)
   .register(KeywordlessQueryReportService)
   .register(PlaceholderFeedItemReportService)
-  .register(SearchQueryPerformanceReportService);
+  .register(SearchQueryPerformanceReportService)
+  .register(TrialService);
 
 export { registryService, IServiceMap };
